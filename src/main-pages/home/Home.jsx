@@ -1,6 +1,7 @@
 import AdBar from '../../components/add-bar/AddBar';
 import Footer from '../../components/footer/Footer';
 import Header from '../../components/header/Header';
+import Promo from '../../components/promo/Promo';
 import Search from '../../components/search/Search';
 import './Home.scss'
 
@@ -10,9 +11,13 @@ const Home = () => {
             <div className='ad-section'>
                 <AdBar/>
             </div>
-            <div className='head'>
+            <div className='header-section'>
                 <Header/>
                 <Search/>
+            </div>
+
+            <div className='main-body'>
+                <Promo/>
 
             </div>
 

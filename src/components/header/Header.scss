@@ -11,16 +11,34 @@
 
         .menu-item {
             margin-inline: 10px;
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+            color: rgb(73, 67, 67);
         }
     }
 
-    .left{
-        
+    .drawer {
+        color: black;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        background-color: #625252;
+
+        max-width: 0;
+        overflow: hidden;
+        transition: max-width 0.5s ease; /* Adjust the duration as needed */
+        white-space: nowrap; /* Prevent content from wrapping */
+        visibility: hidden; /* Hide the content initially */
     }
 
-    .right {
-
+    .drawer.open {
+        width: fit-content;
+        visibility: visible;
+        background: 'grey';
     }
+
 
   }
   

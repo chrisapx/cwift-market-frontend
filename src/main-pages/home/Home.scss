@@ -1,16 +1,24 @@
  .main-page {
    // padding-inline: 10px;
-    color: white;
+   //  color: white;
     display: flex;
     flex-direction: column;
-
-    .head {
-      padding-inline: 10px;
-    }
-
-
+    overflow-y: scroll;
+    
     .ad-section {
       // height: 50px;
       background-color: orange;
     }
+
+    .header-section {
+      position: sticky;
+      z-index: 1000;
+      padding-inline: 10px;
+    }
+
+    .main-body {
+      height: 400vh;
+    }
+
+
  }

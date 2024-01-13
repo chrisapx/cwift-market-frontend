@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './AdBar.scss';
 
-const adTexts = ["Special Offer!", "Limited Time Deal", "Save Big Today up to 10% discount", "CALL 0758085749 TO ORDER"]; // Add your list of words here
+const adTexts = ["Special Offer!", "Limited Time Deal", "Up to 10% OFF", "Call +256-758085749 to order"]; // Add your list of words here
 
 const AdBar = () => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
