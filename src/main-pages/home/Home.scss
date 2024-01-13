@@ -1,0 +1,16 @@
+ .main-page {
+   // padding-inline: 10px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+
+    .head {
+      padding-inline: 10px;
+    }
+
+
+    .ad-section {
+      // height: 50px;
+      background-color: orange;
+    }
+ }

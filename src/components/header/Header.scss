@@ -1,0 +1,26 @@
+.main {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+
+    .left, .right {
+        display: flex;
+        align-items: center;
+        color: black;
+        padding-block: 10px;
+
+        .menu-item {
+            margin-inline: 10px;
+        }
+    }
+
+    .left{
+        
+    }
+
+    .right {
+
+    }
+
+  }
+  

@@ -1,0 +1,30 @@
+.ad-bar {
+    // position: fixed;
+    display: flex;
+    flex: 1;
+    top: 0;
+    left: 0;
+    padding-block: 7px;
+    // width: 100vw;
+    background-color: #ffcc00; // Set your background color
+    padding-inline: 10px;
+    text-align: center;
+    // overflow: hidden;
+  }
+  
+  .fade-in-out {
+    font-size: large;
+    font-weight: bolder;
+    opacity: 0;
+    animation: fadeInOut 0.5s ease-in-out infinite; // Adjust the animation duration as needed
+  }
+  
+  @keyframes fadeInOut {
+    10%, 100% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+  
