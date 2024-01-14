@@ -1,0 +1,40 @@
+.main-more-section {
+
+
+    .more-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 0;
+      }
+    
+      .more-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 48%;
+        padding-inline: 5px;
+        margin-bottom: 16px;
+        box-sizing: border-box;
+        // border: 1px solid #ddd; /* Add borders for better visibility */
+        border-radius: 8px;
+        overflow: hidden;
+        
+        .more-image {
+          width: 100%;
+        }
+      
+        .more-details {
+          padding: 8px;
+          height: fit-content;
+        }
+
+        
+    }
+    .more-card:hover {
+        cursor: pointer;
+        border: 1px solid #ddd; /* Add borders for better visibility */
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+    
+}

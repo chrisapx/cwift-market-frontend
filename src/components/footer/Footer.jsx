@@ -4,12 +4,19 @@ import { MdArrowDropUp } from "react-icons/md";
 
 
 const Footer = () => {
+   
+    const scrollToTop = () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+    }
     return(
         <div className="main-footer">
             
             <div className="one">
                 <MdArrowDropUp size={20} color={'grey'}/>
-                <div>TOP OF PAGE</div>
+                <div onClick={scrollToTop}>TOP OF PAGE</div>
             </div>
 
             <div className="two">

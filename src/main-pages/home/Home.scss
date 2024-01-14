@@ -1,24 +1,19 @@
- .main-page {
-   // padding-inline: 10px;
-   //  color: white;
-    display: flex;
+ .main-home-page {
     flex-direction: column;
-    overflow-y: scroll;
-    
+
     .ad-section {
-      // height: 50px;
+      height: fit-content;
       background-color: orange;
     }
 
     .header-section {
       position: sticky;
-      z-index: 1000;
+      top: 0;
+      background-color: #fff;
+      // z-index: 1000;
       padding-inline: 10px;
     }
 
-    .main-body {
-      height: 400vh;
-    }
 
 
  }
