@@ -14,9 +14,9 @@ const Footer = () => {
     return(
         <div className="main-footer">
             
-            <div className="one">
+            <div className="one" onClick={scrollToTop}>
                 <MdArrowDropUp size={20} color={'grey'}/>
-                <div onClick={scrollToTop}>TOP OF PAGE</div>
+                <div >TOP OF PAGE</div>
             </div>
 
             <div className="two">

@@ -3,16 +3,20 @@ import './Header.scss'
 import { FaBars, FaRegUser, FaSearch } from 'react-icons/fa';
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { FaAngleLeft, FaX } from "react-icons/fa6";
+import { useNavigate } from 'react-router-dom';
 
 
 const Header = ({ showBack, showSearch }) => {
+
+    const navigate = useNavigate();
     const [toggle, setToggle] = useState(false);
+
     return(
         <div className="main" >
             
             <div className="left">
                 {showBack && <div className='menu-item'>
-                    <FaAngleLeft size={26} color={'grey'}/>
+                    <FaAngleLeft size={26} color={'grey'} onClick={() => navigate(-1)}/>
                 </div>}
                 <div className='menu-item' onClick={() => setToggle(!toggle)}>
                     <FaBars size={18} color={'grey'}/>
@@ -24,13 +28,13 @@ const Header = ({ showBack, showSearch }) => {
 
             <div className="right">
                 {showSearch && <div className='menu-item'>
-                    <FaSearch size={20} color={'grey'}/>
+                    <FaSearch size={20} color={'grey'} onClick={() => navigate('/search')}/>
                 </div>}
                 <div className='menu-item'>
                     <FaRegUser size={20}/>
                 </div>
                 <div className='menu-item'>
-                    <MdOutlineShoppingCart size={20}/>
+                    <MdOutlineShoppingCart size={20} onClick={() => navigate('/cart')}/>
                     <div style={{position: 'relative', bottom: 13, right: 12, color: 'orange', fontWeight: '700', fontSize: 12}}>2</div>
                 </div>
             </div>

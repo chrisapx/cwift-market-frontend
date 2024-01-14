@@ -1,9 +1,12 @@
 import React from 'react';
 import './MoreToLove.scss';
 import { TiStarFullOutline } from "react-icons/ti";
+import { useNavigate } from 'react-router-dom';
 
 
 const MoreToLove = () => {
+
+  const navigate = useNavigate();
 
     const truncateText = (text, maxLength) => {
         if (text.length > maxLength) {
@@ -107,7 +110,7 @@ const MoreToLove = () => {
 
       <div className="more-list">
         {promos.map((item, index) => (
-          <div className="more-card" key={index}>
+          <div className="more-card" key={index} onClick={() => navigate('/details/' +1)}>
             <div className="more-image">
               <img src={item.img} alt={item.name} width={'100%'} />
             </div>
