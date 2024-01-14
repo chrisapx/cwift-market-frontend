@@ -7,6 +7,7 @@ import SearchResults from './main-pages/search-results/SearchResults'
 import Details from './main-pages/details/Details'
 import NotFoundPage from './main-pages/notFound/NotFound'
 import Cart from './main-pages/cart/Cart'
+import Account from './main-pages/profile/Account'
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
         <Route path="/search-results" element={<SearchResults />} />
         <Route path="/details/:id" element={<Details />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/account" element={<Account />} />
         <Route path="*" element={<NotFoundPage />} />      
       </Routes>
     </div>

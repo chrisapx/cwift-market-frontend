@@ -21,7 +21,7 @@ const Header = ({ showBack, showSearch }) => {
                 <div className='menu-item' onClick={() => setToggle(!toggle)}>
                     <FaBars size={18} color={'grey'}/>
                 </div>
-                <div className='logo' style={{fontSize: 24, fontWeight: '600', color: "#fb4444", display: 'flex', justifyItems: 'center'}}>
+                <div className='logo' style={{fontSize: 24, fontWeight: '600', color: "#fb4444", display: 'flex', justifyItems: 'center'}} onClick={() => navigate('/')}>
                     Cwift
                 </div>
             </div>
@@ -31,7 +31,7 @@ const Header = ({ showBack, showSearch }) => {
                     <FaSearch size={20} color={'grey'} onClick={() => navigate('/search')}/>
                 </div>}
                 <div className='menu-item'>
-                    <FaRegUser size={20}/>
+                    <FaRegUser size={20} onClick={() => navigate('/account')}/>
                 </div>
                 <div className='menu-item'>
                     <MdOutlineShoppingCart size={20} onClick={() => navigate('/cart')}/>

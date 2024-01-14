@@ -2,13 +2,31 @@
 .main-details-section {
     display: flex;
     flex-direction: column;
-    flex: 1;
+    // flex: 1;
     color: black;
-    height: 400vh;
+    color: #0f562e;
+    background-color: #ebebeb;
+
+    .add-cart {
+        position: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        border-radius: 3px;
+        top: 0;
+        z-index: 300;
+        padding: 12px;
+        font-size: 20px;
+        font-weight: 600;
+        background-color: #02a315;
+        color: white;
+    }
 
     .header-sec {
         position: sticky;
         top: 0;
+        z-index: 100;
         background-color: #fff;
     }
 
@@ -16,7 +34,8 @@
         display: flex;
         // flex-direction: column;
         overflow-x: scroll; 
-        background-color: #d0d0d0;       
+        background-color: #ffffff;
+        margin: 8px;       
 
         .image-card {
             flex: 0 0 auto;
@@ -50,7 +69,29 @@
     }
 
     .sec-1 {
-        padding-inline: 10px;
+        padding-inline: 8px;
+        margin: 8px;
+        background-color: #fff;
+
+
+        .recomendation-section {
+
+
+            .recom-list {
+                display: flex;
+                overflow-x: scroll;
+
+
+                .recom-card {
+                    height: 150px;
+                    margin-inline: 10px;
+
+                    .recom-image {
+                        width: 100%;
+                    }
+                }
+            }
+        }
     }
 
     .footer-section {
