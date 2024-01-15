@@ -20,10 +20,10 @@ const Details = () => {
     }
     
     const images = [
+        {img: 'src/assets/iPhone12.png'},
+        {img: "src/assets/Laptop.png"},
         {img: "src/assets/iPhone12.png"},
-        {img: "src/assets/iPhone12.png"},
-        {img: "src/assets/iPhone12.png"},
-        {img: "src/assets/iPhone12.png"},
+        {img: "src/assets/Speaker.png"},
     ]
 
     const recom = [
@@ -82,17 +82,17 @@ const Details = () => {
                 </div>
             }
 
+            {/* Images container */}
             <div className='images-container'>
                 {images.map((imge, index) => (
-
                 <div className='image-card'>
-                    <img src='src/assets/Laptop.png' alt='iPhone12' height={'100%'} width={'100%'}/>
+                    <img src={imge.img} alt='iPhone12' height={'100%'} width={'100%'}/>
                 </div>
                 ))}
             </div>
 
             <div className='sec-1'>
-                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: '700', fontSize: 14}}>
+                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: '700', fontSize: 14, color: 'green'}}>
                     <div style={{fontSize: 10, backgroundColor: '#0f562e', paddingInline: 5, width: 'fit-content', color: 'white', fontWeight: '600', marginBlock: 10, borderRadius: 1}}>Official store</div>
                     {/* <div>Original <span><MdVerifiedUser size={12} /></span></div> */}
                     <div>Copy 1 <span><MdVerifiedUser size={12} /></span></div>
@@ -127,9 +127,9 @@ const Details = () => {
                 <div className='recomendation-section'>
                     <div className="recom-list">
                         {recom.map((item, index) => (
-                        <div className="recom-card" key={index} onClick={() => navigate('/details/' +1)}>
+                        <div className="recom-card" key={index} onClick={() => navigate('/details')}>
                             <div className="recom-image">
-                                <img src={item.img} alt={item.name} width={'100%'} />
+                                <img src={item.img} alt={item.name} width={'100%'} height={'100%'}/>
                             </div>
                             <div className="recom-details">
                                 <div style={{ fontSize: 12, fontWeight: '600', color: 'black', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}>{truncateText(item.description, 20)}</div>
@@ -197,9 +197,9 @@ const Details = () => {
                 <div className='recomendation-section'>
                     <div className="recom-list">
                         {recom.map((item, index) => (
-                        <div className="recom-card" key={index} onClick={() => navigate('/details/' +1)}>
+                        <div className="recom-card" key={index} onClick={() => navigate('/details')}>
                             <div className="recom-image">
-                                <img src={item.img} alt={item.name} width={'100%'} />
+                                <img src={item.img} alt={item.name} width={'100%'} height={'100%'} />
                             </div>
                             <div className="recom-details">
                                 <div style={{ fontSize: 14, fontWeight: '600', color: 'black', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}>{truncateText(item.description, 20)}</div>

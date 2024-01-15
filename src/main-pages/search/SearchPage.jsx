@@ -34,7 +34,7 @@ const SearchPage = () => {
             <div className='bar'>
                 <FaAngleLeft size={30} color={'grey'} onClick={() => navigate(-1)}/>
                 <input type="search" placeholder="Search..." className='input-bar' color='black' onFocus={handleFocus} />
-                <FaSearch size={30} color={'grey'} onClick={() => navigate('search-results')}/>
+                <FaSearch size={30} color={'grey'} onClick={() => navigate('/search-results')}/>
             </div>
 
             {showHistory && <div style={{color: 'black', fontWeight: '500', paddingInline: 10}}>Discover more</div>}

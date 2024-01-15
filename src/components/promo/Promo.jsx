@@ -3,10 +3,13 @@ import './Promo.scss'
 import { FaBars, FaRegUser } from 'react-icons/fa';
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { FaArrowRight } from "react-icons/fa6";
+import { useNavigate } from 'react-router-dom';
 
 
 
 const Promo = () => {
+
+    const navigate = useNavigate();
 
     const promos = [
         {
@@ -54,7 +57,7 @@ const Promo = () => {
             <div style={{fontSize: 14, fontWeight: '400', paddingInline: 16, paddingBottom: 12}}>Ends: 00: 01 : 00</div>
             <div className='c-list'>
                 {promos.map((item, index) => (
-                    <div className='promo-card'>
+                    <div className='promo-card' onClick={() => navigate('/listings')}>
                         <div style={{height: 70, paddingTop: 8, }}>
                             <img src={item.img} height={'100%'} />
                         </div>

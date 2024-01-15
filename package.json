@@ -15,7 +15,8 @@
     "react-icons": "^5.0.0",
     "react-router-dom": "^6.21.1",
     "react-simple-star-rating": "^5.1.7",
-    "react-star-ratings": "^2.3.0"
+    "react-star-ratings": "^2.3.0",
+    "vite-plugin-require": "^1.1.14"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

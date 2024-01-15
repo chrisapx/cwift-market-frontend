@@ -1,4 +1,170 @@
 
 .main-cart-section {
+    // display: flex;
+    // flex-direction: column;
+    // // flex: 1;
     color: black;
+    background-color: #ebebeb;
+    
+
+    .header-section {
+        background-color: #ffffff;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    .add-cart-notif {
+        position: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        border-radius: 3px;
+        top: 0;
+        z-index: 300;
+        padding: 12px;
+        font-size: 20px;
+        font-weight: 600;
+        background-color: #02a315;
+        color: white;
+    }
+
+    .sec-1 {
+        padding-inline: 8px;
+        margin-inline: 8px;
+        background-color: #fff;
+
+        .recom-section {
+
+
+            .recom-list {
+                display: flex;
+                overflow-x: scroll;
+
+
+                .recom-card {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    height: 220px;
+                    margin-inline: 10px;
+
+                    .recom-image {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        // width: 30vw;
+                        height: 40%;
+                    }
+
+                    .recom-details {
+                        
+                        .add-cart {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            width: 95%;
+                            background-color: orange;
+                            border-radius: 3px;
+                            margin-block: 8px;
+                            padding-block: 8px;
+                            font-size: xx-small;
+                            font-weight: 700;
+                            color: #ffffff;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .sec-2 {
+        padding-inline: 8px;
+        margin-inline: 8px;
+        // height: 4000px;
+        background-color: #fff;
+        margin-block: 10px;
+
+
+        .item-sec {
+            display: flex;
+
+            .img-sec {
+                display: flex;
+                flex: 0 0 auto;
+                width: 20vw;
+                padding-inline: 10px;
+            }
+
+            .item-details {
+
+            }
+
+        }
+
+        .discount {
+            position: relative;
+            bottom: 80px;
+            left: 60px;
+            width: fit-content;
+            color: orange;
+            background-color: #ffffff;
+        }
+        .btns {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 10px;
+            align-items: center;
+
+
+            .remove-btn  {
+                display: flex;
+
+            }
+
+            .three-btns {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+
+                .itm-btn {
+                    padding-inline: 8px;
+                    color: #fff;
+                    background-color: orange;
+                    font-size: medium;
+                    border-radius: 2px;
+                }
+
+                .count {
+                    padding-inline: 30px;
+                }
+            }
+
+        }
+    }
+
+    .checkout-cart {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-block: 12px;
+        background-color: #ebebeb;
+        position: sticky;
+        bottom: 0;
+        padding-block: 6px;
+
+        .inner-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-weight: bold;
+            font-size: small;
+            padding-block: 10px;
+            width: 45vw;
+        }
+    }
 }

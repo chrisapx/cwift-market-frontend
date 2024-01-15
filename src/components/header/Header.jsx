@@ -21,21 +21,21 @@ const Header = ({ showBack, showSearch }) => {
                 <div className='menu-item' onClick={() => setToggle(!toggle)}>
                     <FaBars size={18} color={'grey'}/>
                 </div>
-                <div className='logo' style={{fontSize: 24, fontWeight: '600', color: "#fb4444", display: 'flex', justifyItems: 'center'}} onClick={() => navigate('/')}>
+                <div className='logo' style={{fontSize: 24, fontWeight: '600', color: "#fb4444", display: 'flex', justifyItems: 'center', cursor: 'pointer'}} onClick={() => navigate('/')}>
                     Cwift
                 </div>
             </div>
 
             <div className="right">
-                {showSearch && <div className='menu-item'>
-                    <FaSearch size={20} color={'grey'} onClick={() => navigate('/search')}/>
+                {showSearch && <div className='menu-item'  onClick={() => navigate('/search')}>
+                    <FaSearch size={20} color={'grey'}/>
                 </div>}
-                <div className='menu-item'>
-                    <FaRegUser size={20} onClick={() => navigate('/account')}/>
+                <div className='menu-item' onClick={() => navigate('/account')}>
+                    <FaRegUser size={20} />
                 </div>
-                <div className='menu-item'>
-                    <MdOutlineShoppingCart size={20} onClick={() => navigate('/cart')}/>
-                    <div style={{position: 'relative', bottom: 13, right: 12, color: 'orange', fontWeight: '700', fontSize: 12}}>2</div>
+                <div className='menu-item' onClick={() => navigate('/cart')}>
+                    <MdOutlineShoppingCart size={20} />
+                    <div style={{position: 'relative', bottom: 9, right: 12, color: 'white', backgroundColor: 'orange', borderRadius: 30, padding: 2, fontWeight: '700', fontSize: 8}}>22</div>
                 </div>
             </div>
 

@@ -4,7 +4,6 @@
     flex-direction: column;
     // flex: 1;
     color: black;
-    color: #0f562e;
     background-color: #ebebeb;
 
     .add-cart {
@@ -40,7 +39,7 @@
         .image-card {
             flex: 0 0 auto;
             height: 300px;
-            width: 100%;
+            // width: 100%;
             padding: 5px;
         }
     }
@@ -83,18 +82,25 @@
 
 
                 .recom-card {
-                    height: 150px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    height: 220px;
                     margin-inline: 10px;
 
                     .recom-image {
-                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        // width: 30vw;
+                        height: 55%;
                     }
                 }
             }
         }
     }
 
-    .footer-section {
+    // .footer-section {
         
-    }
+    // }
 }
