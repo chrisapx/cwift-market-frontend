@@ -1,9 +1,12 @@
+import { useNavigate } from 'react-router-dom';
 import './Footer.scss'
 // import { FaBars, FaRegUser } from 'react-icons/fa';
 import { MdArrowDropUp } from "react-icons/md";
 
 
 const Footer = () => {
+
+    const navigate = useNavigate();
    
     const scrollToTop = () => {
         window.scrollTo({
@@ -20,12 +23,12 @@ const Footer = () => {
             </div>
 
             <div className="two">
-                <p>cwiftmarketplace.com</p>
-                <p>CONTACT US</p>
-                <p>HELP CENTER</p>
-                <p>CHAT WITH US</p>
-                <p>REPORT A PRODUCT</p>
-                <p>SELL WITH CWIFT</p>
+                <p className='footer-item' onClick={() => navigate('/')}>cwiftmarketplace.com</p>
+                <p className='footer-item' onClick={() => navigate('/')}>CONTACT US</p>
+                <p className='footer-item' onClick={() => navigate('/')}>HELP CENTER</p>
+                <p className='footer-item' onClick={() => navigate('/')}>CHAT WITH US</p>
+                <p className='footer-item' onClick={() => navigate('/')}>REPORT A PRODUCT</p>
+                <p className='footer-item' onClick={() => navigate('/add-item')}>SELL WITH CWIFT</p>
 
             </div>
 

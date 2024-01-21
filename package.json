@@ -10,12 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "firebase": "^10.7.2",
+    "image-size": "^1.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.0",
     "react-router-dom": "^6.21.1",
     "react-simple-star-rating": "^5.1.7",
     "react-star-ratings": "^2.3.0",
+    "uuid": "^9.0.1",
     "vite-plugin-require": "^1.1.14"
   },
   "devDependencies": {

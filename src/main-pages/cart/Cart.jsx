@@ -3,12 +3,13 @@ import Header from '../../components/header/Header';
 import { MdDeleteOutline } from "react-icons/md";
 import './Cart.scss'
 import Footer from '../../components/footer/Footer';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TiTick } from 'react-icons/ti';
 
 const Cart = () => {
 
     const navigate = useNavigate();
+    const [items, setItems] = useState([]);
 
     const handleCheckoutCart = () => {
         navigate('/checkout')
@@ -21,6 +22,22 @@ const Cart = () => {
         }
         return text;
       };
+
+    useEffect(() => {
+        fetch('http://127.0.0.1:8080/items')
+        .then(res => setItems(res.json()))
+            .then((response) => response.json())
+            .then((json) => {
+                setItems(json);
+                console.log(items)
+
+            })
+            .catch((error) => {
+            console.error(error);
+            Alert.alert(error + ' : failed to fetch items');
+            })
+
+    }, []);
 
     const recom = [
         {

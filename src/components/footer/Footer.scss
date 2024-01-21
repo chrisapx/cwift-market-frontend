@@ -31,6 +31,11 @@
         border-bottom-width: 1px;
         border-bottom-color: white;
         border-bottom-style: solid;
+
+        .footer-item:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
     }
 
     .three {

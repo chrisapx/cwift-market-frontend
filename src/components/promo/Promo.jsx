@@ -57,9 +57,9 @@ const Promo = () => {
             <div style={{fontSize: 14, fontWeight: '400', paddingInline: 16, paddingBottom: 12}}>Ends: 00: 01 : 00</div>
             <div className='c-list'>
                 {promos.map((item, index) => (
-                    <div className='promo-card' onClick={() => navigate('/listings')}>
+                    <div className='promo-card' key={index} onClick={() => navigate('/listings')}>
                         <div style={{height: 70, paddingTop: 8, }}>
-                            <img src={item.img} height={'100%'} />
+                            <img src={item.img} height={'100%'} loading='lazy'/>
                         </div>
                         <div style={{fontSize: 12, fontWeight: '600', color: 'black', paddingBlock: 8}}>{item.name}</div>
                     </div>

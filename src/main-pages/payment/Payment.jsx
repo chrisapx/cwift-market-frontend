@@ -6,7 +6,7 @@ import './Payment.scss';
 const Payment = () => {
   return (
     <div className="payments-container">
-      Tis is the paments page
+      This is the paments page
     </div>
   );
 }
