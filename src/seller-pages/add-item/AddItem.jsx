@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { app,  } from '../../../Firebase';
 import { v4 } from 'uuid';
-import { encode } from '@squoosh/lib'; // Import the squoosh library
 // import imagemin from 'imagemin';
 // import imageminMozjpeg from 'imagemin-mozjpeg';
 // import imageminWebp from 'imagemin-webp';
