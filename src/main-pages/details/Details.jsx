@@ -38,7 +38,7 @@ const Details = () => {
         {img: "src/assets/Laptop.png"},
         {img: "https://firebasestorage.googleapis.com/v0/b/cwift-marketplace.appspot.com/o/item-images%2FiPhone12.png2b450672-a0ad-40c4-8ee3-81390d15cac6?alt=media&token=dcaeb4f3-8ae4-4834-8511-75e6add24c20"},
         {img: "https://firebasestorage.googleapis.com/v0/b/cwift-marketplace.appspot.com/o/item-images%2Fmenu-3.pngef2cd3b5-0d54-465c-b991-6e9e96f09be9?alt=media&token=c70eaca9-f29e-4781-ae53-533d6b9a047f"},
-        {img: 'https://firebasestorage.googleapis.com/v0/b/cwift-marketplace.appspot.com/o/item-images%2FLaptop.png135731d9-b82a-4820-a165-1365740aeb54?alt=media&token=5eeba4a5-73a9-4164-9654-ae46dcc20bc9'}
+        // {img: 'https://firebasestorage.googleapis.com/v0/b/cwift-marketplace.appspot.com/o/item-images%2FLaptop.png135731d9-b82a-4820-a165-1365740aeb54?alt=media&token=5eeba4a5-73a9-4164-9654-ae46dcc20bc9'}
     ]
 
     const recom = [
@@ -86,6 +86,8 @@ const Details = () => {
     
     return(
         <div className='main-details-section'>
+
+            <title>{item.name}</title>
             <div className='header-sec'>
                 <Header showBack={true} showSearch={true}/>
             </div>
@@ -101,7 +103,7 @@ const Details = () => {
             <div className='images-container'>
                 {images.map((imge, index) => (
                 <div className='image-card' key={index}>
-                    <img src={imge.img} alt='iPhone12' height={'100%'} width={'100%'}/>
+                    <img src={imge.img} loading='lazy' onLoad={{}} alt='iPhone12' height={'100%'} width={'100%'}/>
                 </div>
                 ))}
             </div>

@@ -21,8 +21,9 @@ const Header = ({ showBack, showSearch }) => {
                 <div className='menu-item' onClick={() => setToggle(!toggle)}>
                     <FaBars size={18} color={'grey'}/>
                 </div>
-                <div className='logo' style={{fontSize: 24, fontWeight: '600', color: "#fb4444", display: 'flex', justifyItems: 'center', cursor: 'pointer'}} onClick={() => navigate('/')}>
+                <div className='logo' style={{fontSize: 24, fontWeight: '600', color: "orange", display: 'flex', alignItems: 'center', cursor: 'pointer'}} onClick={() => navigate('/')}>
                     Cwift
+                    {/* <span style={{height: 50, width: 50}}><img src='src/assets/logo.png' width={'100%'}/></span> */}
                 </div>
             </div>
 
