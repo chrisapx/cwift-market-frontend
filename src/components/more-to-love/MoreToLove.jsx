@@ -126,7 +126,7 @@ const MoreToLove = () => {
 
       <div className="more-list">
         {items.map((item, index) => (
-          <div className="more-card" key={index} onClick={() => navigate('/details')}>
+          <div className="more-card" key={index} onClick={() => navigate('/details/' +item.itemID)}>
             <div className="more-image">
               {/* <img src={item.img} alt={item.name} width={'100%'} /> */}
               <img src='src/assets/Laptop.png' alt={item.name} width={'100%'} />
