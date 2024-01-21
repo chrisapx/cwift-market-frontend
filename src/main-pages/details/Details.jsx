@@ -86,6 +86,8 @@ const Details = () => {
     
     return(
         <div className='main-details-section'>
+
+            <title>{item.name}</title>
             <div className='header-sec'>
                 <Header showBack={true} showSearch={true}/>
             </div>
@@ -101,7 +103,7 @@ const Details = () => {
             <div className='images-container'>
                 {images.map((imge, index) => (
                 <div className='image-card' key={index}>
-                    <img src={imge.img} alt='iPhone12' height={'100%'} width={'100%'}/>
+                    <img src={imge.img} loading='lazy' onLoad={{}} alt='iPhone12' height={'100%'} width={'100%'}/>
                 </div>
                 ))}
             </div>
