@@ -4,7 +4,7 @@ import Header from '../../components/header/Header';
 import { MdVerifiedUser, MdVerified } from "react-icons/md";
 import { TiTick } from "react-icons/ti";
 import './Details.scss'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 const Details = () => {
@@ -12,6 +12,7 @@ const Details = () => {
     const navigate = useNavigate();
     const [addCart, setAddCart] = useState(false);
     const [item, setItem] = useState({});
+    const { itemID } = useParams();
 
     const handleAddToCart = () => {
         setAddCart(true)
@@ -21,7 +22,7 @@ const Details = () => {
     }
 
     useEffect(() => {
-        fetch('http://127.0.0.1:8080/items/' + 1)
+        fetch('http://127.0.0.1:8080/items/' + itemID)
           .then((response) => response.json())
           .then((json) => {
             setItem(json);
