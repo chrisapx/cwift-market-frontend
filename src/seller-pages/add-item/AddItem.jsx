@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { app,  } from '../../../Firebase';
 import { v4 } from 'uuid';
+import Compressor from 'compressorjs';
 // import imagemin from 'imagemin';
 // import imageminMozjpeg from 'imagemin-mozjpeg';
 // import imageminWebp from 'imagemin-webp';
@@ -14,6 +15,7 @@ const AddItem = () => {
     const storage = getStorage(app);
 
     const [imageUpload, setImageUpload] = useState(null);
+    const [ compressedFile, setCompressedFile] = useState();
 
     const [item, setItem] = useState({
         name: '', 
@@ -73,8 +75,17 @@ const AddItem = () => {
     //     ],
     //   });
 
-        const imageRef = ref(storage, `item-images/${compressedImageBuffer.name + v4()}`);  //Add the item name for easy tracing
-        uploadBytes(imageRef, compressedImageBuffer).then((snapshot) => {
+    new Compressor(imageUpload, {
+        quality: 0.6, // 0.6 can also be used, but its not recommended to go below.
+        success: (compressedResult) => {
+          // compressedResult has the compressed file.
+          // Use the compressed file to upload the images to your server.        
+          setCompressedFile(compressedResult)
+        },
+      });
+
+        const imageRef = ref(storage, `item-images/${compressedFile.name + v4()}`);  //Add the item name for easy tracing
+        uploadBytes(imageRef, compressedFile).then((snapshot) => {
           getDownloadURL(snapshot.ref).then((url) => {
             console.log(url);
             alert(url);

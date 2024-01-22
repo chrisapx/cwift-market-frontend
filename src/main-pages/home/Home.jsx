@@ -10,6 +10,7 @@ const Home = () => {
 
     return(
         <div className="main-home-page">
+            <title>Cwift marketplace</title>
             <div className='ad-section'>
                 <AdBar/>
             </div>

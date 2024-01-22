@@ -104,7 +104,7 @@ const Details = () => {
             <div className='images-container'>
                 {images.map((imge, index) => (
                 <div className='image-card' key={index}>
-                    <img src={imge.img} loading='lazy' onLoad={{}} alt='iPhone12' height={'100%'} width={'100%'}/>
+                    <img src={imge.img} loading='lazy' alt='iPhone12' height={'100%'} width={'100%'}/>
                 </div>
                 ))}
             </div>
