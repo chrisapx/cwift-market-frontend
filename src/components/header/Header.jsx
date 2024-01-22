@@ -23,7 +23,7 @@ const Header = ({ showBack, showSearch }) => {
                 </div>
                 <div className='logo' style={{fontSize: 24, fontWeight: '600', color: "grey", display: 'flex', alignItems: 'center', cursor: 'pointer'}} onClick={() => navigate('/')}>
                     Cwift
-                    <span style={{marginLeft: 4, height: 30, width: 30}}><img src='src/assets/logo.png' width={'100%'}/></span>
+                    <span style={{marginLeft: 4, height: 'auto', width: 20}}><img src='src/assets/logo.png' width={'100%'}/></span>
                 </div>
             </div>
 
