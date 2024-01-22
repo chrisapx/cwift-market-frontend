@@ -1,19 +1,8 @@
 import { Suspense, lazy, useState } from 'react'
-import '../src/components/search/Search.scss'
+// import '../src/components/search/Search.scss'
+import './App.css'
 import { Route, Routes } from 'react-router-dom'
 import AddItem from './seller-pages/add-item/AddItem'
-// import Home from './main-pages/home/Home'
-// import SearchPage from './main-pages/search/SearchPage'
-// import SearchResults from './main-pages/search-results/SearchResults'
-// import Details from './main-pages/details/Details'
-// import NotFoundPage from './main-pages/notFound/NotFound'
-// import Cart from './main-pages/cart/Cart'
-// import Account from './main-pages/profile/Account'
-// import Checkout from './main-pages/checkout/Checkout'
-// import Payment from './main-pages/payment/Payment'
-// import Listing from './main-pages/listings/Listings'
-// import Login from './auth-pages/login/Login'
-// import Signup from './auth-pages/signup/Signup'
 
 const Home = lazy(() => import('./main-pages/home/Home'))
 const SearchPage = lazy(() => import('./main-pages/search/SearchPage'))
@@ -32,12 +21,16 @@ const Signup = lazy(() => import('./auth-pages/signup/Signup'))
 function App() {
 
   return (
-    <div>
-      <Suspense fallback={
-        <div style={{display: 'flex', flex: 1, backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'center'}}>
-          <h1 style={{color: 'black', backgroundColor: 'transparent'}}>Loading...{console.log("Loaded")}</h1>
-        </div>
-      }>
+    <div className='app-container'>
+      <Suspense
+        fallback={
+          <div className="fallback-container">
+            {/* Use your spinning logo */}
+            <img src={'src/assets/logo.png'} alt="Spinning Logo" className="spinning-logo" />
+            {/* <h1>Loading...</h1> */}
+          </div>
+        }
+      >
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<SearchPage />} />
