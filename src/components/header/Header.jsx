@@ -15,15 +15,15 @@ const Header = ({ showBack, showSearch }) => {
         <div className="main" >
             
             <div className="left">
-                {showBack && <div className='menu-item'>
-                    <FaAngleLeft size={26} color={'grey'} onClick={() => navigate(-1)}/>
-                </div>}
+                {/* {showBack && <div className='back-icon'>
+                    <FaAngleLeft size={20} color={'grey'} onClick={() => navigate(-1)}/>
+                </div>} */}
                 <div className='menu-item' onClick={() => setToggle(!toggle)}>
                     <FaBars size={18} color={'grey'}/>
                 </div>
-                <div className='logo' style={{fontSize: 24, fontWeight: '600', color: "grey", display: 'flex', alignItems: 'center', cursor: 'pointer'}} onClick={() => navigate('/')}>
-                    Cwift
-                    <span style={{marginLeft: 4, height: 'auto', width: 20}}><img src='src/assets/logo.png' width={'100%'}/></span>
+                <div className='logo' style={{fontSize: 20, fontWeight: '600', color: "grey", display: 'flex', alignItems: 'center', cursor: 'pointer'}} onClick={() => navigate('/')}>
+                    CWIFT
+                    <span className='menu-item' style={{marginLeft: 4, height: 'auto', width: 20, backgroundColor: 'red', borderRadius: 50}}><img src='src/assets/logo.png' width={'100%'}/></span>
                 </div>
             </div>
 
@@ -48,7 +48,7 @@ const Header = ({ showBack, showSearch }) => {
                         <div style={{color: 'red', fontSize: 24, fontWeight: '600' }}>Cwift</div>
                         <FaX onClick={() => setToggle(false)} />
                     </div>
-                    {/* <div className='drawer-items'> */}
+                    <div className='drawer-items'>
                         <p>Home Appliances</p>
                         <p>Office Appliances</p>
                         <p>Kitchen Appliances</p>
@@ -79,7 +79,7 @@ const Header = ({ showBack, showSearch }) => {
                         <p>Outdoor Appliances</p>
                         <p>Phones and Tablets</p>
                         <p>Desktops and Laptops</p>
-                    {/* </div> */}
+                    </div>
                 </div>
             </div>
             } 

@@ -12,6 +12,27 @@
         .menu-item {
             margin-inline: 7px;
             display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: normal;
+            color: rgb(73, 67, 67);
+            cursor: pointer;
+        }
+
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            // justify-content: center;
+            font-weight: normal;
+            color: rgb(73, 67, 67);
+            cursor: pointer;
+        }
+
+        .back-icon {
+
+            margin-right: 0;
+            display: flex;
             align-items: center;
             font-weight: normal;
             color: rgb(73, 67, 67);
