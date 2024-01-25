@@ -125,15 +125,15 @@ const MoreToLove = () => {
       </div>
 
       <div className="more-list">
-        {items.map((item, index) => (
+        {items?.map((item, index) => (
           <div className="more-card" key={index} onClick={() => navigate('/details/' +item.itemID)}>
             <div className="more-image">
               {/* <img src={item.img} alt={item.name} width={'100%'} /> */}
-              <img src='src/assets/Laptop.png' alt={item.name} width={'100%'} />
+              <img src='src/assets/Laptop.png' alt={item?.name} width={'100%'} />
 
             </div>
             <div className="more-details">
-                <div style={{ fontSize: 14, fontWeight: '600', color: 'black', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}>{truncateText(item.name, 20)}</div>
+                <div className='item-name'>{item?.name}</div>
                 <div style={{color: 'black', fontSize: 14}}>UGX <span style={{fontSize: 20, color: 'black', fontWeight: '600'}}>{item.price.toLocaleString()}</span></div>
                 <div style={{color: 'grey', fontSize: 14, textDecoration: 'line-through'}}>UGX <span style={{fontSize: 16, color: 'grey', fontWeight: '600'}}>{(item.price + item.price * item.discount / 100).toLocaleString()}</span></div>
                 {item.reviews[0] && <div style={{ fontSize: 14, fontWeight: '400', color: 'black', display: 'flex', gap: 7 }}>

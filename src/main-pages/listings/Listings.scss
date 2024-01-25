@@ -1,4 +1,61 @@
 
 .listings-container {
     color: black;
+
+    .header-section {
+        position: sticky;
+        top: 0;
+        background-color: #fff;
+    }
+
+
+
+    .recom-section {
+
+
+        .recom-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            overflow-x: scroll;
+            
+
+
+            .recom-card {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                height: 220px;
+                margin-inline: 10px;
+                min-width: 43vw;
+                max-width: 150px;
+                cursor: pointer;
+
+                .recom-image {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    // width: 30vw;
+                    height: 40%;
+                }
+
+                .recom-details {
+                    
+                    .add-cart {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 95%;
+                        background-color: orange;
+                        border-radius: 3px;
+                        margin-block: 8px;
+                        padding-block: 8px;
+                        font-size: xx-small;
+                        font-weight: 700;
+                        color: #ffffff;
+                    }
+                }
+            }
+        }
+    }
 }

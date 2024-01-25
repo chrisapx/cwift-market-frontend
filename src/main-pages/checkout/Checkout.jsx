@@ -9,13 +9,18 @@ import { FaAngleLeft } from "react-icons/fa6";
 import { GiCardPickup } from "react-icons/gi";
 
 import Footer from '../../components/footer/Footer';
+import { useCart } from '../../context/CartContext';
 
 
 const Checkout = () => {
 
   const navigate = useNavigate();
+  const { cartItems,totalItems, totalPrice, addToCart, removeFromCart } = useCart();
+
   return (
     <div className="checkout-container">
+
+      <title>Checkout | {totalItems}</title>
 
       <div className='header-section'>
         <Header showBack={true} showSearch={true} />
@@ -26,8 +31,8 @@ const Checkout = () => {
       <div style={{paddingInline: 15, paddingBlock: 10, color: 'grey', fontSize: 10, fontWeight: '600'}}> ORDER SUMMERY</div>
 
       <div className='sec-1' style={{color: 'black', fontSize: 12, display: 'flex', justifyContent: 'space-between'}}>
-          <div style={{color: 'black', fontSize: 12, fontWeight: '300', paddingTop: 10}}>Items' total (23)</div>
-          <div style={{color: 'black', fontSize: 12, fontWeight: '400', paddingTop: 10}}>UGX {(1123433).toLocaleString()}</div>
+          <div style={{color: 'black', fontSize: 12, fontWeight: '300', paddingTop: 10}}>Items' total ({totalItems})</div>
+          <div style={{color: 'black', fontSize: 12, fontWeight: '400', paddingTop: 10}}>UGX {(totalPrice).toLocaleString()}</div>
       </div>
       <div className='sec-1' style={{color: 'black', fontSize: 12, display: 'flex', justifyContent: 'space-between'}}>
           <div style={{color: 'black', fontSize: 12, fontWeight: '300', }}>Delivery fees</div>
@@ -36,7 +41,7 @@ const Checkout = () => {
 
       <div className='sec-1' style={{color: 'black', fontSize: 12, display: 'flex', justifyContent: 'space-between'}}>
           <div style={{color: 'black', fontSize: 12, fontWeight: '500', paddingBlock: 12}}>Total</div>
-          <div style={{color: 'black', fontSize: 12, fontWeight: '700', paddingBlock: 12}}>UGX {(1123433).toLocaleString()}</div>
+          <div style={{color: 'black', fontSize: 12, fontWeight: '700', paddingBlock: 12}}>UGX {(totalPrice + 3900).toLocaleString()}</div>
       </div>
 
       <div className='sec-2' style={{color: 'black', fontSize: 12, display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 10

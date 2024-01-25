@@ -49,6 +49,9 @@
                     justify-content: space-between;
                     height: 220px;
                     margin-inline: 10px;
+                    min-width: 140px;
+                    max-width: 150px;
+                    cursor: pointer;
 
                     .recom-image {
                         display: flex;
@@ -120,13 +123,14 @@
 
             .remove-btn  {
                 display: flex;
-
+                cursor: pointer;
             }
 
             .three-btns {
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                cursor: pointer;
 
 
                 .itm-btn {
@@ -135,10 +139,12 @@
                     background-color: orange;
                     font-size: medium;
                     border-radius: 2px;
+                    
                 }
 
                 .count {
                     padding-inline: 30px;
+                    cursor: default;
                 }
             }
 

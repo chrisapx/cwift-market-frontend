@@ -1,4 +1,5 @@
 import AdBar from '../../components/add-bar/AddBar';
+import Categories from '../../components/categories/Categories';
 import Footer from '../../components/footer/Footer';
 import Header from '../../components/header/Header';
 import MoreToLove from '../../components/more-to-love/MoreToLove';
@@ -20,8 +21,15 @@ const Home = () => {
             </div>
 
             <div className='main-body'>
-                <Promo/>
-                <MoreToLove/>
+                <div>
+                    <Categories/>
+                </div>
+                <div>
+                    {/* <Promo/> */}
+                </div>
+                <div>
+                    <MoreToLove/>
+                </div>
 
             </div>
 

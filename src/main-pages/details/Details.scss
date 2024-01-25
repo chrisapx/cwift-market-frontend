@@ -37,10 +37,14 @@
         margin: 8px;       
 
         .image-card {
+            display: flex;
             flex: 0 0 auto;
+            justify-content: center;
+            align-items: center;
             height: 300px;
+            // background-color: #a65050;
             // width: 100%;
-            padding: 5px;
+            // padding: 5px;
         }
     }
 
@@ -86,14 +90,15 @@
                     flex-direction: column;
                     justify-content: space-between;
                     height: 220px;
-                    margin-inline: 10px;
+                    margin-inline: 8px;
+                    max-width: 150px;
 
                     .recom-image {
                         display: flex;
+                        // background-color: #483737;
                         align-items: center;
                         justify-content: center;
-                        // width: 30vw;
-                        height: 55%;
+                        height: 75%;
                     }
                 }
             }

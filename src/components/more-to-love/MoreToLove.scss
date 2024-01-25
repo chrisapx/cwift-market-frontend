@@ -27,6 +27,15 @@
         .more-details {
           padding: 8px;
           height: fit-content;
+
+          .item-name {
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                font-size: 14px;
+                font-weight: 600;
+                color: black;
+          }
         }
 
         
