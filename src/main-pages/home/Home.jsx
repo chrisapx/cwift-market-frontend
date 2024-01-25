@@ -25,7 +25,7 @@ const Home = () => {
                     <Categories/>
                 </div>
                 <div>
-                    {/* <Promo/> */}
+                    <Promo/>
                 </div>
                 <div>
                     <MoreToLove/>
