@@ -180,7 +180,7 @@ const Details = () => {
                 <div className='recomendation-section'>
                     <div className="recom-list">
                         {alsoViewed?.map((item, index) => (
-                        <div className="recom-card" key={index} onClick={() => navigate('/details/' +item.itemID)}>
+                        <div className="recom-card" key={index} onClick={() => setItem(item)}>
                             <div className="recom-image">
                                 {alsoViewed.coverPhoto ? <img src={item.img} alt={item.name} height={'90%'}/> : 
                                                          <img src={'/src/assets/cwift-logo.png'} alt={item.name} height={'90%'}/>
@@ -253,7 +253,7 @@ const Details = () => {
                 <div className='recomendation-section'>
                     <div className="recom-list">
                         {recents?.map((item, index) => (
-                        <div className="recom-card" key={index} onClick={() => navigate('/details')}>
+                        <div className="recom-card" key={index} onClick={() => setItem(item)}>
                             <div className="recom-image">
                                 {item.coverPhoto ? <img src={item.coverPhoto} alt={item.name} height={'90%'} /> :
                                 <img src={'/src/assets/cwift-logo.png'} alt={item.name} height={'90%'} />}
