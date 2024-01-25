@@ -3,6 +3,7 @@ import { Suspense, lazy, useState } from 'react'
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
 import AddItem from './seller-pages/add-item/AddItem'
+import { CartProvider } from './context/CartContext'
 
 const Home = lazy(() => import('./main-pages/home/Home'))
 const SearchPage = lazy(() => import('./main-pages/search/SearchPage'))
@@ -22,30 +23,27 @@ function App() {
 
   return (
     <div className='app-container'>
-      <Suspense
-        fallback={
-          <div className="fallback-container">
-            {/* Use your spinning logo */}
-            <img src={'src/assets/logo.png'} alt="Spinning Logo" className="spinning-logo" />
-            {/* <h1>Loading...</h1> */}
-          </div>
-        }
-      >
-        <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/search" element={<SearchPage />} />
-            <Route path="/search-results" element={<SearchResults />} />
-            <Route path="/details/:itemID" element={<Details />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/account" element={<Account />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/payment" element={<Payment />} />
-            <Route path="/listings" element={<Listing />} />
-            <Route path="/add-item" element={<AddItem />} />
-            {/* <Route path="/auth/login " element={<Auth />} /> */}
-            <Route path="*" element={<NotFoundPage />} />      
-        </Routes>
-      </Suspense>
+      <CartProvider>
+        <Suspense fallback={
+            <div className="fallback-container">
+              <img src={'/src/assets/cwift-logo.png'} alt="Spinning Logo" className="spinning-logo" />
+            </div> } >
+          <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/search" element={<SearchPage />} />
+              <Route path="/search-results" element={<SearchResults />} />
+              <Route path="/details/:itemID" element={<Details />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/account" element={<Account />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/payment" element={<Payment />} />
+              <Route path="/listings" element={<Listing />} />
+              <Route path="/add-item" element={<AddItem />} />
+              {/* <Route path="/auth/login " element={<Auth />} /> */}
+              <Route path="*" element={<NotFoundPage />} />      
+          </Routes>
+        </Suspense>
+      </CartProvider>
     </div>
   )
 }

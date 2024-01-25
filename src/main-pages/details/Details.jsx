@@ -6,32 +6,58 @@ import { TiTick } from "react-icons/ti";
 import './Details.scss'
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useCart } from '../../context/CartContext';
 
 const Details = () => {
 
     const navigate = useNavigate();
     const [addCart, setAddCart] = useState(false);
     const [item, setItem] = useState({});
+    const [alsoViewed, setAlsoViewed] = useState([]);
+    const [recents, setRecents] = useState([]);
     const { itemID } = useParams();
+    const { cartItems, addToCart, removeFromCart } = useCart();
 
-    const handleAddToCart = () => {
-        setAddCart(true)
+    const handleAddToCart = ( item ) => {
+        addToCart(item);
+        setAddCart(true);
         setTimeout(() => {
             setAddCart(false)
         }, 4000)
     }
 
     useEffect(() => {
+
+        // Section for fetching item to show in details
         fetch('http://127.0.0.1:8080/items/' + itemID)
           .then((response) => response.json())
           .then((json) => {
             setItem(json);
-            console.log(item)
           })
           .catch((error) => {
             console.error(error);
           })
-  
+
+        //   Section for fetching more to love
+        fetch('http://127.0.0.1:8080/items')
+          .then((response) => response.json())
+          .then((json) => {
+            setAlsoViewed(json);
+          })
+          .catch((error) => {
+            console.error(error);
+          }) 
+
+          //   Section for fetching more to love
+        fetch('http://127.0.0.1:8080/items')
+            .then((response) => response.json())
+            .then((json) => {
+            setRecents(json);
+            })
+            .catch((error) => {
+                console.error(error);
+            }) 
+
     }, []);
     
     const images = [
@@ -101,19 +127,29 @@ const Details = () => {
             }
 
             {/* Images container */}
-            <div className='images-container'>
-                {images.map((imge, index) => (
-                <div className='image-card' key={index}>
-                    <img src={imge.img} loading='lazy' alt='iPhone12' height={'100%'} width={'100%'}/>
+            { !item.photos ?
+                <div className='images-container'>
+                    {item.photos?.map((imge, index) => (
+                    <div className='image-card' key={index}>
+                        <img src={imge.img} loading='lazy' alt={item.name} width={'90vw'}/>
+                    </div>
+                    ))}
+                </div> :
+                <div className='images-container'>
+                    {images.map((imge, index) => (
+                    <div className='image-card' style={{width: '90vw', }} key={index}>
+                        <img src={'/src/assets/cwift-logo.png'} loading='lazy' alt='' height={'90%'} />
+                    </div>
+                    ))}
                 </div>
-                ))}
-            </div>
+            }
 
             <div className='sec-1'>
                 <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: '700', fontSize: 14, color: 'green'}}>
-                    <div style={{fontSize: 10, backgroundColor: '#0f562e', paddingInline: 5, width: 'fit-content', color: 'white', fontWeight: '600', marginBlock: 10, borderRadius: 1}}>Official store</div>
+                    {/* <div style={{fontSize: 10, backgroundColor: '#0f562e', paddingInline: 5, width: 'fit-content', color: 'white', fontWeight: '600', marginBlock: 10, borderRadius: 1}}>{item.store ? 'Official Store' : item.store}</div> */}
+                    <div style={{fontSize: 10, backgroundColor: '#0f562e', paddingInline: 5, paddingBlock: 2, width: 'fit-content', color: 'white', fontWeight: '600', marginBlock: 15, borderRadius: 1}}>Official Store</div>
                     {/* <div>Original <span><MdVerifiedUser size={12} /></span></div> */}
-                    <div>Copy 1 <span><MdVerifiedUser size={12} /></span></div>
+                    <div>{item.original} <span><MdVerifiedUser size={12} /></span></div>
                 </div>
                 <div style={{fontSize: 13, color: 'black'}}>{item.name} <span style={{color: 'green', marginLeft: 5}}>{item.original}<MdVerifiedUser size={12} /></span></div>
                 <div style={{fontSize: 12}}>Brand: <span style={{color: 'blue'}}>{item.brand}</span> | <span style={{color: 'blue'}}>similar products</span></div>
@@ -143,13 +179,16 @@ const Details = () => {
                 <div style={{paddingBlock: 10, color: 'black', fontSize: 12, fontWeight: '600'}}>Customers also viewed</div>
                 <div className='recomendation-section'>
                     <div className="recom-list">
-                        {recom?.map((item, index) => (
-                        <div className="recom-card" key={index} onClick={() => navigate('/details')}>
+                        {alsoViewed?.map((item, index) => (
+                        <div className="recom-card" key={index} onClick={() => navigate('/details/' +item.itemID)}>
                             <div className="recom-image">
-                                <img src={item.img} alt={item.name} width={'100%'} height={'100%'}/>
+                                {alsoViewed.coverPhoto ? <img src={item.img} alt={item.name} height={'90%'}/> : 
+                                                         <img src={'/src/assets/cwift-logo.png'} alt={item.name} height={'90%'}/>
+                                }
                             </div>
                             <div className="recom-details">
-                                <div style={{ fontSize: 12, fontWeight: '600', color: 'black', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}>{truncateText(item.description, 20)}</div>
+                                <div style={{ fontSize: 12, fontWeight: '600', color: 'black', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}>{item?.name}</div>
+                                {item?.description && <div style={{ fontSize: 12, fontWeight: '600', color: 'black',overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}>{item?.description}</div>}
                                 <div style={{color: 'black', fontSize: 12}}>UGX <span style={{fontSize: 16, color: 'black', fontWeight: '600'}}>{item.price?.toLocaleString()}</span></div>
                             </div>
                         </div>
@@ -204,7 +243,7 @@ const Details = () => {
             
 
             <div className='add-to-cart'>
-                    <div style={{backgroundColor: 'orange', borderTopLeftRadius: 30, borderBottomLeftRadius: 30}} className='add-item' onClick={handleAddToCart}>Add to cart</div>
+                    <div style={{backgroundColor: 'orange', borderTopLeftRadius: 30, borderBottomLeftRadius: 30}} className='add-item' onClick={() => handleAddToCart(item)}>Add to cart</div>
                     <div style={{backgroundColor: 'red', borderTopRightRadius: 30, borderBottomRightRadius: 30}} className='add-item'>Buy now</div>
             </div>
 
@@ -213,13 +252,15 @@ const Details = () => {
                 <div style={{paddingBlock: 10, color: 'black', fontSize: 12, fontWeight: '600'}}>Recently viewed</div>
                 <div className='recomendation-section'>
                     <div className="recom-list">
-                        {recom.map((item, index) => (
+                        {recents?.map((item, index) => (
                         <div className="recom-card" key={index} onClick={() => navigate('/details')}>
                             <div className="recom-image">
-                                <img src={item.img} alt={item.name} width={'100%'} height={'100%'} />
+                                {item.coverPhoto ? <img src={item.coverPhoto} alt={item.name} height={'90%'} /> :
+                                <img src={'/src/assets/cwift-logo.png'} alt={item.name} height={'90%'} />}
                             </div>
                             <div className="recom-details">
-                                <div style={{ fontSize: 14, fontWeight: '600', color: 'black', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}>{truncateText(item.description, 20)}</div>
+                                <div style={{ fontSize: 12, fontWeight: '600', color: 'black', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}>{item?.name}</div>
+                                {item?.description && <div style={{ fontSize: 12, fontWeight: '600', color: 'black',overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}>{item?.description}</div>}
                                 <div style={{color: 'black', fontSize: 14}}>UGX <span style={{fontSize: 20, color: 'black', fontWeight: '600'}}>{item.price?.toLocaleString()}</span></div>
                             </div>
                         </div>

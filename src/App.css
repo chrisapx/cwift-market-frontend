@@ -21,13 +21,13 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background to overlay on the content */
+  background-color: rgba(255, 255, 255, 0.3); /* Semi-transparent background to overlay on the content */
   z-index: 9999; /* Higher z-index to ensure it appears above other content */
 
   .spinning-logo {
     animation: spin 2s infinite linear; /* Add spinning animation */
-    width: 70px; /* Adjust the width as needed */
-    height: 70px; /* Adjust the height as needed */
+    width: 80px; /* Adjust the width as needed */
+    height: auto; /* Adjust the height as needed */
     margin-right: 16px; /* Add margin for better appearance */
   }
 
