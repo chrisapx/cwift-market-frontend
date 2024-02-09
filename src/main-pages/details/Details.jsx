@@ -29,7 +29,7 @@ const Details = () => {
     useEffect(() => {
 
         // Section for fetching item to show in details
-        fetch('http://127.0.0.1:8080/items/' + itemID)
+        fetch('http://inventory.nalmart.com/items/' + itemID)
           .then((response) => response.json())
           .then((json) => {
             setItem(json);
@@ -39,7 +39,7 @@ const Details = () => {
           })
 
         //   Section for fetching more to love
-        fetch('http://127.0.0.1:8080/items')
+        fetch('http://inventory.nalmart.com/items')
           .then((response) => response.json())
           .then((json) => {
             setAlsoViewed(json);
@@ -49,7 +49,7 @@ const Details = () => {
           }) 
 
           //   Section for fetching more to love
-        fetch('http://127.0.0.1:8080/items')
+        fetch('http://inventory.nalmart.com/items')
             .then((response) => response.json())
             .then((json) => {
             setRecents(json);
@@ -127,11 +127,11 @@ const Details = () => {
             }
 
             {/* Images container */}
-            { !item.photos ?
+            { item.photos ?
                 <div className='images-container'>
                     {item.photos?.map((imge, index) => (
                     <div className='image-card' key={index}>
-                        <img src={imge.img} loading='lazy' alt={item.name} width={'90vw'}/>
+                        <img src={imge.url} loading='lazy' alt={item.name} width={'90vw'}/>
                     </div>
                     ))}
                 </div> :
@@ -182,7 +182,7 @@ const Details = () => {
                         {alsoViewed?.map((item, index) => (
                         <div className="recom-card" key={index} onClick={() => setItem(item)}>
                             <div className="recom-image">
-                                {alsoViewed.coverPhoto ? <img src={item.img} alt={item.name} height={'90%'}/> : 
+                                {alsoViewed.coverPhoto ? <img src={item.coverPhoto.url} alt={item.name} height={'90%'}/> : 
                                                          <img src={'/src/assets/cwift-logo.png'} alt={item.name} height={'90%'}/>
                                 }
                             </div>
@@ -219,7 +219,7 @@ const Details = () => {
                     <div key={index} style={{marginBottom: 16}}>
                         <div style={{display: 'flex', justifyContent: 'space-between', color: 'grey'}}>
                             <StarRatings
-                                rating={item.rating}
+                                rating={item.reviews.rating}
                                 starRatedColor="orange"
                                 numberOfStars={5}
                                 starDimension="12px"
@@ -255,7 +255,7 @@ const Details = () => {
                         {recents?.map((item, index) => (
                         <div className="recom-card" key={index} onClick={() => setItem(item)}>
                             <div className="recom-image">
-                                {item.coverPhoto ? <img src={item.coverPhoto} alt={item.name} height={'90%'} /> :
+                                {item.coverPhoto ? <img src={item.coverPhoto.url} alt={item.name} height={'90%'} /> :
                                 <img src={'/src/assets/cwift-logo.png'} alt={item.name} height={'90%'} />}
                             </div>
                             <div className="recom-details">

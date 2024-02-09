@@ -1,4 +1,160 @@
 
 .signup-frame {
     color: black;
+
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+
+
+    .drawer-frame {
+        display: grid;
+        grid-template-rows: 1.5fr 8fr 2fr;
+        height: 100vh;
+
+
+        .drawer-header {
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-inline: 20px;
+        }
+
+        .drawer-body {
+            // background-color: #ffe7e7;
+            overflow-y: scroll;
+
+            .drawer-item {
+                display: flex;
+                align-items: center;
+                color: rgb(81, 81, 81);
+                font-weight: 500;
+                font-size: smaller;
+                background-color: #f4f4f4;
+                border-radius: 6px;
+                cursor: pointer;
+                gap: 10px;
+                padding-inline: 15px;
+                padding-block: 10px;
+                margin-inline: 12px;
+                margin-block: 6px;
+            }
+            .sub-drawer-item {
+                display: flex;
+                align-items: center;
+                color: rgb(81, 81, 81);
+                font-weight: 400;
+                font-size: smaller;
+                background-color: #fafafa;
+                border-radius: 6px;
+                cursor: pointer;
+                gap: 10px;
+                padding-inline-start: 55px;
+                padding-inline-end: 15px;
+                padding-block: 10px;
+                margin-inline: 12px;
+                margin-block: 6px;
+            }
+        }
+
+        .drawer-footer {
+            // background-color: #bbb6b6;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-top-style: solid;
+            border-width: 1px;
+            border-color: rgb(191, 191, 191);
+            margin-inline: 20px;
+            color: #e38e3f;
+
+            .footer-dp{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                overflow-x: hidden;
+                overflow-y: hidden;
+                height: 40px;
+                width: 40px;
+                border-style: solid;
+                border-width: 1px;
+                border-color: #454545;
+                border-radius: 50px;
+                padding: 4px;
+            }
+
+            .footer-text {
+                
+            }
+            
+        }
+
+    }
+
+    .main-frame {
+        background-color: #f0f0f0;
+        padding-inline: 20px;
+        overflow-y: scroll;
+        // height: 100vh;
+
+
+        .tittle {
+            font-size: larger;
+            font-weight: 700;
+            color: #676767;
+            padding-block: 20px;
+        }
+
+        .orders-filter {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            border-top-style: solid;
+            border-top-color: #e38e3f;
+
+            .status-panel {
+                display: flex;
+                justify-content: space-between;
+
+
+                .order-status{
+                    display: flex;
+                    align-items: center;
+                    gap: 18px;
+                    color: #8d8d8d;
+
+
+
+                    .status-item {
+                        font-size: 12px;
+                        background-color: #eeeeee;
+                        padding-inline: 5px;
+                        border-radius: 5px;
+                        font-weight: 600;
+                        color: #676767;
+                        
+                    }
+                }
+
+            }
+
+            .input-field {
+                height: 40px;
+                width: fit-content;
+                border-style: solid;
+                border-width: 2px;
+                border-color: #c1c1c1;
+                border-radius: 5px;
+
+                .input {
+                    width: 100%;
+                    background-color: #fff;
+                    border-style: none;
+                    height: 100%;
+                }
+            }
+
+        }
+        
+    }
 }
