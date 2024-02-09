@@ -30,7 +30,7 @@ const Header = ({ showBack, showSearch }) => {
     const [categories, setCategories] = useState([]);
 
     // useEffect(() => {
-    //     fetch('http://inventory.nalmart.com/items/categories')
+    //     fetch('https://inventory.nalmart.com/items/categories')
     //     .then((res) => res.json())
     //     .then((response) => setCategories(response))
     //     .catch((error) => console.log(error));

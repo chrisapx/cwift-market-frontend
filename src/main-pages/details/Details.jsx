@@ -29,7 +29,7 @@ const Details = () => {
     useEffect(() => {
 
         // Section for fetching item to show in details
-        fetch('http://inventory.nalmart.com/items/' + itemID)
+        fetch('https://inventory.nalmart.com/items/' + itemID)
           .then((response) => response.json())
           .then((json) => {
             setItem(json);
@@ -39,7 +39,7 @@ const Details = () => {
           })
 
         //   Section for fetching more to love
-        fetch('http://inventory.nalmart.com/items')
+        fetch('https://inventory.nalmart.com/items')
           .then((response) => response.json())
           .then((json) => {
             setAlsoViewed(json);
@@ -49,7 +49,7 @@ const Details = () => {
           }) 
 
           //   Section for fetching more to love
-        fetch('http://inventory.nalmart.com/items')
+        fetch('https://inventory.nalmart.com/items')
             .then((response) => response.json())
             .then((json) => {
             setRecents(json);
