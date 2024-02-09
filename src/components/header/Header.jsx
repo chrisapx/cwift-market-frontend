@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Header.scss'
 import { FaBars, FaMoneyBill, FaRegUser, FaSearch } from 'react-icons/fa';
 import { MdOutlineShoppingCart } from "react-icons/md";
@@ -6,7 +6,7 @@ import { FaAngleLeft, FaX } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
 import { MdOutlineRateReview, MdOutdoorGrill, MdOutlineSportsGymnastics, MdOutlineSell } from "react-icons/md";
-import { RiCoupon4Line } from "react-icons/ri";
+import { RiCoupon4Line, RiFontMono, RiFontSansSerif } from "react-icons/ri";
 import { CiHeart } from "react-icons/ci";
 import { LuShoppingBag } from "react-icons/lu";
 import { IoIosArrowForward } from "react-icons/io";
@@ -27,6 +27,14 @@ const Header = ({ showBack, showSearch }) => {
     const navigate = useNavigate();
     const { totalItems } = useCart();
     const [toggle, setToggle] = useState(false);
+    const [categories, setCategories] = useState([]);
+
+    // useEffect(() => {
+    //     fetch('http://inventory.nalmart.com/items/categories')
+    //     .then((res) => res.json())
+    //     .then((response) => setCategories(response))
+    //     .catch((error) => console.log(error));
+    // })
 
     return(
         <div className="main" >
@@ -39,8 +47,9 @@ const Header = ({ showBack, showSearch }) => {
                     <FaBars size={18} color={'grey'}/>
                 </div>
                 <div className='logo' style={{fontSize: 20, fontWeight: '600', color: "grey", display: 'flex', alignItems: 'center', cursor: 'pointer'}} onClick={() => navigate('/')}>
-                    <img src='/src/assets/cwift.png' height={16} width={80}/>
-                    <span className='menu-item' style={{marginLeft: 2, height: 16, width: 'auto', backgroundColor: 'white', borderRadius: 50}}><img src='/src/assets/cwift-logo.png' width={'100%'} height={'100%'}/></span>
+                    {/* <img src='/src/assets/cwift.png' height={16} width={80}/> */}
+                    <div style={{color: 'black'}}>Nalmart</div>
+                    {/* <span className='menu-item' style={{marginLeft: 2, height: 16, width: 'auto', backgroundColor: 'white', borderRadius: 50}}><img src='/src/assets/cwift-logo.png' width={'100%'} height={'100%'}/></span> */}
                 </div>
             </div>
 
@@ -68,50 +77,37 @@ const Header = ({ showBack, showSearch }) => {
                         <img src='/src/assets/cwift.png' height={16} width={80} style={{marginLeft: 15}} />
                     </div>
                     <div className='drawer-items'>
-                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTopStyle: 'solid', borderBottomStyle: 'solid', borderWidth: 0, borderColor: 'light-grey', paddingBlock: 4}}>
-                            <div style={{fontSize: 10}}>NEED HELP?</div>
+                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTopStyle: 'solid', borderBottomStyle: 'solid', borderWidth: 0, borderColor: 'light-grey', paddingBlock: 4, cursor: 'pointer'}}>
+                            <div style={{fontSize: 10, fontWeight: '600', color: 'grey'}}>NEED HELP?</div>
                             <IoIosArrowForward color={'grey'}/>
                         </div>
-                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTopStyle: 'solid', borderBottomStyle: 'solid', borderWidth: 0, borderColor: 'light-grey', paddingBlock: 4}}
+                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTopStyle: 'solid', borderBottomStyle: 'solid', borderWidth: 0, borderColor: 'light-grey', paddingBlock: 4, cursor: 'pointer'}}
                             onClick={() => navigate('/account')}>
-                            <div style={{fontSize: 10}}>MY CWIFT ACCOUNT</div>
+                            <div style={{fontSize: 10, fontWeight: '600', color: 'grey'}}>MY CWIFT ACCOUNT</div>
                             <IoIosArrowForward color={'grey'}/>
                         </div>
 
-                        <p style={{fontSize: 14, display: 'flex', alignItems: 'center'}}><span style={{marginRight: 10}}> <HiOutlineInboxIn size={22} color={'grey'}/></span> Inbox</p>
-                        
-                        <p style={{fontSize: 14, display: 'flex', alignItems: 'center'}}><span style={{marginRight: 10}}> <MdOutlineRateReview size={22} color={'grey'}/></span> Pending Reviews</p>
-
-                        <p style={{fontSize: 14, display: 'flex', alignItems: 'center'}}><span style={{marginRight: 10}}> <RiCoupon4Line size={22} color={'grey'}/></span> Vouchers</p>
-
-                        <p style={{fontSize: 14, display: 'flex', alignItems: 'center'}}><span style={{marginRight: 10}}> <LuShoppingBag size={22} color={'grey'}/></span> Orders</p>
-
-                        <p style={{fontSize: 14, display: 'flex', alignItems: 'center'}}><span style={{marginRight: 10}}> <FaRegHeart size={22} color={'grey'}/></span> Saved Items</p>
-
-                        <p style={{fontSize: 14, display: 'flex', alignItems: 'center'}}><span style={{marginRight: 10}}> <FaMoneyBill size={22} color={'grey'}/></span> CwiftPay Balance</p>
+                        <p style={{fontSize: 12, display: 'flex', alignItems: 'center'}}><span style={{marginRight: 10}}> <HiOutlineInboxIn size={20} color={'grey'}/></span> Inbox</p>
+                        <p style={{fontSize: 12, display: 'flex', alignItems: 'center'}}><span style={{marginRight: 10}}> <MdOutlineRateReview size={20} color={'grey'}/></span> Pending Reviews</p>
+                        <p style={{fontSize: 12, display: 'flex', alignItems: 'center'}}><span style={{marginRight: 10}}> <RiCoupon4Line size={20} color={'grey'}/></span> Vouchers</p>
+                        <p style={{fontSize: 12, display: 'flex', alignItems: 'center'}}><span style={{marginRight: 10}}> <LuShoppingBag size={20} color={'grey'}/></span> Orders</p>
+                        <p style={{fontSize: 12, display: 'flex', alignItems: 'center'}}><span style={{marginRight: 10}}> <FaRegHeart size={20} color={'grey'}/></span> Saved Items</p>
+                        <p style={{fontSize: 12, display: 'flex', alignItems: 'center'}}><span style={{marginRight: 10}}> <FaMoneyBill size={20} color={'grey'}/></span> CwiftPay Balance</p>
 
                         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTopStyle: 'solid', borderBottomStyle: 'solid', borderWidth: 0, borderColor: 'light-grey', paddingBlock: 4}}>
-                            <div style={{fontSize: 10}}>ITEM CATEGORIES</div>
+                            <div style={{fontSize: 10, fontWeight: '600', color: 'grey'}}>ITEM CATEGORIES</div>
                             <div style={{fontSize: 10, color: 'orange'}}>See All</div>
                         </div>
 
-                        <p style={{fontSize: 14, display: 'flex', alignItems: 'center'}}><span style={{marginRight: 10}}> <IoPhonePortraitOutline size={22} color={'grey'}/></span>Phones & Tablets</p>
-                        
-                        <p style={{fontSize: 14, display: 'flex', alignItems: 'center'}}><span style={{marginRight: 10}}> <RiHomeOfficeLine size={22} color={'grey'}/></span> Home & Office</p>
-
-                        <p style={{fontSize: 14, display: 'flex', alignItems: 'center'}}><span style={{marginRight: 10}}> <PiTelevisionSimpleBold size={22} color={'grey'}/></span> Electronics</p>
-                        
-                        <p style={{fontSize: 14, display: 'flex', alignItems: 'center'}}><span style={{marginRight: 10}}> <GiHealthPotion size={22} color={'grey'}/></span> Health & Beauty</p>
-
-                        <p style={{fontSize: 14, display: 'flex', alignItems: 'center'}}><span style={{marginRight: 10}}> <GiClothes size={22} color={'grey'}/></span> Fashion</p>
-                        
-                        <p style={{fontSize: 14, display: 'flex', alignItems: 'center'}}><span style={{marginRight: 10}}> <HiOutlineComputerDesktop size={22} color={'grey'}/></span> Computing</p>
-
-                        <p style={{fontSize: 14, display: 'flex', alignItems: 'center'}}><span style={{marginRight: 10}}> <MdOutlineSportsGymnastics size={22} color={'grey'}/></span> Sporting Goods</p>
-                        
-                        <p style={{fontSize: 14, display: 'flex', alignItems: 'center'}}><span style={{marginRight: 10}}> <MdOutdoorGrill size={22} color={'grey'}/></span> Garden & Outdoor</p>
-
-                        <p style={{fontSize: 14, display: 'flex', alignItems: 'center'}}><span style={{marginRight: 10}}> <SiPcgamingwiki size={22} color={'grey'}/></span> Gaming</p>
+                        <p style={{fontSize: 14, display: 'flex', alignItems: 'center'}}><span style={{marginRight: 10}}> <IoPhonePortraitOutline size={20} color={'grey'}/></span>Phones & Tablets</p>
+                        <p style={{fontSize: 14, display: 'flex', alignItems: 'center'}}><span style={{marginRight: 10}}> <RiHomeOfficeLine size={20} color={'grey'}/></span> Home & Office</p>
+                        <p style={{fontSize: 14, display: 'flex', alignItems: 'center'}}><span style={{marginRight: 10}}> <PiTelevisionSimpleBold size={20} color={'grey'}/></span> Electronics</p>
+                        <p style={{fontSize: 14, display: 'flex', alignItems: 'center'}}><span style={{marginRight: 10}}> <GiHealthPotion size={20} color={'grey'}/></span> Health & Beauty</p>
+                        <p style={{fontSize: 14, display: 'flex', alignItems: 'center'}}><span style={{marginRight: 10}}> <GiClothes size={20} color={'grey'}/></span> Fashion</p>
+                        <p style={{fontSize: 14, display: 'flex', alignItems: 'center'}}><span style={{marginRight: 10}}> <HiOutlineComputerDesktop size={20} color={'grey'}/></span> Computing</p>
+                        <p style={{fontSize: 14, display: 'flex', alignItems: 'center'}}><span style={{marginRight: 10}}> <MdOutlineSportsGymnastics size={20} color={'grey'}/></span> Sporting Goods</p>
+                        <p style={{fontSize: 14, display: 'flex', alignItems: 'center'}}><span style={{marginRight: 10}}> <MdOutdoorGrill size={20} color={'grey'}/></span> Garden & Outdoor</p>
+                        <p style={{fontSize: 14, display: 'flex', alignItems: 'center'}}><span style={{marginRight: 10}}> <SiPcgamingwiki size={20} color={'grey'}/></span> Gaming</p>
                         
                         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTopStyle: 'solid', borderBottomStyle: 'solid', borderWidth: 0, borderColor: 'light-grey', paddingBlock: 4}}>
                             <div style={{fontSize: 10}}>MORE SERVICES</div>

@@ -26,7 +26,7 @@ const Cart = () => {
       };
 
     useEffect(() => {
-        fetch('http://127.0.0.1:8080/items')
+        fetch('http://inventory.nalmart.com/items')
           .then((response) => response.json())
           .then((json) => {
             setItems(json);
@@ -38,61 +38,61 @@ const Cart = () => {
   
       }, []);
 
-    const recom = [
-        {
-          id: 1,
-          name: 'iPhone 12, 2023 edition',
-          price: 764532,
-          description: 'These styles will create a flex container for your item cards, and each card will take up 48% of the width, leaving some space between them.',
-          delivery: true,
-          img: 'src/assets/iPhone12.png',
-        },
-        {
-          id: 2,
-          name: 'phones',
-          price: 984532,
-          description: 'These styles will create a flex container for your item cards, and each card will take up 48% of the width, leaving some space between them.',
-          delivery: true,
-          img: 'src/assets/Laptop.png',
-          discount: 23
-        },
-        {
-          id:  3,
-          name: 'phones',
-          price: 65532,
-          description: 'These styles will create a flex container for your item cards, and each card will take up 48% of the width, leaving some space between them.',
-          delivery: true,
-          discount: 65,
-          img: 'src/assets/Speaker.png',
-        },
-        {
-            name: 'iPhone 12, 2023 edition',
-            id: 4,
-            price: 764532,
-            description: 'These styles will create a flex container for your item cards, and each card will take up 48% of the width, leaving some space between them.',
-            delivery: true,
-            img: 'src/assets/iPhone12.png',
-          },
-          {
-            name: 'phones',
-            id: 5,
-            price: 984532,
-            description: 'These styles will create a flex container for your item cards, and each card will take up 48% of the width, leaving some space between them.',
-            delivery: true,
-            img: 'src/assets/Laptop.png',
-            discount: 23
-          },
-          {
-            name: 'phones',
-            id: 6,
-            price: 65532,
-            description: 'These styles will create a flex container for your item cards, and each card will take up 48% of the width, leaving some space between them.',
-            delivery: true,
-            discount: 65,
-            img: 'src/assets/Speaker.png',
-          },
+    // const recom = [
+    //     {
+    //       id: 1,
+    //       name: 'iPhone 12, 2023 edition',
+    //       price: 764532,
+    //       description: 'These styles will create a flex container for your item cards, and each card will take up 48% of the width, leaving some space between them.',
+    //       delivery: true,
+    //       img: 'src/assets/iPhone12.png',
+    //     },
+    //     {
+    //       id: 2,
+    //       name: 'phones',
+    //       price: 984532,
+    //       description: 'These styles will create a flex container for your item cards, and each card will take up 48% of the width, leaving some space between them.',
+    //       delivery: true,
+    //       img: 'src/assets/Laptop.png',
+    //       discount: 23
+    //     },
+    //     {
+    //       id:  3,
+    //       name: 'phones',
+    //       price: 65532,
+    //       description: 'These styles will create a flex container for your item cards, and each card will take up 48% of the width, leaving some space between them.',
+    //       delivery: true,
+    //       discount: 65,
+    //       img: 'src/assets/Speaker.png',
+    //     },
+    //     {
+    //         name: 'iPhone 12, 2023 edition',
+    //         id: 4,
+    //         price: 764532,
+    //         description: 'These styles will create a flex container for your item cards, and each card will take up 48% of the width, leaving some space between them.',
+    //         delivery: true,
+    //         img: 'src/assets/iPhone12.png',
+    //       },
+    //       {
+    //         name: 'phones',
+    //         id: 5,
+    //         price: 984532,
+    //         description: 'These styles will create a flex container for your item cards, and each card will take up 48% of the width, leaving some space between them.',
+    //         delivery: true,
+    //         img: 'src/assets/Laptop.png',
+    //         discount: 23
+    //       },
+    //       {
+    //         name: 'phones',
+    //         id: 6,
+    //         price: 65532,
+    //         description: 'These styles will create a flex container for your item cards, and each card will take up 48% of the width, leaving some space between them.',
+    //         delivery: true,
+    //         discount: 65,
+    //         img: 'src/assets/Speaker.png',
+    //       },
         
-      ];
+    //   ];
 
     const [addCart, setAddCart] = useState(false);
 
@@ -133,12 +133,12 @@ const Cart = () => {
                 <div className='sec-2' style={{paddingBlock: 12, color: 'black', fontSize: 12}}>
                     <div className='item-sec'>
                         <div className='img-sec'>
-                            <img src={item.img} height={'100%'} width={'100%'}/>
+                            <img src={item.coverPhoto.url} height={'100%'} width={'100%'}/>
                         </div>
                         <div className='item-details'>
                             <div style={{fontSize: 12, fontWeight: '600'}}>{item.name}</div>
                             <div style={{fontSize: 10}}>{item.description}</div>
-                            <div style={{fontSize: 14, fontWeight: '500'}}>UGX {(item.price).toLocaleString()} <span style={{textDecoration: 'line-through', color: 'grey', fontWeight: 'normal', fontSize: 10}}>UGX {(item.price).toLocaleString()} </span></div>
+                            <div style={{fontSize: 14, fontWeight: '500'}}>UGX {(item.price).toLocaleString()} <span style={{textDecoration: 'line-through', color: 'grey', fontWeight: 'normal', fontSize: 10}}>UGX {(item.price + item.discount*item.price/100).toLocaleString()} </span></div>
                         </div>
                     </div>
 

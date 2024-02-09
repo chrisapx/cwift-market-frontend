@@ -89,6 +89,7 @@ const AddItem = () => {
           getDownloadURL(snapshot.ref).then((url) => {
             console.log(url);
             alert(url);
+            updateItem(coverPhoto, url)
             // setImageUrls((prev) => [...prev, url]);
           });
         });
@@ -96,15 +97,16 @@ const AddItem = () => {
 
     // useEffect(() => {
     const handleSubmit = () => {
-        fetch('http://127.0.0.1:8080/items/item', {
+        fetch('http://inventory.nalmart.com/items/item', {
             method: 'POST',
-            body: JSON.stringify(Array.of(item)),
+            body: JSON.stringify(item),
             
             headers: {
                 'Content-Type': 'application/json',
             }
         })
-            .catch((error) => console.log(error));
+        .then(res => console.log(res))
+        .catch((error) => console.log(error));
     }
     // })
 

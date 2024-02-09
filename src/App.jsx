@@ -39,7 +39,8 @@ function App() {
               <Route path="/payment" element={<Payment />} />
               <Route path="/listings" element={<Listing />} />
               <Route path="/add-item" element={<AddItem />} />
-              {/* <Route path="/auth/login " element={<Auth />} /> */}
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
               <Route path="*" element={<NotFoundPage />} />      
           </Routes>
         </Suspense>
@@ -51,20 +52,23 @@ function App() {
 export default App
 
 
-// const Home = lazy(() => import('./pages/Home'))
-// const SelectCity = lazy(() => import('./pages/SelectCity'))
-// const CityPage = lazy(() => import('./pages/City'))
- 
-// const App = () => {
-//    return (
-//        <Router>
-//            <Suspense fallback={<h1>Loading...</h1>}>
-//                <Switch>
-//                    <Route exact component={Home} path="/" />
-//                    <Route component={SelectCity} path="/select-city" />
-//                    <Route component={CityPage} path="/:city" />
-//                </Switch>
-//            </Suspense>
-//        </Router>
-//    )
-// }
+// import React from 'react';
+// import { Redirect, Route } from 'react-router-dom';
+
+// const ProtectedRoute = ({ component: Component, isAuthenticated, ...rest }) => (
+//   <Route
+//     {...rest}
+//     render={(props) =>
+//       isAuthenticated ? (
+//         <Component {...props} />
+//       ) : (
+//         <Redirect
+//           to={{
+//             pathname: '/login',
+//             state: { from: props.location },
+//           }}
+//         />
+//       )
+//     }
+//   />
+// );

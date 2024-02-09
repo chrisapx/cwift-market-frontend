@@ -14,7 +14,7 @@ const Categories = () => {
                 {categories.map((cat, index) => (
                     <div className='cart-card' style={{width: 100}} onClick={() => navigate('/listings')}>
                         <div className='cat-image'>
-                            <img src='src/assets/Headphones-Transparent-PNG.png' width={'100%'} />
+                            {/* <img src='src/assets/Headphones-Transparent-PNG.png' width={'100%'} /> */}
                         </div>
                         <div className='cat-text'>{cat}</div>
                     </div>

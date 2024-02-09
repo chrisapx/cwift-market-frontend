@@ -14,7 +14,7 @@ const Listing = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8080/items')
+    fetch('http://inventory.nalmart.com/items')
       .then((response) => response.json())
       .then((json) => {
         setItems(json);
