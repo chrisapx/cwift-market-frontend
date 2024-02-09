@@ -134,7 +134,7 @@ export function CartProvider({ children }) {
 
 //     // TODO: Make a POST request to create the order
 //     // Assume you have an appropriate API endpoint for creating orders
-//     fetch('http://inventory.nalmart.com/orders', {
+//     fetch('https://inventory.nalmart.com/orders', {
 //       method: 'POST',
 //       headers: {
 //         'Content-Type': 'application/json',
@@ -152,7 +152,7 @@ export function CartProvider({ children }) {
 //     // Check if the cart has been created
 //     if (!cartCreated) {
 //       // If the cart hasn't been created, make a POST request to create the cart
-//       fetch('http://inventory.nalmart.com/cart', {
+//       fetch('https://inventory.nalmart.com/cart', {
 //         method: 'POST',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -175,7 +175,7 @@ export function CartProvider({ children }) {
 //         });
 //     } else {
 //       // If the cart has been created, make a PUT request to update the cart
-//       fetch('http://inventory.nalmart.com/cart?cartID=' +cartCreated, {
+//       fetch('https://inventory.nalmart.com/cart?cartID=' +cartCreated, {
 //         method: 'PUT',
 //         headers: {
 //           'Content-Type': 'application/json',

@@ -97,7 +97,7 @@ const AddItem = () => {
 
     // useEffect(() => {
     const handleSubmit = () => {
-        fetch('http://inventory.nalmart.com/items/item', {
+        fetch('https://inventory.nalmart.com/items/item', {
             method: 'POST',
             body: JSON.stringify(item),
             

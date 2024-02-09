@@ -17,8 +17,8 @@ const MoreToLove = () => {
       };
 
     useEffect(() => {
-      // fetch('http://inventory.nalmart.com/items')
-      fetch('http://inventory.nalmart.com/items')
+      // fetch('https://inventory.nalmart.com/items')
+      fetch('https://inventory.nalmart.com/items')
         .then((response) => response.json())
         .then((json) => {
           setItems(json);
