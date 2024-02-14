@@ -23,7 +23,7 @@ const Details = () => {
         setAddCart(true);
         setTimeout(() => {
             setAddCart(false)
-        }, 4000)
+        }, 1000)
     }
 
     useEffect(() => {
@@ -131,14 +131,14 @@ const Details = () => {
                 <div className='images-container'>
                     {item.photos?.map((imge, index) => (
                     <div className='image-card' key={index}>
-                        <img src={imge.url} loading='lazy' alt={item.name} width={'90vw'}/>
+                        <img src={imge.url} loading='lazy' alt={item.name} width={'90%'} />
                     </div>
                     ))}
                 </div> :
                 <div className='images-container'>
                     {images.map((imge, index) => (
-                    <div className='image-card' style={{width: '90vw', }} key={index}>
-                        <img src={'/src/assets/cwift-logo.png'} loading='lazy' alt='' height={'90%'} />
+                    <div className='image-card' key={index}>
+                        <img src={'/src/assets/cwift-logo.png'} loading='lazy' alt='' height={'95%'} width={'95%'}/>
                     </div>
                     ))}
                 </div>
@@ -182,7 +182,7 @@ const Details = () => {
                         {alsoViewed?.map((item, index) => (
                         <div className="recom-card" key={index} onClick={() => setItem(item)}>
                             <div className="recom-image">
-                                {alsoViewed.coverPhoto ? <img src={item.coverPhoto.url} alt={item.name} height={'90%'}/> : 
+                                {item.coverPhoto ? <img src={item.coverPhoto.url} alt={item.name} height={'90%'}/> : 
                                                          <img src={'/src/assets/cwift-logo.png'} alt={item.name} height={'90%'}/>
                                 }
                             </div>

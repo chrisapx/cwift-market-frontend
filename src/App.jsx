@@ -4,6 +4,7 @@ import './App.css'
 import { Route, Routes } from 'react-router-dom'
 import AddItem from './seller-pages/add-item/AddItem'
 import { CartProvider } from './context/CartContext'
+import AdminHome from './seller-pages/home-page/AdminHome'
 
 const Home = lazy(() => import('./main-pages/home/Home'))
 const SearchPage = lazy(() => import('./main-pages/search/SearchPage'))
@@ -39,6 +40,7 @@ function App() {
               <Route path="/payment" element={<Payment />} />
               <Route path="/listings" element={<Listing />} />
               <Route path="/add-item" element={<AddItem />} />
+              <Route path='/admin-home' element={<AdminHome/>}/>
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="*" element={<NotFoundPage />} />      
