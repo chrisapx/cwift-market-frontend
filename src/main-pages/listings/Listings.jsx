@@ -14,6 +14,9 @@ const Listing = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+
+    document.title = "Nalmart - Explore Listings";
+
     fetch('https://inventory.nalmart.com/items')
       .then((response) => response.json())
       .then((json) => {
@@ -36,9 +39,9 @@ const Listing = () => {
 
   return (
     <div className="listings-container">
-      <title>Nalmart - Explore Listings</title>
+      {/* <title>Nalmart - Explore Listings</title> */}
 
-      <meta name="description" content="Browse through a diverse collection of products on the Nalmart listings page. Discover top-quality items in various categories such as electronics, fashion, home decor, and more. Find the perfect products from trusted sellers. Enjoy a seamless shopping experience with secure transactions and exclusive deals." />
+      <meta name="description" content="Browse through a diverse collection of products on the Nalmart listings . Discover top-quality items in various categories such as electronics, fashion, home decor, and more. Find the perfect products from trusted sellers. Enjoy a seamless shopping experience with secure transactions and exclusive deals." />
       <div className='header-section'>
         <Header showBack={true} showSearch={true}/>
       </div>

@@ -28,7 +28,7 @@ const Footer = () => {
                 <p className='footer-item' onClick={() => navigate('/')}>HELP CENTER</p>
                 <p className='footer-item' onClick={() => navigate('/')}>CHAT WITH US</p>
                 <p className='footer-item' onClick={() => navigate('/')}>REPORT A PRODUCT</p>
-                <p className='footer-item' onClick={() => navigate('/admin-home')}>SELL WITH CWIFT</p>
+                <a className='footer-item' href='https://www.nalmart.com/admin-home/'>SELL WITH CWIFT</a>
 
             </div>
 

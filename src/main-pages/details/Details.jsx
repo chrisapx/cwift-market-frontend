@@ -26,8 +26,13 @@ const Details = () => {
         }, 1000)
     }
 
+    document.title = item.name;
+    document.description = item.description;
+
     useEffect(() => {
 
+        
+        
         // Section for fetching item to show in details
         fetch('https://inventory.nalmart.com/items/' + itemID)
           .then((response) => response.json())
@@ -58,6 +63,7 @@ const Details = () => {
                 console.error(error);
             }) 
 
+            
     }, []);
     
     const images = [
@@ -114,7 +120,9 @@ const Details = () => {
     return(
         <div className='main-details-section'>
 
-            <title>{item.name}</title>
+            {/* <Helmet>
+                <title>{item.name}</title>
+            </Helmet> */}
             <div className='header-sec'>
                 <Header showBack={true} showSearch={true}/>
             </div>
