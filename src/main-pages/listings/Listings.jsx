@@ -36,9 +36,9 @@ const Listing = () => {
 
   return (
     <div className="listings-container">
-      <title>Cwift Marketplace - Explore Listings</title>
+      <title>Nalmart - Explore Listings</title>
 
-      <meta name="description" content="Browse through a diverse collection of products on the Cwift Marketplace listings page. Discover top-quality items in various categories such as electronics, fashion, home decor, and more. Find the perfect products from trusted sellers. Enjoy a seamless shopping experience with secure transactions and exclusive deals." />
+      <meta name="description" content="Browse through a diverse collection of products on the Nalmart listings page. Discover top-quality items in various categories such as electronics, fashion, home decor, and more. Find the perfect products from trusted sellers. Enjoy a seamless shopping experience with secure transactions and exclusive deals." />
       <div className='header-section'>
         <Header showBack={true} showSearch={true}/>
       </div>
@@ -48,8 +48,8 @@ const Listing = () => {
             {items.map((item, index) => (
             <div className="recom-card" key={index} >
                 <div className="recom-image" onClick={() => navigate('/details/' + item.itemID)}>
-                    {/* <img src={item.coverPhoto} alt={item.name} height={'100%'}/> */}
-                    <img src='src/assets/Laptop.png' height={'100%'}/>
+                    <img src={item.coverPhoto} alt={item.name} height={'100%'}/>
+                    {/* <img src={item.coverPhoto.url} height={'100%'}/> */}
                 </div>
                 <div className="recom-details">
                     <div style={{ fontSize: 12, fontWeight: '600', color: 'black', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}} onClick={() => navigate('/details/' +item.itemID)}>{item.name}</div>
