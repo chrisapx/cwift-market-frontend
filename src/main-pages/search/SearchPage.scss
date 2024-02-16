@@ -6,10 +6,11 @@
     .bar {
         display: flex;
         flex: 1;
-        width: 85vw;
+        // width: 85vw;
         color: black;
         border-radius: 30px;
         padding-inline: 5px;
+        padding-right: 15px;
         gap: 8px;
         align-items: center;
         padding-block: 10px;
@@ -28,23 +29,23 @@
         }
         input[type="search"] {
             width: 100%;
-            height: 40px;
-            color: #707070;
-            margin-right: 10px;
+            height: 30px;
+            color: #000000;
+            margin-right: 5px;
             border: none;
             outline: none;
-            background-color: rgb(241, 241, 241); /* Make the input background transparent */
-            font-size: 16px; /* Adjust font size as needed */
+            background-color: rgba(221, 221, 221, 0.74); /* Make the input background transparent */
+            font-size: 14px; /* Adjust font size as needed */
             border-radius: 30px;
             padding-inline: 10px;
         }
 
         input[type="search"]::-webkit-search-clear-button {
             -webkit-appearance: none;
-            appearance: none;
-            background-color: #707070;
+            // appearance: none;
+            // background-color: #000000;
             border-radius: 50%;
-            color: black;
+            // color: black;
             font-size: 14px;
             cursor: pointer;
         }
@@ -76,13 +77,23 @@
           color: black;
           gap: 10px;
           border: #535353;
-          padding: 10px;
+          margin-inline: 10px;
+          background-color: #000000ba;
+          padding-inline: 8px;
+          border-radius: 4px;
+          
           
     
           .suggestion-item {
-            color: black;
-            // font-size: x-small;
-            
+            color: rgb(255, 255, 255);
+            font-size: x-small;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            // border-bottom-style: solid;
+            border-bottom-width: 1px;
+            border-bottom-color: #ededed;  
+            margin-block: 10px;          
           }
       }
 }

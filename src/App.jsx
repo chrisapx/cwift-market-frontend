@@ -27,7 +27,7 @@ function App() {
       <CartProvider>
         <Suspense fallback={
             <div className="fallback-container">
-              <img src={'/src/assets/cwift-logo.png'} alt="Spinning Logo" className="spinning-logo" />
+              <img src={'https://firebasestorage.googleapis.com/v0/b/cwift-marketplace.appspot.com/o/item-images%2Fcwift-logo.png8e87a133-f46c-44b9-addc-d677e44efed5?alt=media&token=ef17292f-094b-4107-96b5-d0572146e20b'} alt="Spinning Logo" className="spinning-logo" />
             </div> } >
           <Routes>
               <Route path="/" element={<Home />} />

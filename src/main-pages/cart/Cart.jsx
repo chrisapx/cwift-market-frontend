@@ -11,7 +11,7 @@ const Cart = () => {
 
     const navigate = useNavigate();
     const [items, setItems] = useState([]);
-    const { cartItems,totalPrice, addToCart, removeFromCart } = useCart();
+    const { cartItems,totalPrice, getItemQuantity, addToCart, reduceCart, removeFromCart } = useCart();
 
     const handleCheckoutCart = () => {
         navigate('/checkout')
@@ -106,7 +106,7 @@ const Cart = () => {
     return(
         <div className='main-cart-section'>
             <div className='header-section' >
-                <Header showBack={true} showSearch={true}/>
+                <Header showBack={true} />
             </div>
 
             {addCart && 
@@ -133,30 +133,36 @@ const Cart = () => {
                 <div className='sec-2' style={{paddingBlock: 12, color: 'black', fontSize: 12}}>
                     <div className='item-sec'>
                         <div className='img-sec'>
-                            <img src={item.coverPhoto.url} height={'100%'} width={'100%'}/>
+                            <img src={item.coverPhoto?.url} height={'100%'} width={'100%'}/>
                         </div>
                         <div className='item-details'>
                             <div style={{fontSize: 12, fontWeight: '600'}}>{item.name}</div>
-                            <div style={{fontSize: 10}}>{item.description}</div>
-                            <div style={{fontSize: 14, fontWeight: '500'}}>UGX {(item.price).toLocaleString()} <span style={{textDecoration: 'line-through', color: 'grey', fontWeight: 'normal', fontSize: 10}}>UGX {(item.price + item.discount*item.price/100).toLocaleString()} </span></div>
+                            <div style={{fontSize: 10}}>{item?.description}</div>
+                            <div style={{fontSize: 14, fontWeight: '500'}}>UGX {(item.price).toLocaleString()} <span style={{textDecoration: 'line-through', color: 'grey', fontWeight: 'normal', fontSize: 10}}>UGX {(item.globalPrice).toLocaleString()} </span></div>
                         </div>
                     </div>
 
-                    {item.discount && <div className='discount'>-{item.discount}%</div>}
+                    {/* {item.discount && <div className='discount'>-{item.discount}%</div>} */}
                     <div className='btns'>
                         <div className='remove-btn'>
                             <MdDeleteOutline size={16} color={'orange'}/>
                             <span style={{color: 'orange', fontSize: 12, }} onClick={() => removeFromCart(item.itemID)}>Remove</span>
                         </div>
                         <div className='three-btns'>
-                            <div className='itm-btn'>-</div>
-                            <div className='count'>1</div>
-                            <div className='itm-btn'>+</div>
+                            <div className='itm-btn' onClick={() => reduceCart(item)}>-</div>
+                            <div className='count'>{() => getItemQuantity(item)}</div>
+                            <div className='itm-btn' onClick={() => addToCart(item)}>+</div>
                         </div>
                     </div>
                 </div>
                 ))
             }
+
+            {cartItems.length == 0 && 
+                <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', fontSize: 10, fontWeight: '600', color: 'rgba(0,0,0,0.6)'}}>
+                    <div>Cart is empty</div>
+                    <div style={{color: 'orange', }} onClick={() => navigate('/listings')}>Shop items to fill cart</div>
+                </div>}
             {/* Favourites header */}
             <div style={{paddingInline: 15, paddingBlock: 10, color: 'grey', fontSize: 10, fontWeight: '600'}}>FAVORITES</div>
 
@@ -188,7 +194,7 @@ const Cart = () => {
                         {items.map((item, index) => (
                         <div className="recom-card" key={index} style={{height: 170}}>
                             <div className="recom-image" onClick={() => navigate('/details/' +item.itemID)}>
-                                <img src={item.coverPhoto} alt={item.name} height={'100%'} />
+                                <img src={item?.coverPhoto} alt={item.name} height={'100%'} />
                             </div>
                             <div className="recom-details">
                                 <div style={{ fontSize: 12, fontWeight: '600', color: 'black', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}} onClick={() => navigate('/details/' +item.itemID)}>{item.name}</div>

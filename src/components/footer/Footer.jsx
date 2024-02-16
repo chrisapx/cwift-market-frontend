@@ -29,7 +29,6 @@ const Footer = () => {
                 <p className='footer-item' onClick={() => navigate('/')}>CHAT WITH US</p>
                 <p className='footer-item' onClick={() => navigate('/')}>REPORT A PRODUCT</p>
                 <p className='footer-item' onClick={() => {navigate('/admin-home/')}}>SELL WITH NALMART</p>
-
             </div>
 
             <div className="three">
