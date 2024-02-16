@@ -34,8 +34,8 @@ const Details = () => {
         
         
         // Section for fetching item to show in details
-        fetch('http://127.0.0.1:8080/items/' + itemID)
-        // fetch('https://inventory.nalmart.com/items/' + itemID)
+        // fetch('http://127.0.0.1:8080/items/' + itemID)
+        fetch('https://inventory.nalmart.com/items/' + itemID)
           .then((response) => response.json())
           .then((json) => {
             setItem(json);
@@ -54,15 +54,7 @@ const Details = () => {
             console.error(error);
           }) 
 
-          //   Section for fetching more to love
-        fetch('https://inventory.nalmart.com/items')
-            .then((response) => response.json())
-            .then((json) => {
-            setRecents(json);
-            })
-            .catch((error) => {
-                console.error(error);
-            }) 
+        //   After fetching the items, filter and set the lists accordingly
 
             
     }, []);
@@ -125,7 +117,7 @@ const Details = () => {
                 <title>{item.name}</title>
             </Helmet> */}
             <div className='header-sec'>
-                <Header showBack={true} showSearch={true}/>
+                <Header showBack={true}/>
             </div>
 
             {addCart && 

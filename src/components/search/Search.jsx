@@ -9,7 +9,7 @@ const Search = () => {
     const navigate = useNavigate();
 
     const handleFocus = () => {
-        navigate('search')
+        navigate('/search')
         // Navigate to the search page with focus on
     }
     return(
