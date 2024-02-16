@@ -32,6 +32,24 @@ export function CartProvider({ children }) {
     }
   };
 
+  const reduceCart = (item) => {
+    // Check if the item already exists in the cart
+    const existingItem = cartItems.find((cartItem) => cartItem.itemID === item.itemID);
+  
+      if (existingItem) {
+        // If the item exists, update its quantity
+        setCartItems((prevItems) =>
+          prevItems.map((cartItem) =>
+            cartItem.itemID === item.itemID && cartItem.quantity > 1 ? { ...cartItem, quantity: cartItem.quantity - 1 } : cartItem
+          )
+        );
+      } 
+      // else {
+        // If the item doesn't exist, add it as a new entry in the cart
+        // setCartItems((prevItems) => [...prevItems, { ...item, quantity: 1 }]);
+      // }
+    };
+
   // Function to remove an item from the cart
   const removeFromCart = (itemId) => {
     setCartItems((prevItems) => prevItems.filter((item) => item.itemID !== itemId));
@@ -57,9 +75,10 @@ export function CartProvider({ children }) {
     return cartItems.reduce((total, item) => total + item.quantity, 0);
   };
 
-  //This calculates the total number of items in the cart
-  const getItemQuantity = () => {
-    return cartItems.reduce((total, item) => total + item.quantity, 0);
+  //This finds the total quantity of an Item
+  const getItemQuantity = (cartItem) => {
+    const existingItem = cartItems.find((cartItem) => cartItem.itemID === item.itemID);
+    return existingItem.quantity;
   };
 
   // Update cart item quantity
@@ -72,6 +91,7 @@ export function CartProvider({ children }) {
   };
 
   
+
 
   // Memoize the total price calculation to avoid unnecessary recalculations
   const totalPrice = useMemo(calculateTotalPrice, [cartItems]);
@@ -86,6 +106,8 @@ export function CartProvider({ children }) {
       value={{
         cartItems,
         addToCart,
+        reduceCart,
+        getItemQuantity,
         removeFromCart,
         clearCart,
         updateCartItemQuantity,

@@ -34,7 +34,8 @@ const Details = () => {
         
         
         // Section for fetching item to show in details
-        fetch('https://inventory.nalmart.com/items/' + itemID)
+        fetch('http://127.0.0.1:8080/items/' + itemID)
+        // fetch('https://inventory.nalmart.com/items/' + itemID)
           .then((response) => response.json())
           .then((json) => {
             setItem(json);
@@ -161,7 +162,7 @@ const Details = () => {
                 </div>
                 <div style={{fontSize: 13, color: 'black'}}>{item.name} <span style={{color: 'green', marginLeft: 5}}>{item.original}<MdVerifiedUser size={12} /></span></div>
                 <div style={{fontSize: 12}}>Brand: <span style={{color: 'blue'}}>{item.brand}</span> | <span style={{color: 'blue'}}>similar products</span></div>
-                <div style={{color: 'black', fontWeight: '600'}}>UGX <span>{item.price?.toLocaleString()}</span> <span style={{textDecoration: 'line-through', color: 'grey', fontSize: 12, fontWeight: '500'}}> UGX {(item.price + item.price * item.discount / 100)?.toLocaleString()}</span></div>
+                <div style={{color: 'black', fontWeight: '600'}}>UGX <span>{item.price?.toLocaleString()}</span> <span style={{textDecoration: 'line-through', color: 'grey', fontSize: 12, fontWeight: '500'}}> UGX {(item.globalPrice)?.toLocaleString()}</span></div>
                 <StarRatings
                     rating={item.rating}
                     starRatedColor="orange"
