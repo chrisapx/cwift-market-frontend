@@ -55,27 +55,27 @@ const Header = ({ showBack, showSearch }) => {
             <div className='head'>
                 <div className="left">
                     {showBack && <div className='back-icon'>
-                        <FaAngleLeft size={20} color={'grey'} onClick={() => navigate(-1)}/>
+                        <FaAngleLeft size={22} color={'grey'} onClick={() => navigate(-1)}/>
                     </div>}
-                    <div className='logo' style={{fontWeight: '600', cursor: 'pointer', marginRight: 5}} onClick={() => navigate('/')}>
-                        <div style={{color: s_red, fontStyle: '-moz-initial', fontSize: 16}}>NALMART</div>
+                    <div className='logo' style={{fontWeight: '600', cursor: 'pointer', marginRight: 0}} onClick={() => navigate('/')}>
+                        <div style={{color: s_red, fontStyle: '-moz-initial', fontSize: 20}}>NALMART</div>
                     </div>
                 </div>
                 
-                <div style={{display: 'flex', flex: 1, justifyContent: 'center'}}>
+                <div style={{display: 'flex', width: '5vw', justifyContent: 'center'}}>
                     <Search/>
                 </div>
 
                 <div className="right">
-                    {showSearch && <div className='menu-item'  onClick={() => navigate('/search')}>
-                        <FaSearch size={20} color={'grey'}/>
-                    </div>}
+                    {/* {showSearch && <div className='menu-item'  onClick={() => navigate('/search')}>
+                        <FaSearch size={22} color={'black'}/>
+                    </div>} */}
                     <div className='menu-item' onClick={() => navigate('/account')}>
-                        <FaRegUser size={20} />
-                        <div style={{position: 'relative', bottom: 4, right: 3, color: 'red', backgroundColor: '', borderRadius: 30, padding: 2, fontWeight: '600', fontSize: 16}}>?</div>
+                        <FaRegUser size={22} />
+                        {/* <div style={{position: 'relative', bottom: 4, right: 3, color: 'red', backgroundColor: '', borderRadius: 30, padding: 2, fontWeight: '600', fontSize: 16}}>?</div> */}
                     </div>
                     <div className='menu-item' onClick={() => navigate('/cart')}>
-                        <FaCartShopping size={20} />
+                        <FaCartShopping size={22} />
                         <div style={{position: 'relative', bottom: 9, right: 12, color: 'white', backgroundColor: 'orange', borderRadius: 30, padding: 2, fontWeight: '700', fontSize: 8}}>{totalItems}</div>
                     </div>
                 </div>

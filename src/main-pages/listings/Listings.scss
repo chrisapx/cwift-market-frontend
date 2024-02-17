@@ -8,6 +8,36 @@
         background-color: #fff;
     }
 
+    .add-cart {
+      position: fixed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      border-radius: 3px;
+      top: 0;
+      z-index: 300;
+      padding: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      background-color: #02a315;
+      color: white;
+  }
+
+    .upper-categs {
+      display: flex;
+      gap: 15px;
+      color: black;
+      overflow-x: auto;
+      font-size: x-small;
+      font-weight: 600;
+      color: grey;
+      padding-inline-start: 5px;
+      margin-block: 10px;
+      // color: rgb(244, 244, 244);
+      // color: rgb(255, 244, 223);
+  }
+
 
 
     .recom-section {
@@ -75,44 +105,7 @@
             flex-wrap: wrap;
             overflow-x: scroll;
 
-            
-
-
-            // .recom-card {
-            //     display: flex;
-            //     flex-direction: column;
-            //     justify-content: space-between;
-            //     height: 220px;
-            //     margin-inline: 10px;
-            //     min-width: 43vw;
-            //     max-width: 150px;
-            //     cursor: pointer;
-
-            //     .recom-image {
-            //         display: flex;
-            //         align-items: center;
-            //         justify-content: center;
-            //         // width: 30vw;
-            //         height: 40%;
-            //     }
-
-            //     .recom-details {
-                    
-            //         .add-cart {
-            //             display: flex;
-            //             justify-content: center;
-            //             align-items: center;
-            //             width: 95%;
-            //             background-color: orange;
-            //             border-radius: 3px;
-            //             margin-block: 8px;
-            //             padding-block: 8px;
-            //             font-size: xx-small;
-            //             font-weight: 700;
-            //             color: #ffffff;
-            //         }
-            //     }
-            // }
         }
+
     }
 }

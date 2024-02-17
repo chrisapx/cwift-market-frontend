@@ -1,29 +1,26 @@
-import { FaBars, FaRegUser, FaSearch } from 'react-icons/fa';
+import { FaSearch } from 'react-icons/fa';
 import { FaAngleLeft } from "react-icons/fa6";
 import './SearchPage.scss'
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useListing } from '../../context/ListingContext';
 
 const SearchPage = () => {
 
     const navigate = useNavigate();
+    const { listing, addToSearchHistory, getSearchHistory  } = useListing();
 
     const [showHistory, setShowHistory] = useState(true);
     const [showSuggestion, setShowSuggestion] = useState(false);
     const [items, setItems] = useState([]);
     const [suggestions, setSuggestions] = useState([]);
-
+    const [searchHistory, setSearchHistory] = useState([]);
     const [searchInput, setSearchInput] = useState('');
 
     useEffect(() => {
-        fetch('https://inventory.nalmart.com/items')
-        // fetch('http://127.0.0.1:8080/items')
-            .then(res => res.json())
-            .then(result => {
-                setItems(result); 
-                // console.log(result);
-            })
-            .catch(error => console.log(error));
+        setShowHistory(true);
+        setItems(listing);
+        setSearchHistory(getSearchHistory())
     }, []);
 
     function suggestItems(items, userInput) {
@@ -50,72 +47,47 @@ const SearchPage = () => {
         return sug.slice(0, 10);
     }
 
-    // Example usage:
-    // const userInput = "app";
-    // const sugs = suggestItems(items, userInput);
-    // setSuggestions(sugs);
     console.log(suggestions);
-
-
-    const history = [
-        {name: 'laptops'},
-        {name: 'iphone'},
-        {name: 'Infinix'},
-        {name: 'JBL'},
-        {name: 'Hagger socket'},
-        {name: 'Switches'},
-        {name: 'Bulb'},
-        {name: 'cahger'},
-        {name: 'USB '},
-        {name: 'Hisense'},
-    ];
-
-    const handleFocus = () => {
-        setShowHistory(true);
-        setShowSuggestion(false);
-    };
 
     const handleInputChange = (e) => {
         setShowSuggestion(true);
         setShowHistory(false);
         const input = e.target.value;
+        setSearchInput(input);
         setSuggestions(suggestItems(items, input));
-
-        // const encodedNames = suggestions.map(name => encodeURIComponent(name));
-        //     fetch('http://127.0.0.1:8080/items/names?names=' + encodedNames.join('&names='))
-        //     .then(res => res.json())
-        //     .then(results => {
-        //         results.forEach(item => {
-        //             console.log('SearchResult:' + item);
-        //             // setCategories(prevCategories => [...prevCategories, category]);
-        //         });
-        //     })
-        //     .catch(error => console.log(error));
-    };
-    
-
         
+    };
+
+    const handleKeyDown = ( event ) => {
+        if(event.key === 'Enter'){
+            addToSearchHistory(searchInput);
+            navigate('/search-results/' + searchInput);
+        }
+    }
 
     return(
         <div className="main-search-page">
             <div className='bar'>
                 <FaAngleLeft size={22} color={'grey'} onClick={() => navigate(-1)}/>
-                <input type="search" placeholder="Search..." className='input-bar' color='black' onFocus={handleFocus} onChange={handleInputChange}/>
-                <FaSearch size={22} color={'grey'} onClick={() => navigate('/search-results')}/>
+                <input type="search" placeholder="Search..." onKeyDown={handleKeyDown} className='input-bar' color='black' autoFocus={true} onChange={handleInputChange}/>
+                <FaSearch  size={22} color={'grey'} onClick={() => navigate('/search-results/' + searchInput)}/>
             </div>
 
             {showHistory && <div style={{color: 'black', fontWeight: '500', fontSize: 12, paddingInline: 10}}>Discover more</div>}
 
             {showHistory && <div className='history'>
-                {history.map((item, index) => (
-                    <div className='history-item'>{item.name}</div>
-                ))}
+                {searchHistory.length > 0 ? searchHistory?.map((item, index) => (
+                    <div className='history-item' onClick={() => navigate('/search-results/' + item)}>
+                        {item}
+                    </div>
+                )): <div>No search history yet</div>}
             </div>}
 
             {showSuggestion && 
             <div className='suggestion'>
                 {suggestions.map((item, index) => (
-                    <div className='suggestion-item' onClick={() => setSearchInput(item)}><span style={{marginRight: 5}}><FaSearch color={'grey'} size={12}/></span>{item}</div>
+                    <div className='suggestion-item' onClick={() => navigate('/search-results/' + item)}>
+                        <span style={{marginRight: 5}}><FaSearch color={'grey'} size={12}/></span>{item}</div>
                 ))}
             </div>}
         </div>

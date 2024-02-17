@@ -4,6 +4,8 @@ import { IoMdSearch } from "react-icons/io";
 import { FaSearch } from 'react-icons/fa';
 import { TbFlagSearch } from 'react-icons/tb';
 import { HiSearch } from 'react-icons/hi';
+import { IoSearch } from 'react-icons/io5';
+import { LuSearch } from 'react-icons/lu';
 
 const Search = () => {
     const navigate = useNavigate();
@@ -15,8 +17,8 @@ const Search = () => {
     return(
         <div className="search-section">
             <div className='search-bar'>
-                <HiSearch size={18} color={'grey'} className="search-icon"/>
-                <input placeholder='Search...' className='input-bar' style={{fontSize: 10}} onFocus={handleFocus}/>
+                <LuSearch size={18} color={'grey'} className="search-icon"/>
+                <input placeholder='Search...' className='input-bar' style={{fontSize: 16}} onFocus={handleFocus}/>
             </div>
         </div>
     )
