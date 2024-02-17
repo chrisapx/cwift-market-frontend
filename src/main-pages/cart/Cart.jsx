@@ -38,62 +38,6 @@ const Cart = () => {
   
       }, []);
 
-    // const recom = [
-    //     {
-    //       id: 1,
-    //       name: 'iPhone 12, 2023 edition',
-    //       price: 764532,
-    //       description: 'These styles will create a flex container for your item cards, and each card will take up 48% of the width, leaving some space between them.',
-    //       delivery: true,
-    //       img: 'src/assets/iPhone12.png',
-    //     },
-    //     {
-    //       id: 2,
-    //       name: 'phones',
-    //       price: 984532,
-    //       description: 'These styles will create a flex container for your item cards, and each card will take up 48% of the width, leaving some space between them.',
-    //       delivery: true,
-    //       img: 'src/assets/Laptop.png',
-    //       discount: 23
-    //     },
-    //     {
-    //       id:  3,
-    //       name: 'phones',
-    //       price: 65532,
-    //       description: 'These styles will create a flex container for your item cards, and each card will take up 48% of the width, leaving some space between them.',
-    //       delivery: true,
-    //       discount: 65,
-    //       img: 'src/assets/Speaker.png',
-    //     },
-    //     {
-    //         name: 'iPhone 12, 2023 edition',
-    //         id: 4,
-    //         price: 764532,
-    //         description: 'These styles will create a flex container for your item cards, and each card will take up 48% of the width, leaving some space between them.',
-    //         delivery: true,
-    //         img: 'src/assets/iPhone12.png',
-    //       },
-    //       {
-    //         name: 'phones',
-    //         id: 5,
-    //         price: 984532,
-    //         description: 'These styles will create a flex container for your item cards, and each card will take up 48% of the width, leaving some space between them.',
-    //         delivery: true,
-    //         img: 'src/assets/Laptop.png',
-    //         discount: 23
-    //       },
-    //       {
-    //         name: 'phones',
-    //         id: 6,
-    //         price: 65532,
-    //         description: 'These styles will create a flex container for your item cards, and each card will take up 48% of the width, leaving some space between them.',
-    //         delivery: true,
-    //         discount: 65,
-    //         img: 'src/assets/Speaker.png',
-    //       },
-        
-    //   ];
-
     const [addCart, setAddCart] = useState(false);
 
     const handleAddToCart = ( item ) => {
@@ -161,7 +105,7 @@ const Cart = () => {
             {cartItems.length == 0 && 
                 <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', fontSize: 10, fontWeight: '600', color: 'rgba(0,0,0,0.6)'}}>
                     <div>Cart is empty</div>
-                    <div style={{color: 'orange', }} onClick={() => navigate('/listings')}>Shop items to fill cart</div>
+                    <div style={{color: 'orange', }} onClick={() => navigate('/listings/All')}>Shop items to fill cart</div>
                 </div>}
             {/* Favourites header */}
             <div style={{paddingInline: 15, paddingBlock: 10, color: 'grey', fontSize: 10, fontWeight: '600'}}>FAVORITES</div>

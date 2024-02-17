@@ -1,40 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoChevronForwardOutline } from "react-icons/io5";
 import { MdApproval, MdCommit } from "react-icons/md";
 import { PiLightningFill } from "react-icons/pi";
 import './SubHeader.scss'
 import { TbTruckDelivery } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
+import { upperCats } from "../../global/Helper";
+import { useListing } from "../../context/ListingContext";
 
 
 export default function SubHeader() {
 
+    const { listing } = useListing();
+    const [deals, setDeals] = useState();
     const [selected, setSelected] = useState('All');
     const navigate = useNavigate();
+
+    useEffect(() => {
+        setDeals(listing);
+        console.log(listing);
+    },[])
 
     const handleSelected = ( select ) => {
         if(select){
             setSelected('');
             setSelected(select);
         }
+        navigate('/listings/' + select)
     }
-
-    const upperCat = [ 
-        {id: 1, name: "All", image: 'src/assets/Apple-iPhone-12-PNG-Pic.png'}, 
-        {id: 2,name: "Jewelry", image: 'src/assets/Headphones-Transparent-PNG.png'},
-        {id: 3,name: "Kitchen", image: 'src/assets/Laptop.png'},
-        {id: 4,name: "Home", image: 'src/assets/iPhone12.png'},
-        {id: 5,name: "School", image: 'src/assets/USB-Pen-Drive-PNG-File.png'},
-        {id: 6,name: "Women", image: 'src/assets/computing.jpeg'},
-        {id: 7,name: "Men", image: 'src/assets/download.jpeg'},
-        {id: 8,name: "Kids", image: 'src/assets/elctronics.jpeg'},
-    ]
+    
     return(
         <div className="sub-header-frame">
             {/* Horizontal scroll categories */}
             <div className='upper-cat'>
-                {upperCat.map((cat, index) => (
-                    <div style={{paddingBlock: 0, borderBottomStyle: selected === cat.name &&  'solid', fontWeight: selected === cat.name ? 'bold' : '400' , color: selected === cat.name ? 'black' : 'rgba(0, 0, 0, 0.8)'}} onClick={() => handleSelected(cat.name)}>{cat.name}</div>
+                {upperCats.map((cat, index) => (
+                    <div key={index} style={{paddingBlock: 0, borderBottomStyle: selected === cat.name &&  'solid', fontWeight: selected === cat.name ? 'bold' : '400' , color: selected === cat.name ? 'black' : 'rgba(0, 0, 0, 0.8)'}} onClick={() => handleSelected(cat.name)}>{cat.name}</div>
                     ))}
             </div>
 
@@ -63,16 +63,16 @@ export default function SubHeader() {
 
             <div style={{display: 'flex', gap: 8, overflow: 'auto'}}>
                 {/* Item  listing section */}
-                {upperCat.map((item, index) => (
-                    <div style={{width: 100, height: 'fit-content', color: 'black', }} onClick={() => navigate('/details/' + item.id )}>
+                {deals?.map((item, index) => (
+                    <div key={index} style={{width: 100, height: 'fit-content', color: 'black', }} onClick={() => navigate('/details/' + item.itemID )}>
                         {/* Image section */}
                         <div style={{height: 100, width: 100, boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.1)', borderRadius: 5}}>
                             {/* <img src={item.image} height={'100%'} width={'100%'} style={{borderRadius: 5}}/> */}
                         </div>
                         {/* details section */}
                         <div style={{display: 'flex', justifyContent: 'space-between', paddingBlock: 6}}>
-                            <div style={{fontSize: 12, whiteSpace: 'nowrap', color: 'orange', fontWeight: '700'}}><span style={{fontSize: 8}}>UGX</span> 87K</div>
-                            <div style={{fontSize: 12, whiteSpace: 'nowrap', }}>50k+ <span style={{fontSize: 8}}>Sold</span></div>
+                            <div style={{fontSize: 12, whiteSpace: 'nowrap', color: 'orange', fontWeight: '700'}}><span style={{fontSize: 8}}>UGX</span> {(item.price/1000).toFixed(0)}K</div>
+                            <div style={{fontSize: 12, whiteSpace: 'nowrap', }}>{(item?.itemCount/1000).toFixed(0)}k+ <span style={{fontSize: 8}}>Sold</span></div>
                         </div>
 
                         <div style={{position: 'relative', bottom: 46, fontWeight: '700',width: 'fit-content',padding: 2, paddingInline: 6, fontSize: 8, left: 0, backgroundColor: '#c83f49', boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.1)', color: 'white', borderBottomRightRadius: 15, borderTopLeftRadius: 15}}>12% OFF</div>

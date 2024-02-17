@@ -1,10 +1,11 @@
-import { Suspense, lazy, useState } from 'react'
+import { Suspense, lazy, useEffect, useState } from 'react'
 // import '../src/components/search/Search.scss'
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
 import AddItem from './seller-pages/add-item/AddItem'
 import { CartProvider } from './context/CartContext'
 import AdminHome from './seller-pages/home-page/AdminHome'
+import { ListingProvider } from './context/ListingContext'
 
 const Home = lazy(() => import('./main-pages/home/Home'))
 const SearchPage = lazy(() => import('./main-pages/search/SearchPage'))
@@ -24,29 +25,31 @@ function App() {
 
   return (
     <div className='app-container'>
-      <CartProvider>
-        <Suspense fallback={
-            <div className="fallback-container">
-              <img src={'https://firebasestorage.googleapis.com/v0/b/cwift-marketplace.appspot.com/o/item-images%2Fcwift-logo.png8e87a133-f46c-44b9-addc-d677e44efed5?alt=media&token=ef17292f-094b-4107-96b5-d0572146e20b'} alt="Spinning Logo" className="spinning-logo" />
-            </div> } >
-          <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/search" element={<SearchPage />} />
-              <Route path="/search-results" element={<SearchResults />} />
-              <Route path="/details/:itemID" element={<Details />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/account" element={<Account />} />
-              <Route path="/checkout" element={<Checkout />} />
-              <Route path="/payment" element={<Payment />} />
-              <Route path="/listings" element={<Listing />} />
-              <Route path="/add-item" element={<AddItem />} />
-              <Route path='/admin-home' element={<AdminHome/>}/>
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route path="*" element={<NotFoundPage />} />      
-          </Routes>
-        </Suspense>
-      </CartProvider>
+      <ListingProvider>
+        <CartProvider>
+          <Suspense fallback={
+              <div className="fallback-container">
+                <img src={'https://firebasestorage.googleapis.com/v0/b/cwift-marketplace.appspot.com/o/item-images%2Fcwift-logo.png8e87a133-f46c-44b9-addc-d677e44efed5?alt=media&token=ef17292f-094b-4107-96b5-d0572146e20b'} alt="Spinning Logo" className="spinning-logo" />
+              </div> } >
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/search" element={<SearchPage />} />
+                <Route path="/search-results/:input" element={<SearchResults />} />
+                <Route path="/details/:itemID" element={<Details />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/account" element={<Account />} />
+                <Route path="/checkout" element={<Checkout />} />
+                <Route path="/payment" element={<Payment />} />
+                <Route path="/listings/:category" element={<Listing />} />
+                <Route path="/add-item" element={<AddItem />} />
+                <Route path='/admin-home' element={<AdminHome/>}/>
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="*" element={<NotFoundPage />} />      
+            </Routes>
+          </Suspense>
+        </CartProvider>
+      </ListingProvider>
     </div>
   )
 }
