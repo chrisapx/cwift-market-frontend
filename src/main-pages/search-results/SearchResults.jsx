@@ -108,7 +108,8 @@ const SearchResults = () => {
             </div>
 
             <div style={{paddingInline: 5, paddingBlock: 10, fontSize: 14, fontWeight: '500'}}>Search results</div>
-            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: 14, color: 'grey', paddingBlock: 30}}>No results found</div>
+            
+            {items.length == 0 && <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: 14, color: 'grey', paddingBlock: 30}}>No results found</div>}
 
             <div className='recom-section'>
                 <div style={{}} className="more-list">
