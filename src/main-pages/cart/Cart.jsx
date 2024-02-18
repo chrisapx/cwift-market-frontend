@@ -6,16 +6,28 @@ import Footer from '../../components/footer/Footer';
 import { useEffect, useState } from 'react';
 import { TiTick } from 'react-icons/ti';
 import { useCart } from '../../context/CartContext';
+import { HiHeart } from 'react-icons/hi';
+import { FaHeartCircleCheck, FaHeartCirclePlus } from 'react-icons/fa6';
 
 const Cart = () => {
 
     const navigate = useNavigate();
     const [items, setItems] = useState([]);
-    const { cartItems,totalPrice, getItemQuantity, addToCart, reduceCart, removeFromCart } = useCart();
+    const { 
+        cart,
+        favorites, 
+        totalPrice, 
+        getItemQuantity, 
+        addToCart, 
+        reduceCart, 
+        removeFromCart,
+        addToFavorites,
+        removeFromFavorites
+     } = useCart();
 
     const handleCheckoutCart = () => {
-        navigate('/checkout')
         // go to the checkout page
+        navigate('/checkout')
     }
 
     const truncateText = (text, maxLength) => {
@@ -45,7 +57,7 @@ const Cart = () => {
         setAddCart(true);
         setTimeout(() => {
             setAddCart(false)
-        }, 4000)
+        }, 1000)
     }
     return(
         <div className='main-cart-section'>
@@ -73,49 +85,54 @@ const Cart = () => {
 
             {/* Cart items */}
                 
-            {cartItems?.map((item, index) => (
-                <div className='sec-2' style={{paddingBlock: 12, color: 'black', fontSize: 12}}>
+            {cart?.map((order, index) => { 
+                const quantity = getItemQuantity(order?.item); 
+                return (
+                <div key={index} className='sec-2' style={{paddingBlock: 12, color: 'black', fontSize: 12}}>
                     <div className='item-sec'>
-                        <div className='img-sec'>
-                            <img src={item.coverPhoto?.url} height={'100%'} width={'100%'}/>
+                        <div style={{display: 'flex', }}>
+                            <div className='img-sec'>
+                                <img src={order.item.coverPhoto?.url} height={'100%'} width={'100%'}/>
+                            </div>
+                            <div className='item-details'>
+                                <div style={{fontSize: 12, fontWeight: '600'}}>{order?.item.name.slice(0, 50)}</div>
+                                <div style={{fontSize: 10}}>{order?.item?.description.slice(0, 50)}</div>
+                                <div style={{fontSize: 14, fontWeight: '500'}}>UGX {(order?.item?.price).toLocaleString()} <span style={{textDecoration: 'line-through', color: 'grey', fontWeight: 'normal', fontSize: 10}}>UGX {(order.item.globalPrice).toLocaleString()} </span></div>
+                            </div>
                         </div>
-                        <div className='item-details'>
-                            <div style={{fontSize: 12, fontWeight: '600'}}>{item.name}</div>
-                            <div style={{fontSize: 10}}>{item?.description}</div>
-                            <div style={{fontSize: 14, fontWeight: '500'}}>UGX {(item.price).toLocaleString()} <span style={{textDecoration: 'line-through', color: 'grey', fontWeight: 'normal', fontSize: 10}}>UGX {(item.globalPrice).toLocaleString()} </span></div>
-                        </div>
+                        <div onClick={() => addToFavorites(order.item)}><FaHeartCirclePlus size={22} color={'orange'}/></div>
                     </div>
 
                     {/* {item.discount && <div className='discount'>-{item.discount}%</div>} */}
                     <div className='btns'>
                         <div className='remove-btn'>
                             <MdDeleteOutline size={16} color={'orange'}/>
-                            <span style={{color: 'orange', fontSize: 12, }} onClick={() => removeFromCart(item.itemID)}>Remove</span>
+                            <span style={{color: 'orange', fontSize: 12, }} onClick={() => removeFromCart(order.item.itemID)}>Remove</span>
                         </div>
                         <div className='three-btns'>
-                            <div className='itm-btn' onClick={() => reduceCart(item)}>-</div>
-                            <div className='count'>{() => getItemQuantity(item)}</div>
-                            <div className='itm-btn' onClick={() => addToCart(item)}>+</div>
+                            <div className='itm-btn' style={{backgroundColor: quantity <= 1 && 'grey'}} onClick={() => reduceCart(order?.item)}>-</div>
+                            <div className='count'>{quantity}</div>
+                            <div className='itm-btn' onClick={() => addToCart(order?.item)}>+</div>
                         </div>
                     </div>
                 </div>
-                ))
+                )})
             }
 
-            {cartItems.length == 0 && 
+            {cart.length == 0 && 
                 <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', fontSize: 10, fontWeight: '600', color: 'rgba(0,0,0,0.6)'}}>
                     <div>Cart is empty</div>
                     <div style={{color: 'orange', }} onClick={() => navigate('/listings/All')}>Shop items to fill cart</div>
                 </div>}
-            {/* Favourites header */}
-            <div style={{paddingInline: 15, paddingBlock: 10, color: 'grey', fontSize: 10, fontWeight: '600'}}>FAVORITES</div>
+            {/* Mock Favourites header */}
+            <div style={{paddingInline: 15, paddingBlock: 0, color: 'grey', fontSize: 10, fontWeight: '600'}}></div>
 
             {/* Favorites */}
             <div className='sec-1' style={{paddingBottom: 20, color: 'black', fontSize: 12}}>
                 <div style={{paddingBlock: 10, color: 'black', fontSize: 12, fontWeight: '600'}}>Favorites</div>
                 <div className='recom-section'>
                     <div className="recom-list">
-                        {items.map((item, index) => (
+                        {favorites?.map((item, index) => (
                         <div className="recom-card" key={index} >
                             <div className="recom-image" onClick={() => navigate('/details/' + item.itemID)}>
                                 {/* <img src={item.coverPhoto} alt={item.name} height={'100%'}/> */}

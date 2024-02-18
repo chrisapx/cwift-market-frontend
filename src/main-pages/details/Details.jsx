@@ -7,6 +7,7 @@ import './Details.scss'
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useCart } from '../../context/CartContext';
+import { useListing } from '../../context/ListingContext';
 
 const Details = () => {
 
@@ -16,6 +17,7 @@ const Details = () => {
     const [alsoViewed, setAlsoViewed] = useState([]);
     const [recents, setRecents] = useState([]);
     const { itemID } = useParams();
+    const { listing } = useListing();
     const { cartItems, addToCart, removeFromCart } = useCart();
 
     const handleAddToCart = ( item ) => {
@@ -26,38 +28,40 @@ const Details = () => {
         }, 1000)
     }
 
-    document.title = item.name;
-    document.description = item.description;
-
+    
     useEffect(() => {
-
         
         
         // Section for fetching item to show in details
-        // fetch('http://127.0.0.1:8080/items/' + itemID)
+        fetch('http://127.0.0.1:8080/items/' + itemID)
         fetch('https://inventory.nalmart.com/items/' + itemID)
-          .then((response) => response.json())
-          .then((json) => {
+        .then((response) => response.json())
+        .then((json) => {
             setItem(json);
-          })
-          .catch((error) => {
+        })
+        .catch((error) => {
             console.error(error);
-          })
-
+        })
+        
         //   Section for fetching more to love
         fetch('https://inventory.nalmart.com/items')
-          .then((response) => response.json())
-          .then((json) => {
+        .then((response) => response.json())
+        .then((json) => {
             setAlsoViewed(json);
-          })
-          .catch((error) => {
+        })
+        .catch((error) => {
             console.error(error);
-          }) 
-
+        }) 
+        
         //   After fetching the items, filter and set the lists accordingly
-
-            
+        
+        
     }, []);
+    
+    useEffect(() => {
+        document.title = item.name;
+        document.description = item.description;
+    }, [])
     
     const images = [
         {img: 'src/assets/iPhone12.png'},
