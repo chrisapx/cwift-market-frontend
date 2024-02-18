@@ -1,89 +1,96 @@
 import React, { createContext, useState, useContext, useMemo } from 'react';
 
-// Create a cart context
 const CartContext = createContext();
 
-// Custom hook to access the cart context
 export function useCart() {
   return useContext(CartContext);
 }
 
-// // Cart context provider component
 export function CartProvider({ children }) {
   
-  const [ cartItems, setCartItems] = useState([]);
-  const [ itemOrder, setItemOrder] = useState({});
+  const [ cart, setCart] = useState([]);
+  const [ favorites, setFavourites] = useState([]);
 
-// Function to add an item to the cart
-  const addToCart = (item) => {
-  // Check if the item already exists in the cart
-  const existingItem = cartItems.find((cartItem) => cartItem.itemID === item.itemID);
 
-    if (existingItem) {
-      // If the item exists, update its quantity
-      setCartItems((prevItems) =>
-        prevItems.map((cartItem) =>
-          cartItem.itemID === item.itemID ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
-        )
-      );
-    } else {
-      // If the item doesn't exist, add it as a new entry in the cart
-      setCartItems((prevItems) => [...prevItems, { ...item, quantity: 1 }]);
-    }
+  const addToCart = ( item ) => {
+
+    const existingOrder = cart.find((cartItem) => cartItem.item.itemID === item.itemID);
+
+    const newOrder = {
+      item: item,
+      quantity: 1,
+      userID: 'usR-12988229382',
+      totalPrice: item.price,
+      paid: false,
+      deliveryAddress: {},
+      // specialInstructions: "",
+    };
+
+    if (existingOrder) {
+      // Update qty if exixts
+          setCart((prevItems) =>
+            prevItems.map((cartItem) =>
+              cartItem.item.id === existingOrder.item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
+            )
+          );
+        } else {
+          setCart([...cart, newOrder]);
+        }    
+  };
+
+  const addToFavorites = ( item ) => {
+    const existingItem = favorites.find((favItem) => favItem.itemID === item.itemID);
+    if (!existingItem) {
+      setFavourites([...favorites, item]);
+    };
+  }
+
+  const removeFromFavorites = (itemId) => {
+    setFavourites((prevItems) => prevItems.filter((favItem) => favItem.itemID !== itemId));
   };
 
   const reduceCart = (item) => {
     // Check if the item already exists in the cart
-    const existingItem = cartItems.find((cartItem) => cartItem.itemID === item.itemID);
+    const existingItem = cart.find((order) => order.item.itemID === item.itemID);
   
       if (existingItem) {
-        // If the item exists, update its quantity
-        setCartItems((prevItems) =>
+        setCart((prevItems) =>
           prevItems.map((cartItem) =>
-            cartItem.itemID === item.itemID && cartItem.quantity > 1 ? { ...cartItem, quantity: cartItem.quantity - 1 } : cartItem
+            cartItem.item.itemID === item.itemID && cartItem.quantity > 1 ? { ...cartItem, quantity: cartItem.quantity - 1 } : cartItem
           )
         );
       } 
-      // else {
-        // If the item doesn't exist, add it as a new entry in the cart
-        // setCartItems((prevItems) => [...prevItems, { ...item, quantity: 1 }]);
-      // }
-    };
+  };
 
   // Function to remove an item from the cart
   const removeFromCart = (itemId) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.itemID !== itemId));
+    setCart((prevItems) => prevItems.filter((cartItem) => cartItem.item.itemID !== itemId));
   };
 
   // Function to clear the cart
   const clearCart = () => {
-    setCartItems([]);
+    setCart([]);
   };
 
   // Function to calculate the total price of all items in the cart
   const calculateTotalPrice = () => {
-    return cartItems.reduce((total, item) => total + ( item.price * item.quantity ), 0);
-  };
-
-  // Function to calculate the total discount amount of all items in the cart
-  const calculateTotalDiscount = () => {
-    return cartItems.reduce((total, item) => total + ( item.discount * item.price ), 0);
+    return cart.reduce((total, item) => total + ( item.totalPrice ), 0);
   };
 
   //This calculates the total number of items in the cart
   const calculateTotalItems = () => {
-    return cartItems.reduce((total, item) => total + item.quantity, 0);
+    return cart.reduce((total, item) => total + item.quantity, 0);
   };
 
   //This finds the total quantity of an Item
-  const getItemQuantity = (cartItem) => {
-    const existingItem = cartItems.find((cartItem) => cartItem.itemID === item.itemID);
+  const getItemQuantity = (item) => {
+    const existingItem = cart.find((cartItem) => cartItem.item.itemID === item.itemID);
     return existingItem.quantity;
   };
 
   // Update cart item quantity
   const updateCartItemQuantity = (itemId, quantity) => {
-    setCartItems((prevItems) =>
+    setCart((prevItems) =>
       prevItems.map((item) =>
         item.id === itemId ? { ...item, quantity } : item
       )
@@ -94,26 +101,28 @@ export function CartProvider({ children }) {
 
 
   // Memoize the total price calculation to avoid unnecessary recalculations
-  const totalPrice = useMemo(calculateTotalPrice, [cartItems]);
+  const totalPrice = useMemo(calculateTotalPrice, [cart]);
   // total number fof item in the cart
-  const totalItems = useMemo(calculateTotalItems, [cartItems]);
+  const totalItems = useMemo(calculateTotalItems, [cart]);
   //Total discount
-  const totalDiscount = useMemo(calculateTotalDiscount, [cartItems]);
+  // const totalDiscount = useMemo(calculateTotalDiscount, [cart]);
 
 
   return (
     <CartContext.Provider
       value={{
-        cartItems,
+        cart,
+        favorites,
         addToCart,
         reduceCart,
         getItemQuantity,
         removeFromCart,
         clearCart,
         updateCartItemQuantity,
+        addToFavorites,
+        removeFromFavorites,
         totalPrice,
         totalItems,
-        totalDiscount,
       }}
     >
       {children}

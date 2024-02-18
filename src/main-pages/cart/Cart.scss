@@ -23,8 +23,8 @@
         border-radius: 3px;
         top: 0;
         z-index: 300;
-        padding: 12px;
-        font-size: 20px;
+        padding: 10px;
+        font-size: 12px;
         font-weight: 600;
         background-color: #02a315;
         color: white;
@@ -32,7 +32,7 @@
 
     .sec-1 {
         padding-inline: 8px;
-        margin-inline: 8px;
+        // margin-inline: 8px;
         background-color: #fff;
 
         .recom-section {
@@ -84,7 +84,7 @@
 
     .sec-2 {
         padding-inline: 8px;
-        margin-inline: 8px;
+        // margin-inline: 8px;
         // height: 4000px;
         background-color: #fff;
         margin-block: 10px;
@@ -92,6 +92,8 @@
 
         .item-sec {
             display: flex;
+            justify-content: space-between;
+            gap: 20px;
 
             .img-sec {
                 display: flex;

@@ -1,6 +1,6 @@
 // Checkout.jsx
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Checkout.scss'; // Import the SCSS file
 import Header from '../../components/header/Header';
@@ -15,7 +15,48 @@ import { useCart } from '../../context/CartContext';
 const Checkout = () => {
 
   const navigate = useNavigate();
-  const { cartItems,totalItems, totalPrice, addToCart, removeFromCart } = useCart();
+  const { cart, cartItems,totalItems, totalPrice, } = useCart();
+  const [ confirm, setConfirm] = useState(false);
+  const [ accept, setAccept] = useState(false);
+  const [ pStatus, setPstatus] = useState('success');
+
+  const handleConfirmOrder = async () => {
+
+  // try {
+  //   const cartData = {
+  //     itemOrders: cart,
+  //     totalPrice: totalPrice, // assuming you have a function to calculate the total price
+  //     deliveryAddress: {}, // placeholder, replace with actual delivery address data
+  //     paid: true, // placeholder, replace with actual paid status
+  //     userID: 'usR-12988229382', // placeholder, replace with actual user ID
+  //   };
+  //   const createdCart = await createCart(cartData);
+  //   console.log('Created cart:', createdCart);
+  // } catch (error) {
+  //   console.error('Error creating cart:', error);
+  // }    
+    setConfirm(true);
+  }
+
+  const createCart = async (cartData) => {
+    try {
+      const response = await fetch('http://127.0.0.1:8080/carts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(cartData),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to create cart: ' + response.json() );
+      }
+      const responseData = await response.json();
+      return responseData;
+    } catch (error) {
+      console.error('Error creating cart:', error.message);
+      throw error;
+    }
+  };
 
   return (
     <div className="checkout-container">
@@ -100,11 +141,30 @@ const Checkout = () => {
 
       {/* <div className='sec-4' style={{padding: 8, marginBlock: 15, marginBottom: 15}}></div> */}
         
-      <div className='cfm-order' onClick={() => navigate('/payment')}>CONFIRM ORDER</div>
+      <div className='cfm-order' onClick={handleConfirmOrder}>CONFIRM ORDER</div>
 
       <div style={{marginTop: 80}}>
         <Footer/>
       </div>
+
+      {confirm && 
+      <div className='confirm-overlay' style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+        <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: 280, width: 300, padding: 10, borderRadius: 10, backgroundColor: 'white', }}>
+          <div>
+            <div style={{display: 'flex', justifyContent: 'center', fontSize: 16, color: 'grey', fontWeight: '500'}}>Order placement Confirmation:</div>
+            <div style={{display: 'flex', justifyContent: 'center', fontSize: 16, color: 'rgba(0, 10, 60, 0.9)', paddingBlock: 16, fontWeight: '500'}}> mcaplelxya@gmail.com </div>
+            <div style={{display: 'flex', justifyContent: 'center', fontSize: 16, color: 'rgba(0, 10, 60, 0.9)', paddingBottom: 16, fontWeight: '500'}}> Payment mode: COD </div>
+
+            <div style={{display: 'flex', justifyContent: 'center', fontSize: 14, alignItems: 'center', textAlign: 'center',  color: 'grey', fontWeight: '500'}}>An email address containing order details will be sent to this number after the order is successfuly placed, Please confirm it is the correct one</div>
+            <div style={{display: 'flex', fontSize: 12, alignItems: 'center', textAlign: 'center',  color: 'grey', fontWeight: '400'}}>COD: Cash On Delivery</div>
+
+          </div>
+          <div style={{display: 'flex', justifyContent: 'space-around', borderTopStyle: 'solid', borderTopColor: 'rgba(0, 0, 0, 0.2)', borderWidth: 2, paddingBlock: 9}}>
+            <div style={{display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center'}} onClick={() => setConfirm(false)}>No, edit</div>
+            <div style={{display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center', fontWeight: '500', color: 'rgba(0, 10, 60, 0.6)', borderLeftStyle: 'solid', borderLeftColor: 'rgba(0, 0, 0, 0.2)', paddingLeft: 8}} onClick={() => navigate('/payment/' + pStatus)}>Okay, proceed</div>
+          </div>
+        </div>
+      </div>}
     </div>
   );
 }
