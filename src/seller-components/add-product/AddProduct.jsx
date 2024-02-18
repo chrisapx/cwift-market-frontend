@@ -65,11 +65,160 @@ export default function AddProduct() {
         }).catch(error => { 
             console.error('Error fetching categories:', error); 
         });
-            console.log(coverPhoto)
-            console.log(photoImages)
-            console.log(item.coverPhoto)
-            // console.log(categories);
+            
     },[])
+
+
+    const handleCoverPhotoUpload = async () => {
+        try {
+            const compressedCover = await new Promise((resolve, reject) => {
+                new Compressor(coverPhoto, {
+                    quality: 0.6,
+                    success: (compressedResult) => {
+                        resolve(compressedResult);
+                    },
+                    error: (error) => {
+                        reject(error);
+                    },
+                });
+            });
+
+            const imageRef = ref(storage, `item-images/${compressedCover.name + v4()}`);
+            const snapshot = await uploadBytes(imageRef, compressedCover);
+            const uri = await getDownloadURL(snapshot.ref);
+            return uri;
+        } catch (error) {
+            throw new Error('Error uploading cover photo');
+        }
+    };
+
+    const handlePhotoUpload = async (photo) => {
+        try {
+            const compressedPhoto = await new Promise((resolve, reject) => {
+                new Compressor(photo, {
+                    quality: 0.6,
+                    success: (compressedResult) => {
+                        resolve(compressedResult);
+                    },
+                    error: (error) => {
+                        reject(error);
+                    },
+                });
+            });
+
+            const imageRef = ref(storage, `item-images/${compressedPhoto.name + v4()}`);
+            const snapshot = await uploadBytes(imageRef, compressedPhoto);
+            const uri = await getDownloadURL(snapshot.ref);
+            return uri;
+        } catch (error) {
+            throw new Error('Error uploading photo');
+        }
+    };
+
+    const handleAdUpload = async (ad) => {
+        try {
+            const compressedAd = await new Promise((resolve, reject) => {
+                new Compressor(ad, {
+                    quality: 0.6,
+                    success: (compressedResult) => {
+                        resolve(compressedResult);
+                    },
+                    error: (error) => {
+                        reject(error);
+                    },
+                });
+            });
+
+            const imageRef = ref(storage, `item-images/${compressedAd.name + v4()}`);
+            const snapshot = await uploadBytes(imageRef, compressedAd);
+            const uri = await getDownloadURL(snapshot.ref);
+            return uri;
+        } catch (error) {
+            throw new Error('Error uploading ad');
+        }
+    };
+
+    
+    const handleFormSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            console.log(item.name + '\n' + item.category + item.globalPrice + item.price + item.qty + item.stockCount + item.store + item.type + item.serialNumber + item.brand + item.description + item.whatIsIn + coverPhoto + photoImages.length )
+            // Check if required fields are empty
+            if (!item.name || !item.category || !item.globalPrice || !item.price || !item.qty || !item.stockCount || !item.store || !item.type || !item.serialNumber || !item.brand || !coverPhoto || photoImages.length === 0 ) {
+                throw new Error('Please fill in all required fields and upload all necessary images.');
+            }
+    
+            // Upload cover photo...
+            const coverPhotoUrl = await handleCoverPhotoUpload();
+    
+            // Upload photos asynchronously...
+            const photoUrlsPromises = photoImages?.map(async (photo) => {
+                try {
+                    const url = await handlePhotoUpload(photo);
+                    return { url };
+                } catch (error) {
+                    console.error('Error uploading photo:', error);
+                    // Handle error as needed
+                    return null; // or some placeholder value indicating failure
+                }
+            });
+
+            const photoUrls = await Promise.all(photoUrlsPromises);
+
+            // Upload ads asynchronously...
+            const adUrlsPromises = ads?.map(async (ad) => {
+                try {
+                    const url = await handleAdUpload(ad);
+                    return { url };
+                } catch (error) {
+                    console.error('Error uploading ad:', error);
+                    // Handle error as needed
+                    return null; // or some placeholder value indicating failure
+                }
+            });
+
+            const adUrls = await Promise.all(adUrlsPromises);
+
+            // Submit form data...
+            const itemData = {
+                name: item.name, 
+                qty: item.qty,
+                description: item.description,
+                globalPrice: item.globalPrice,
+                price: item.price,
+                freeDelivery: item.freeDelivery,
+                stockCount: item.stockCount,
+                brand: item.brand,
+                store: item.store,
+                type: item.type,
+                serialNumber: item.serialNumber,
+                vendorID: item.vendorID,
+                category: item.category,
+                whatIsIn: item.whatIsIn,
+                coverPhoto: { url: coverPhotoUrl },
+                details: [],
+                photos: photoUrls,
+                ads: adUrls,
+            };
+
+            const response = await fetch('https://inventory.nalmart.com/items/item', {
+            // const response = await fetch('http://127.0.0.1:8080/items/item', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(itemData)
+            });
+            const data = await response.json();
+            console.log('Product added successfully:', data);
+            resetForm();
+    
+        } catch (error) {
+            console.error('Error adding product:', error);
+            alert(error.message);
+        }
+    };
+    
 
     const resetForm = () => {
         setDescription('');
@@ -80,129 +229,8 @@ export default function AddProduct() {
         setCompressedPhoto(null);
         setCompressedCover(null);
         setCompressedAd(null);
-        setItem({
-            name: '', 
-            qty: '',
-            description: '',
-            globalPrice: 0,
-            price: 0.0,
-            freeDelivery: false,
-            stockCount: 0,
-            brand: '',
-            store: '',
-            type: '',
-            serialNumber: '',
-            vendorID: 6788978,
-            category: '',
-            whatIsIn: '',
-            coverPhoto: {},
-            details: [],
-            photos: [],
-            ads: [],
-        });
+        setItem({});
         setErrors([]);
-    };
-    
-    const handleFormSubmit = async (e) => {
-        e.preventDefault();
-        try {
-
-            // Save the cover photo
-            if (coverPhoto !== null){
-                new Compressor(coverPhoto, {
-                    quality: 0.6,
-                    success: (compressedResult) => {      
-                      setCompressedCover(compressedResult)
-                    },});
-            
-                    const imageRef = ref(storage, `item-images/${compressedCover?.name + v4()}`);
-                    uploadBytes(imageRef, compressedCover).then((snapshot) => {
-                      getDownloadURL(snapshot.ref).then((uri) => {
-                        console.log(uri)
-                        updateItem("coverPhoto", { url: uri });                        
-                      });
-                    });
-            }else {
-                setErrors(prevErrors => [...prevErrors, "Cover Photo is null"])
-            }
-                
-            for (const photo of photoImages) {
-                if (photo !== null) {
-                    try {
-                        const compressedPhoto = await new Promise((resolve, reject) => {
-                            new Compressor(photo, {
-                                quality: 0.6,
-                                success: (compressedResult) => {
-                                    resolve(compressedResult);
-                                },
-                                error: (error) => {
-                                    reject(error);
-                                },
-                            });
-                        });
-
-                        const imageRef = ref(storage, `item-images/${compressedPhoto.name + v4()}`);
-                        const snapshot = await uploadBytes(imageRef, compressedPhoto);
-                        const uri = await getDownloadURL(snapshot.ref);
-                        console.log(uri);
-
-                        setItem((prevState) => ({
-                            ...prevState,
-                            photos: [...prevState.photos, { url: uri }],
-                        }));
-                    } catch (error) {
-                        console.log(error);
-                    }
-                }
-            }
-
-            for (const ad of ads) {
-                if (ad !== null) {
-                    try {
-                        const compressedAd = await new Promise((resolve, reject) => {
-                            new Compressor(ad, {
-                                quality: 0.6,
-                                success: (compressedResult) => {
-                                    resolve(compressedResult);
-                                },
-                                error: (error) => {
-                                    reject(error);
-                                },
-                            });
-                        });
-
-                        const imageRef = ref(storage, `item-images/${compressedAd.name + v4()}`);
-                        const snapshot = await uploadBytes(imageRef, compressedAd);
-                        const uri = await getDownloadURL(snapshot.ref);
-                        console.log(uri);
-
-                        setItem((prevState) => ({
-                            ...prevState,
-                            ads: [...prevState.ads, { url: uri }],
-                        }));
-                    } catch (error) {
-                        console.log(error);
-                    }
-                }
-            }
-
-            const response = await fetch('https://inventory.nalmart.com/items/item', {
-                // const response = await fetch('http://127.0.0.1:8080/items/item', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(item)
-            });
-            const data = await response.json();
-            console.log(data);
-            console.log('Product added successfully:', data);
-            resetForm();
-
-        } catch (error) {
-            console.error('Error adding product:', error);
-            alert(error);
-        }
     };
     
     const updateItem = (property, value) => {
@@ -375,7 +403,7 @@ export default function AddProduct() {
                     <div className="desc">Item Description</div>
                     <ReactQuill 
                         theme="snow" 
-                        onChange={(e) => { updateItem("description" , description);}}
+                        onChange={(e) => description(e.target.value)}
                         className="description-input"
                         placeholder="Description of the product, atleast 50 characters"
                     />
@@ -383,7 +411,7 @@ export default function AddProduct() {
                     <div className="desc">What is in the box</div>
                     <ReactQuill 
                         theme="snow" 
-                        onChange={(e) => { updateItem("whatIsIn" ,whatIsIn);}}                        
+                        onChange={(e) => setWhatIsIn(e.target.value)}                        
                         className="description-input"
                         placeholder="What is in the box, write a bulleted list of items in the box"
                     />

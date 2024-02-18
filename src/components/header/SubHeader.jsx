@@ -67,25 +67,19 @@ export default function SubHeader() {
                     <div key={index} style={{width: 100, height: 'fit-content', color: 'black', }} onClick={() => navigate('/details/' + item.itemID )}>
                         {/* Image section */}
                         <div style={{height: 100, width: 100, boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.1)', borderRadius: 5}}>
-                            {/* <img src={item.image} height={'100%'} width={'100%'} style={{borderRadius: 5}}/> */}
+                            <img src={item?.coverPhoto?.url} height={'100%'} width={'100%'} style={{borderRadius: 5}}/>
                         </div>
                         {/* details section */}
                         <div style={{display: 'flex', justifyContent: 'space-between', paddingBlock: 6}}>
                             <div style={{fontSize: 12, whiteSpace: 'nowrap', color: 'orange', fontWeight: '700'}}><span style={{fontSize: 8}}>UGX</span> {(item.price/1000).toFixed(0)}K</div>
-                            <div style={{fontSize: 12, whiteSpace: 'nowrap', }}>{(item?.itemCount/1000).toFixed(0)}k+ <span style={{fontSize: 8}}>Sold</span></div>
+                            <div style={{fontSize: 12, whiteSpace: 'nowrap', }}>{(item?.stockCount/1000).toFixed(0)}k+ <span style={{fontSize: 8}}>Sold</span></div>
                         </div>
 
                         <div style={{position: 'relative', bottom: 46, fontWeight: '700',width: 'fit-content',padding: 2, paddingInline: 6, fontSize: 8, left: 0, backgroundColor: '#c83f49', boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.1)', color: 'white', borderBottomRightRadius: 15, borderTopLeftRadius: 15}}>12% OFF</div>
 
-                        {/* <div style={{fontSize: 12,overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}>UGX 87K</div> */}
-
                     </div>
                 ))}
             </div>
-            {/* Exciting ads page */}
-            {/* <div style={{height: 120, borderWidth: 5, backgroundColor: 'white', borderBottomStyle: 'solid', borderBottomColor: 'rgb(244, 244, 244)', borderTopStyle: 'solid', borderTopColor: 'rgb(232, 232, 232)', padding: 8}}>
-            
-            </div> */}
 
         </div>
     )

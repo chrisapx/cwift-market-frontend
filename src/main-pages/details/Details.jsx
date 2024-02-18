@@ -55,13 +55,10 @@ const Details = () => {
         
         //   After fetching the items, filter and set the lists accordingly
         
-        
-    }, []);
-    
-    useEffect(() => {
         document.title = item.name;
         document.description = item.description;
-    }, [])
+        
+    }, []);
     
     const images = [
         {img: 'src/assets/iPhone12.png'},
@@ -71,55 +68,9 @@ const Details = () => {
         // {img: 'https://firebasestorage.googleapis.com/v0/b/cwift-marketplace.appspot.com/o/item-images%2FLaptop.png135731d9-b82a-4820-a165-1365740aeb54?alt=media&token=5eeba4a5-73a9-4164-9654-ae46dcc20bc9'}
     ]
 
-    const recom = [
-        {
-          name: 'iPhone 12, 2023 edition',
-          price: 234532,
-          description: 'These styles will create a flex container for your item cards, and each card will take up 48% of the width, leaving some space between them.',
-          delivery: true,
-          img: 'src/assets/iPhone12.png',
-        },
-        {
-          name: 'phones',
-          price: 234532,
-          description: 'These styles will create a flex container for your item cards, and each card will take up 48% of the width, leaving some space between them.',
-          delivery: true,
-          img: 'src/assets/Laptop.png',
-        },
-        {
-          name: 'phones',
-          price: 234532,
-          description: 'These styles will create a flex container for your item cards, and each card will take up 48% of the width, leaving some space between them.',
-          delivery: true,
-          img: 'src/assets/Speaker.png',
-        },
-        
-      ];
-
-      const info = [
-        {id: 'Qty', value: '1pc'},
-        {id: 'Dimentions', value: '2mm * 3mm * 4mm'},
-        {id: 'Brand', value: 'Tecno'},
-        {id: 'Model', value: '2024'},
-        {id: 'Weight', value: '120g'},
-        {id: 'State', value: 'Brand new'},
-        {id: 'Seller', value: 'Suip T ventures'},
-
-      ]
-
-      const truncateText = (text, maxLength) => {
-        if (text.length > maxLength) {
-          return text.substring(0, maxLength) + '...';
-        }
-        return text;
-      };
-    
     return(
         <div className='main-details-section'>
 
-            {/* <Helmet>
-                <title>{item.name}</title>
-            </Helmet> */}
             <div className='header-sec'>
                 <Header showBack={true}/>
             </div>
@@ -134,7 +85,7 @@ const Details = () => {
             {/* Images container */}
             { item.photos ?
                 <div className='images-container'>
-                    {item.photos?.map((imge, index) => (
+                    {item?.photos.map((imge, index) => (
                     <div className='image-card' key={index}>
                         <img src={imge.url} loading='lazy' alt={item.name} width={'90%'} />
                     </div>
