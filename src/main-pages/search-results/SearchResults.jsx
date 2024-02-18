@@ -18,7 +18,6 @@ const SearchResults = () => {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
-        // Filter the items when the input or listing changes
         const filteredResults = filterItems(listing, input);
         setItems(filteredResults);
     }, [input, listing]);
@@ -47,12 +46,10 @@ const SearchResults = () => {
         items.forEach(item => {
             let rank = 0;
 
-            // Check for exact match in name
             if (item.name.toLowerCase().includes(keyword.toLowerCase())) {
                 rank += 5;
             }
 
-            // Check for exact match in category, brand, store, vendorName
             if (keyword?.toLowerCase() === item.category?.toLowerCase() ||
                 keyword?.toLowerCase() === item.brand?.toLowerCase() ||
                 keyword?.toLowerCase() === item.store?.toLowerCase() ||
@@ -60,7 +57,6 @@ const SearchResults = () => {
                 rank += 4;
             }
 
-            // Check for exact match in details values and names
             item.details.forEach(detail => {
                 if (keyword?.toLowerCase() === detail.name?.toLowerCase() ||
                     keyword?.toLowerCase() === detail.value?.toLowerCase()) {
@@ -68,12 +64,10 @@ const SearchResults = () => {
                 }
             });
 
-            // Check for partial match in name
             if (rank === 0 && item.name.toLowerCase().includes(keyword.toLowerCase())) {
                 rank += 2;
             }
 
-            // Check for partial match in details values and names
             if (rank === 0) {
                 item.details.forEach(detail => {
                     if (detail.name?.toLowerCase().includes(keyword?.toLowerCase()) ||
@@ -88,7 +82,6 @@ const SearchResults = () => {
             }
         });
 
-        // Sort filtered items by rank in descending order
         filteredItems.sort((a, b) => b.rank - a.rank);
 
         return filteredItems.map(filteredItem => filteredItem.item);
@@ -100,7 +93,6 @@ const SearchResults = () => {
                 <Header showBack={true}/>
             </div>
 
-            {/* Horizontal scroll categories */}
             <div className='upper-categs'>
                 {upperCats.map((cat, index) => (
                 <div key={index} style={{paddingBlock: 0, borderBottomStyle: selected === cat.name &&  'solid', fontWeight: selected === cat.name ? 'bold' : '400' , color: selected === cat.name ? 'black' : 'rgba(0, 0, 0, 0.8)'}} onClick={() => handleSelected(cat.name)}>{cat.name}</div>
@@ -116,7 +108,7 @@ const SearchResults = () => {
                 {items.map((item, index) => (
                     <div key={index} className='item-card' style={{display: 'flex', flexDirection: 'column', color: 'black', padding: 3, lineHeight: 1, marginBlock: 6}} >
                         <div className='image-card' style={{ boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.1)', borderRadius: 8, width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}} onClick={() => navigate('/details/' + item.itemID )}>
-                            {/* <img src={"src/assets/Headphones-Transparent-PNG.png"} height={'100%'}  style={{borderRadius: 5}}/> */}
+                            <img src={item?.coverPhoto?.url} height={'100%'}  style={{borderRadius: 5}}/>
                         </div>
                         <div style={{fontSize: 14, fontWeight: '500', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', marginTop: 8}} onClick={() => navigate('/details/' + item.itemID )}>{item.name}</div>
                         <div style={{display: 'flex', fontSize: 12}}>
@@ -149,7 +141,7 @@ const SearchResults = () => {
                     <div key={index} style={{width: 100, height: 'fit-content', color: 'black', }} onClick={() => navigate('/details/' + item.itemID )}>
                         {/* Image section */}
                         <div style={{height: 100, width: 100, boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.1)', borderRadius: 5}}>
-                            {/* <img src={item.image} height={'100%'} width={'100%'} style={{borderRadius: 5}}/> */}
+                            <img src={item?.coverPhoto?.url} height={'100%'} width={'100%'} style={{borderRadius: 5}}/>
                         </div>
                         {/* details section */}
                         <div style={{display: 'flex', justifyContent: 'space-between', paddingBlock: 6}}>

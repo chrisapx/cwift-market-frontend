@@ -67,7 +67,7 @@ const MoreToLove = () => {
               {items.map((item, index) => (
                   <div key={index} className='item-card' style={{display: 'flex', flexDirection: 'column', color: 'black', padding: 3, lineHeight: 1, }} >
                       <div className='image-card' style={{ boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.1)', borderRadius: 8, width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}} onClick={() => navigate('/details/' + item.itemID )}>
-                          {/* <img src={"src/assets/Headphones-Transparent-PNG.png"} height={'100%'}  style={{borderRadius: 5}}/> */}
+                          <img src={item?.coverPhoto?.url} height={'100%'}  style={{borderRadius: 5}}/>
                       </div>
                       <div style={{fontSize: 14, fontWeight: '500', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', marginTop: 8}} onClick={() => navigate('/details/' + item.itemID )}>{item.name}</div>
                       <div style={{display: 'flex', fontSize: 10}}>
@@ -78,7 +78,7 @@ const MoreToLove = () => {
                       <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                         <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                           <div style={{fontSize: 12, whiteSpace: 'nowrap', overflow: 'hidden', color: 'orange', fontWeight: '700'}}><span style={{fontSize: 10}}>UGX</span> {item.price.toLocaleString()}</div>
-                          <div style={{fontSize: 12, whiteSpace: 'nowrap',overflow: 'hidden', marginLeft: 5, color: 'grey' }}>{item.itemCount}k+ <span style={{fontSize: 10}}>Sold</span></div>
+                          <div style={{fontSize: 12, whiteSpace: 'nowrap',overflow: 'hidden', marginLeft: 5, color: 'grey' }}>{item.stockCount}k+ <span style={{fontSize: 10}}>Sold</span></div>
                         </div>
                           <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', borderStyle: 'solid', borderWidth: 1, borderRadius: 12, paddingInline: 7, paddingBlock: 3, marginRight: 4}}
                             onClick={() => handleAddToCart(item)}
