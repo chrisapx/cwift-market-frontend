@@ -31,25 +31,21 @@
 
     .images-container {
         display: flex;
+        // overflow: auto;
         overflow-x: scroll;
         background-color: #ffffff;
         margin: 8px;
         
         
         .image-card {
-            display: flex;
-            flex: 1;
-            justify-content: center;
-            align-items: center;
+            width: 90vw;
             height: 280px;
             padding-block: 10px;
             // width: 1000px;
             
             
             // .image-card img {
-            //     object-fit: cover;
-            //     width: 100%;
-            //     height: 100%;
+            //     object-fit: fill;
             // }
         }
         

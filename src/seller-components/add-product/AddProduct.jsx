@@ -18,6 +18,7 @@ export default function AddProduct() {
     const [ads, setAds] = useState([]);
 
     const [errors, setErrors] = useState([]);
+    const [succMsg, setSucMsg] = useState('');
 
 
     
@@ -26,6 +27,13 @@ export default function AddProduct() {
     const [compressedAd, setCompressedAd] = useState();
     
     const [categories, setCategories] = useState([]);
+
+    const handleAddSuccess = ( item ) => {
+        setSucMsg(item.name.slice(0, 10) + '... Successfuly added');
+        setTimeout(() => {
+            setSucMsg('');
+        }, 1000)
+    }
     
     const [item, setItem] = useState({
         name: '', 
@@ -211,6 +219,7 @@ export default function AddProduct() {
             });
             const data = await response.json();
             console.log('Product added successfully:', data);
+            handleAddSuccess(data);
             resetForm();
     
         } catch (error) {
@@ -229,9 +238,29 @@ export default function AddProduct() {
         setCompressedPhoto(null);
         setCompressedCover(null);
         setCompressedAd(null);
-        setItem({});
+        setItem({
+            name: '', 
+            qty: '',
+            description: '',
+            globalPrice: 0,
+            price: 0.0,
+            // freeDelivery: false,
+            stockCount: 0,
+            brand: '',
+            store: '',
+            // type: '',
+            serialNumber: '',
+            vendorID: '', //Get this from the logged in User
+            // category: '',
+            whatIsIn: '',
+            coverPhoto: {},
+            details: [],
+            photos: [],
+            ads: [],
+        });
         setErrors([]);
     };
+    
     
     const updateItem = (property, value) => {
         setItem(prevItem => ({
@@ -297,14 +326,25 @@ export default function AddProduct() {
                         <div className="input-cont">
                             <div className="in">Name <span style={{fontSize: 16, color: 'red'}}>*</span></div>
                             <div className="input1">
-                                <input required placeholder="Name of product, should be between 15 and 60 characters" onChange={event => updateItem("name" ,event.target.value)} style={{height: '90%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'none', color: 'black', fontSize: 10}}/>
+                                <input 
+                                    required 
+                                    value={item.name}
+                                    placeholder="Name of product, should be between 15 and 60 characters" 
+                                    onChange={event => updateItem("name" ,event.target.value)} 
+                                    style={{height: '90%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'none', color: 'black', fontSize: 10}}/>
                             </div> 
                         </div>
 
                         <div className="input-cont">
                             <div className="in">Category <span style={{fontSize: 16, color: 'red'}}>*</span></div>
                             <div className="input1">
-                                <select required onChange={event => updateItem("category" , event.target.value)} style={{height: '100%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'none', color: 'black', fontSize: 10}}>
+                                <select 
+                                    required 
+                                    value={item.category}
+                                    onChange={event => updateItem("category" , event.target.value)} 
+                                    style={{height: '100%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'none', color: 'black', fontSize: 10}}
+                                >
+                                    
                                     <option>Select Category</option>
                                         {categories.map((cat, index) => (
                                             <option key={index} value={cat}>{cat}</option>
@@ -320,14 +360,22 @@ export default function AddProduct() {
                         <div className="input-cont">
                             <div className="in">Global price <span style={{fontSize: 16, color: 'red'}}>*</span></div>
                             <div className="input1">
-                                <input placeholder="Global price" onChange={event => updateItem("globalPrice" , parseFloat(event.target.value))} style={{height: '90%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'none', color: 'black', fontSize: 10}}/>
+                                <input 
+                                    placeholder="Global price" 
+                                    value={item.globalPrice}
+                                    onChange={event => updateItem("globalPrice" , parseFloat(event.target.value))} 
+                                    style={{height: '90%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'none', color: 'black', fontSize: 10}}/>
                             </div> 
                         </div>
 
                         <div className="input-cont">
                             <div className="in">Selling price <span style={{fontSize: 16, color: 'red'}}>*</span></div>
                             <div className="input1">
-                                <input required placeholder="Selling price, this must be equal or lower to cater for the discount" onChange={event => updateItem("price" , parseFloat(event.target.value))} style={{height: '90%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'none', color: 'black', fontSize: 10}}/>
+                                <input 
+                                    required 
+                                    placeholder="Selling price, this must be equal or lower to cater for the discount" 
+                                    value={item.price}
+                                    onChange={event => updateItem("price" , parseFloat(event.target.value))} style={{height: '90%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'none', color: 'black', fontSize: 10}}/>
                             </div> 
                         </div> 
 
@@ -418,8 +466,13 @@ export default function AddProduct() {
 
                 </div>
 
-                <div type="submit" onClick={handleFormSubmit} style={{position: "sticky", cursor: "pointer", bottom: 0, display: "flex", alignItems: 'center', marginBlock: 16, marginTop: 40, marginLeft: 30, backgroundColor: 'orange', width: 'fit-content', padding: 10, borderRadius: 8, color : 'white', fontWeight: 'bold'}}>Submit</div>
+                <div type="submit" onClick={handleFormSubmit} style={{position: "sticky", cursor: "pointer", bottom: 0, display: "flex", alignItems: 'center', marginBlock: 16, marginTop: 40, marginLeft: 30, backgroundColor: 'orange', width: 'fit-content', padding: 10, borderRadius: 8, color : 'white', fontWeight: 'bold'}}>
+                    {!succMsg ? <div>Submit</div> : 
+                    <div>Loading...</div>}
+                </div>
             </form>
+
+            {succMsg && <div style={{fontSize: 14, color: "white", backgroundColor: 'black', paddingInline: 8, paddingBlock: 4, position: 'absolute', top: 20, left: '50%'}}>{succMsg}</div>}
 
         </div>
     )

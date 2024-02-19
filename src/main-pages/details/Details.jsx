@@ -33,7 +33,7 @@ const Details = () => {
         
         
         // Section for fetching item to show in details
-        fetch('http://127.0.0.1:8080/items/' + itemID)
+        // fetch('http://127.0.0.1:8080/items/' + itemID)
         fetch('https://inventory.nalmart.com/items/' + itemID)
         .then((response) => response.json())
         .then((json) => {
@@ -87,14 +87,14 @@ const Details = () => {
                 <div className='images-container'>
                     {item?.photos.map((imge, index) => (
                     <div className='image-card' key={index}>
-                        <img src={imge.url} loading='lazy' alt={item.name} width={'90%'} />
+                        <img src={imge.url} loading='lazy' alt={item.name} width={'100%'} height={'100%'} style={{objectFit: 'contain'}}/>
                     </div>
                     ))}
                 </div> :
                 <div className='images-container'>
                     {images.map((imge, index) => (
                     <div className='image-card' key={index}>
-                        <img src={'/src/assets/cwift-logo.png'} loading='lazy' alt='' height={'95%'} width={'95%'}/>
+                        {/* <img src={'/src/assets/cwift-logo.png'} loading='lazy' alt='' height={'95%'} width={'95%'}/> */}
                     </div>
                     ))}
                 </div>
@@ -136,10 +136,10 @@ const Details = () => {
                 <div className='recomendation-section'>
                     <div className="recom-list">
                         {alsoViewed?.map((item, index) => (
-                        <div className="recom-card" key={index} onClick={() => setItem(item)}>
+                        <div className="recom-card" key={index} onClick={() => navigate('/details/' + item.itemID)}>
                             <div className="recom-image">
-                                {item.coverPhoto ? <img src={item.coverPhoto.url} alt={item.name} height={'90%'}/> : 
-                                                         <img src={'/src/assets/cwift-logo.png'} alt={item.name} height={'90%'}/>
+                                {item.coverPhoto ? <img src={item.coverPhoto.url} alt={item.name} height={'100%'} width={'100%'} style={{objectFit: 'contain'}}/> : 
+                                                         <img src={'/src/assets/cwift-logo.png'} alt={item.name} height={'100%'} width={'100%'} style={{objectFit: 'contain'}}/>
                                 }
                             </div>
                             <div className="recom-details">
@@ -211,8 +211,8 @@ const Details = () => {
                         {recents?.map((item, index) => (
                         <div className="recom-card" key={index} onClick={() => setItem(item)}>
                             <div className="recom-image">
-                                {item.coverPhoto ? <img src={item.coverPhoto.url} alt={item.name} height={'90%'} /> :
-                                <img src={'/src/assets/cwift-logo.png'} alt={item.name} height={'90%'} />}
+                                {item.coverPhoto ? <img src={item.coverPhoto.url} alt={item.name} height={'100%'} width={'100%'} style={{objectFit: 'contain'}} /> :
+                                <img src={'/src/assets/cwift-logo.png'} alt={item.name} height={'100%'} width={'100%'} style={{objectFit: 'contain'}} />}
                             </div>
                             <div className="recom-details">
                                 <div style={{ fontSize: 12, fontWeight: '600', color: 'black', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}>{item?.name}</div>

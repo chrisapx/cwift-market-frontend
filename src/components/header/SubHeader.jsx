@@ -67,7 +67,7 @@ export default function SubHeader() {
                     <div key={index} style={{width: 100, height: 'fit-content', color: 'black', }} onClick={() => navigate('/details/' + item.itemID )}>
                         {/* Image section */}
                         <div style={{height: 100, width: 100, boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.1)', borderRadius: 5}}>
-                            <img src={item?.coverPhoto?.url} height={'100%'} width={'100%'} style={{borderRadius: 5}}/>
+                            <img src={item?.coverPhoto?.url} height={'100%'} width={'100%'} style={{borderRadius: 5, objectFit: 'contain'}}/>
                         </div>
                         {/* details section */}
                         <div style={{display: 'flex', justifyContent: 'space-between', paddingBlock: 6}}>
