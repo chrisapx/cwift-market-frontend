@@ -72,7 +72,10 @@ const Listing = () => {
           {items.map((item, index) => (
               <div key={index} className='item-card' style={{display: 'flex', flexDirection: 'column', color: 'black', padding: 3, lineHeight: 1, marginBlock: 6}} >
                   <div className='image-card' style={{ boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.1)', borderRadius: 8, width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}} onClick={() => navigate('/details/' + item.itemID )}>
-                      <img src={item?.coverPhoto?.url} height={'100%'} width={'100%'} style={{objectFit: 'contain', borderRadius: 5}}/>
+                      { item.coverPhoto ? 
+                        <img src={item?.coverPhoto?.url} height={'100%'} width={'100%'} style={{objectFit: 'contain', borderRadius: 5}}/> :
+                        <div style={{width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: 12}}>No image</div>
+                      }
                   </div>
                   <div style={{fontSize: 14, fontWeight: '500', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', marginTop: 8}} onClick={() => navigate('/details/' + item.itemID )}>{item.name}</div>
                   <div style={{display: 'flex', fontSize: 12}}>
