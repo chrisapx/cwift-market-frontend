@@ -66,8 +66,8 @@ const MoreToLove = () => {
           <div style={{}} className="more-list">
               {items.map((item, index) => (
                   <div key={index} className='item-card' style={{display: 'flex', flexDirection: 'column', color: 'black', padding: 3, lineHeight: 1, }} >
-                      <div className='image-card' style={{ boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.1)', borderRadius: 8, width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}} onClick={() => navigate('/details/' + item.itemID )}>
-                          <img src={item?.coverPhoto?.url} height={'100%'}  style={{borderRadius: 5}}/>
+                      <div className='image-card' style={{ boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.1)', borderRadius: 8, width: '100%', padding: 10, display: 'flex', justifyContent: 'center', alignItems: 'center'}} onClick={() => navigate('/details/' + item.itemID )}>
+                          <img src={item?.coverPhoto?.url} height={'100%'} width={'100%'}  style={{borderRadius: 5, objectFit: 'contain'}}/>
                       </div>
                       <div style={{fontSize: 14, fontWeight: '500', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', marginTop: 8}} onClick={() => navigate('/details/' + item.itemID )}>{item.name}</div>
                       <div style={{display: 'flex', fontSize: 10}}>
