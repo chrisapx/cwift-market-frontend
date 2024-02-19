@@ -31,42 +31,29 @@ const Details = () => {
     
     useEffect(() => {
         
-        
-        // Section for fetching item to show in details
         // fetch('http://127.0.0.1:8080/items/' + itemID)
         fetch('https://inventory.nalmart.com/items/' + itemID)
-        .then((response) => response.json())
-        .then((json) => {
-            setItem(json);
+            .then((response) => response.json())
+            .then((json) => {
+                setItem(json);
         })
         .catch((error) => {
             console.error(error);
         })
         
-        //   Section for fetching more to love
         fetch('https://inventory.nalmart.com/items')
-        .then((response) => response.json())
-        .then((json) => {
-            setAlsoViewed(json);
-        })
+            .then((response) => response.json())
+            .then((json) => {
+                setAlsoViewed(json.filter(itm => itm.category == item.category));
+            })
         .catch((error) => {
             console.error(error);
         }) 
-        
-        //   After fetching the items, filter and set the lists accordingly
-        
+                
         document.title = item.name;
         document.description = item.description;
         
-    }, []);
-    
-    const images = [
-        {img: 'src/assets/iPhone12.png'},
-        {img: "src/assets/Laptop.png"},
-        {img: "https://firebasestorage.googleapis.com/v0/b/cwift-marketplace.appspot.com/o/item-images%2FiPhone12.png2b450672-a0ad-40c4-8ee3-81390d15cac6?alt=media&token=dcaeb4f3-8ae4-4834-8511-75e6add24c20"},
-        {img: "https://firebasestorage.googleapis.com/v0/b/cwift-marketplace.appspot.com/o/item-images%2Fmenu-3.pngef2cd3b5-0d54-465c-b991-6e9e96f09be9?alt=media&token=c70eaca9-f29e-4781-ae53-533d6b9a047f"},
-        // {img: 'https://firebasestorage.googleapis.com/v0/b/cwift-marketplace.appspot.com/o/item-images%2FLaptop.png135731d9-b82a-4820-a165-1365740aeb54?alt=media&token=5eeba4a5-73a9-4164-9654-ae46dcc20bc9'}
-    ]
+    }, [itemID]);
 
     return(
         <div className='main-details-section'>
@@ -85,18 +72,25 @@ const Details = () => {
             {/* Images container */}
             { item.photos ?
                 <div className='images-container'>
-                    {item?.photos.map((imge, index) => (
-                    <div className='image-card' key={index}>
-                        <img src={imge.url} loading='lazy' alt={item.name} width={'100%'} height={'100%'} style={{objectFit: 'contain'}}/>
-                    </div>
-                    ))}
+                    { item?.photos.map((imge, index) => {
+
+                            const handleLoadError = () => {
+                                return(
+                                    <div className='image-card' style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                                        <div>No Photos</div>
+                                    </div>
+                                )
+                            }
+                        return(
+                            <div className='image-card' key={index}>
+                                <img src={imge?.url} loading='lazy' onError={() => handleLoadError} alt={item.name} width={'100%'} height={'100%'} style={{objectFit: 'contain'}}/>
+                            </div>
+                    )})}
                 </div> :
                 <div className='images-container'>
-                    {images.map((imge, index) => (
-                    <div className='image-card' key={index}>
-                        {/* <img src={'/src/assets/cwift-logo.png'} loading='lazy' alt='' height={'95%'} width={'95%'}/> */}
+                    <div className='image-card' style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                        <div>No Photos</div>
                     </div>
-                    ))}
                 </div>
             }
 
@@ -104,7 +98,6 @@ const Details = () => {
                 <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: '700', fontSize: 14, color: 'green'}}>
                     {/* <div style={{fontSize: 10, backgroundColor: '#0f562e', paddingInline: 5, width: 'fit-content', color: 'white', fontWeight: '600', marginBlock: 10, borderRadius: 1}}>{item.store ? 'Official Store' : item.store}</div> */}
                     <div style={{fontSize: 10, backgroundColor: '#0f562e', paddingInline: 5, paddingBlock: 2, width: 'fit-content', color: 'white', fontWeight: '600', marginBlock: 15, borderRadius: 1}}>Official Store</div>
-                    {/* <div>Original <span><MdVerifiedUser size={12} /></span></div> */}
                     <div>{item.original} <span><MdVerifiedUser size={12} /></span></div>
                 </div>
                 <div style={{fontSize: 13, color: 'black'}}>{item.name} <span style={{color: 'green', marginLeft: 5}}>{item.original}<MdVerifiedUser size={12} /></span></div>
@@ -138,13 +131,13 @@ const Details = () => {
                         {alsoViewed?.map((item, index) => (
                         <div className="recom-card" key={index} onClick={() => navigate('/details/' + item.itemID)}>
                             <div className="recom-image">
-                                {item.coverPhoto ? <img src={item.coverPhoto.url} alt={item.name} height={'100%'} width={'100%'} style={{objectFit: 'contain'}}/> : 
-                                                         <img src={'/src/assets/cwift-logo.png'} alt={item.name} height={'100%'} width={'100%'} style={{objectFit: 'contain'}}/>
+                                {item.coverPhoto ? 
+                                    <img src={item.coverPhoto.url} alt={item.name} height={'100%'} width={'100%'} style={{objectFit: 'contain'}}/> : 
+                                    <div style={{width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: 12}}>No image</div>
                                 }
                             </div>
                             <div className="recom-details">
                                 <div style={{ fontSize: 12, fontWeight: '600', color: 'black', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}>{item?.name}</div>
-                                {item?.description && <div style={{ fontSize: 12, fontWeight: '600', color: 'black',overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}>{item?.description}</div>}
                                 <div style={{color: 'black', fontSize: 12}}>UGX <span style={{fontSize: 16, color: 'black', fontWeight: '600'}}>{item.price?.toLocaleString()}</span></div>
                             </div>
                         </div>
