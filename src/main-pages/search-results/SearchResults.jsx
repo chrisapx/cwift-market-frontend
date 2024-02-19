@@ -149,14 +149,14 @@ const SearchResults = () => {
                         {/* details section */}
                         <div style={{display: 'flex', justifyContent: 'space-between', paddingBlock: 6}}>
                             <div style={{fontSize: 12, whiteSpace: 'nowrap', color: 'orange', fontWeight: '700'}}><span style={{fontSize: 8}}>UGX</span> {(item.price/1000).toFixed(0)}K</div>
-                            <div style={{fontSize: 12, whiteSpace: 'nowrap', }}>{(item?.itemCount/1000).toFixed(0)}k+ <span style={{fontSize: 8}}>Sold</span></div>
+                            <div style={{fontSize: 12, whiteSpace: 'nowrap', }}>{(item?.stockCount/1000).toFixed(0)}k+ <span style={{fontSize: 8}}>Sold</span></div>
                         </div>
                     </div>
                 ))}
             </div>
 
                     
-            <footer style={{position: 'relative', bottom: 0}}>
+            <footer>
                 <Footer/>
             </footer>
         </div>

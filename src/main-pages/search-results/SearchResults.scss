@@ -18,6 +18,7 @@
     }
 
     .recom-section {
+      flex: 1;
 
         
         .more-list {
@@ -84,5 +85,9 @@
 
         }
         
+    }
+
+    footer {
+      margin-top: auto;
     }
 }
