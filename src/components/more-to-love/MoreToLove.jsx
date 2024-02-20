@@ -31,7 +31,7 @@ const MoreToLove = () => {
       console.log(listing);
       setItems(listing);
 
-    }, []);
+    }, [listing]);
 
     const handleAddToCart = (item) => {
       addToCart(item);

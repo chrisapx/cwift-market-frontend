@@ -22,21 +22,29 @@ const Checkout = () => {
 
   const handleConfirmOrder = async () => {
 
-  // try {
-  //   const cartData = {
-  //     itemOrders: cart,
-  //     totalPrice: totalPrice, // assuming you have a function to calculate the total price
-  //     deliveryAddress: {}, // placeholder, replace with actual delivery address data
-  //     paid: true, // placeholder, replace with actual paid status
-  //     userID: 'usR-12988229382', // placeholder, replace with actual user ID
-  //   };
-  //   const createdCart = await createCart(cartData);
-  //   console.log('Created cart:', createdCart);
-  // } catch (error) {
-  //   console.error('Error creating cart:', error);
-  // }    
-    setConfirm(true);
-  }
+    try {
+      const modifiedCart = cart.map(order => ({
+        ...order,
+        itemID: order.item.itemID, 
+        item: undefined, 
+      }));
+  
+      const cartData = {
+        itemOrders: modifiedCart,
+        totalPrice: totalPrice,
+        deliveryAddress: {},
+        paid: 'true',
+        userID: 'usR-12988229382',
+        userEmail: 'mcaplexya@gmail.com'
+      };
+  
+      const createdCart = await createCart(cartData);
+      console.log('Created cart:', createdCart);
+      setConfirm(true);
+    } catch (error) {
+      console.error('Error creating cart:', error);
+    }
+  };
 
   const createCart = async (cartData) => {
     try {

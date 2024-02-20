@@ -19,7 +19,7 @@ export default function SubHeader() {
     useEffect(() => {
         setDeals(listing);
         console.log(listing);
-    },[])
+    },[listing])
 
     const handleSelected = ( select ) => {
         if(select){
