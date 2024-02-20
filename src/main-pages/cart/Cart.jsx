@@ -13,13 +13,15 @@ const Cart = () => {
 
     const navigate = useNavigate();
     const [items, setItems] = useState([]);
+    const [ tPrice, setTPrice ] = useState();
     const { 
         cart,
         favorites, 
         totalPrice, 
         getItemQuantity, 
         addToCart, 
-        reduceCart, 
+        reduceCart,
+        incrementCart, 
         removeFromCart,
         addToFavorites,
         removeFromFavorites
@@ -36,6 +38,13 @@ const Cart = () => {
         }
         return text;
       };
+
+      useEffect(() => {
+        // Calculate total price based on the items in the cart
+        const totalPrice = cart.reduce((acc, order) => acc + (order.item.price * getItemQuantity(order.item)), 0);
+        setTPrice(totalPrice);
+    }, [cart]);
+    
 
     useEffect(() => {
         fetch('https://inventory.nalmart.com/items')
@@ -112,7 +121,7 @@ const Cart = () => {
                         <div className='three-btns'>
                             <div className='itm-btn' style={{backgroundColor: quantity <= 1 && 'grey'}} onClick={() => reduceCart(order?.item)}>-</div>
                             <div className='count'>{quantity}</div>
-                            <div className='itm-btn' onClick={() => addToCart(order?.item)}>+</div>
+                            <div className='itm-btn' onClick={() => incrementCart(order?.item)}>+</div>
                         </div>
                     </div>
                 </div>
@@ -195,7 +204,7 @@ const Cart = () => {
             </div>
 
             <div className='checkout-cart' onClick={handleCheckoutCart}>
-                <div style={{backgroundColor: 'orange', borderRadius: 3, width: '100%', marginInline: 10, cursor: 'pointer'}} className='inner-item' onClick={handleCheckoutCart}>CHECKOUT (UGX {(totalPrice).toLocaleString() })</div>
+                <div style={{backgroundColor: 'orange', borderRadius: 3, width: '100%', marginInline: 10, cursor: 'pointer'}} className='inner-item' onClick={handleCheckoutCart}>CHECKOUT (UGX {tPrice.toLocaleString() })</div>
             </div>
             
             <Footer/>
