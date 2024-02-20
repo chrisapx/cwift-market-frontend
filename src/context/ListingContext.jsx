@@ -10,6 +10,7 @@ export function ListingProvider({ children }) {
     const [listing, setListing] = useState([]);
 
     const fetchItems = () => {
+        // fetch('http://127.0.0.1:8080/items')
         fetch('https://inventory.nalmart.com/items')
             .then((response) => response.json())
             .then((res) => setListing(res))

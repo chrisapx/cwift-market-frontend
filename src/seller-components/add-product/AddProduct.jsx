@@ -10,6 +10,7 @@ import { v4 } from "uuid";
 export default function AddProduct() {
 
     const storage = getStorage(app);
+    const [loading, setLoading] = useState(false);
     const [description, setDescription] = useState('');
     const [whatIsIn, setWhatIsIn] = useState('');
 
@@ -17,7 +18,7 @@ export default function AddProduct() {
     const [photoImages, setPhotos] = useState([]);
     const [ads, setAds] = useState([]);
 
-    const [errors, setErrors] = useState([]);
+    const [errors, setErrors] = useState({});
     const [succMsg, setSucMsg] = useState('');
 
 
@@ -32,7 +33,7 @@ export default function AddProduct() {
         setSucMsg(item.name.slice(0, 10) + '... Successfuly added');
         setTimeout(() => {
             setSucMsg('');
-        }, 1000)
+        }, 2000)
     }
     
     const [item, setItem] = useState({
@@ -149,6 +150,8 @@ export default function AddProduct() {
     
     const handleFormSubmit = async (e) => {
         e.preventDefault();
+
+        setLoading(true);
         try {
             console.log(item.name + '\n' + item.category + item.globalPrice + item.price + item.qty + item.stockCount + item.store + item.type + item.serialNumber + item.brand + item.description + item.whatIsIn + coverPhoto + photoImages.length )
             // Check if required fields are empty
@@ -191,7 +194,7 @@ export default function AddProduct() {
             const itemData = {
                 name: item.name, 
                 qty: item.qty,
-                description: item.description,
+                // description: description,
                 globalPrice: item.globalPrice,
                 price: item.price,
                 freeDelivery: item.freeDelivery,
@@ -202,7 +205,7 @@ export default function AddProduct() {
                 serialNumber: item.serialNumber,
                 vendorID: item.vendorID,
                 category: item.category,
-                whatIsIn: item.whatIsIn,
+                // whatIsIn: whatIsIn,
                 coverPhoto: { url: coverPhotoUrl },
                 details: [],
                 photos: photoUrls,
@@ -226,13 +229,15 @@ export default function AddProduct() {
             console.error('Error adding product:', error);
             alert(error.message);
         }
+
+        setLoading(false);
     };
     
 
     const resetForm = () => {
         setDescription('');
         setWhatIsIn('');
-        setCoverPhoto(null);
+        // setCoverPhoto(null);
         setPhotos([]);
         setAds([]);
         setCompressedPhoto(null);
@@ -331,13 +336,13 @@ export default function AddProduct() {
                                     value={item.name}
                                     placeholder="Name of product, should be between 15 and 60 characters" 
                                     onChange={event => updateItem("name" ,event.target.value)} 
-                                    style={{height: '90%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'none', color: 'black', fontSize: 10}}/>
+                                    style={{height: '90%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'solid', borderWidth: 1, borderRadius: 4, borderColor: item.name? 'grey' : 'red', color: 'black', fontSize: 10}}/>
                             </div> 
                         </div>
 
                         <div className="input-cont">
                             <div className="in">Category <span style={{fontSize: 16, color: 'red'}}>*</span></div>
-                            <div className="input1">
+                            <div className="input1" style={{borderStyle: 'solid', borderWidth: 1, borderRadius: 4, borderColor: item.category && item.category !== 'Select Category'? 'grey' : 'red', }}>
                                 <select 
                                     required 
                                     value={item.category}
@@ -364,7 +369,7 @@ export default function AddProduct() {
                                     placeholder="Global price" 
                                     value={item.globalPrice}
                                     onChange={event => updateItem("globalPrice" , parseFloat(event.target.value))} 
-                                    style={{height: '90%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'none', color: 'black', fontSize: 10}}/>
+                                    style={{height: '90%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'solid', borderWidth: 1, borderRadius: 4, borderColor: item.globalPrice? 'grey' : 'red', color: 'black', fontSize: 10}}/>
                             </div> 
                         </div>
 
@@ -375,14 +380,14 @@ export default function AddProduct() {
                                     required 
                                     placeholder="Selling price, this must be equal or lower to cater for the discount" 
                                     value={item.price}
-                                    onChange={event => updateItem("price" , parseFloat(event.target.value))} style={{height: '90%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'none', color: 'black', fontSize: 10}}/>
+                                    onChange={event => updateItem("price" , parseFloat(event.target.value))} style={{height: '90%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'solid', borderWidth: 1, borderRadius: 4, borderColor: item.price? 'grey' : 'red', color: 'black', fontSize: 10}}/>
                             </div> 
                         </div> 
 
                         <div className="input-cont">
                             <div className="in">Quantity <span style={{fontSize: 16, color: 'red'}}>*</span></div>
                             <div className="input1">
-                                <input required placeholder="Quantity eg 1Kg or XXpieces or Dozen" onChange={event => updateItem("qty" ,event.target.value)} style={{height: '90%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'none', color: 'black', fontSize: 10}}/>
+                                <input required placeholder="Quantity eg 1Kg or XXpieces or Dozen" onChange={event => updateItem("qty" ,event.target.value)} style={{height: '90%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'solid', borderWidth: 1, borderRadius: 4, borderColor: item.qty? 'grey' : 'red',  color: 'black', fontSize: 10}}/>
                             </div> 
                         </div> 
 
@@ -393,21 +398,21 @@ export default function AddProduct() {
                         <div className="input-cont">
                             <div className="in">Stock Count <span style={{fontSize: 16, color: 'red'}}>*</span></div>
                             <div className="input1">
-                                <input placeholder="Number of items in stock" onChange={event => updateItem("stockCount" , parseInt(event.target.value))} style={{height: '90%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'none', color: 'black', fontSize: 10}}/>
+                                <input placeholder="Number of items in stock" onChange={event => updateItem("stockCount" , parseInt(event.target.value))} style={{height: '90%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'solid', borderWidth: 1, borderRadius: 4, borderColor: item.stockCount? 'grey' : 'red', color: 'black', fontSize: 10}}/>
                             </div> 
                         </div>
 
                         <div className="input-cont">
                             <div className="in">Store <span style={{fontSize: 16, color: 'red'}}>*</span></div>
                             <div className="input1">
-                                <input placeholder="Vendor store supplying the product" onChange={event => updateItem("store" ,event.target.value)}  style={{height: '90%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'none', color: 'black', fontSize: 10}}/>
+                                <input placeholder="Vendor store supplying the product" onChange={event => updateItem("store" ,event.target.value)}  style={{height: '90%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'solid', borderWidth: 1, borderRadius: 4, borderColor: item.store? 'grey' : 'red', color: 'black', fontSize: 10}}/>
                             </div> 
                         </div> 
                         
                         {/* Update this in the server later */}
                         <div className="input-cont">
                             <div className="in">Type <span style={{fontSize: 16, color: 'red'}}>*</span></div>
-                            <div className="input1">
+                            <div className="input1" style={{borderStyle: 'solid', borderWidth: 1, borderRadius: 4, borderColor: item.type? 'grey' : 'red', }}>
                                 <select onChange={event => updateItem("type" ,event.target.value)} style={{height: '100%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'none', color: 'black', fontSize: 10}}>
                                     <option value="">Select Type</option>
                                     <option value="NEW">NEW</option>
@@ -423,23 +428,23 @@ export default function AddProduct() {
                         <div className="input-cont">
                             <div className="in">Serial number <span style={{fontSize: 16, color: 'red'}}>*</span></div>
                             <div className="input1">
-                                <input required placeholder="Product serial number or IMEI" onChange={e => updateItem("serialNumber", e.target.value)} style={{height: '90%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'none', color: 'black', fontSize: 10}}/>
+                                <input required placeholder="Product serial number or IMEI" onChange={e => updateItem("serialNumber", e.target.value)} style={{height: '90%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'solid', borderWidth: 1, borderRadius: 4, borderColor: item.serialNumber? 'grey' : 'red',  color: 'black', fontSize: 10}}/>
                             </div> 
                         </div>
 
                         <div className="input-cont">
                             <div className="in">Brand <span style={{fontSize: 16, color: 'red'}}>*</span></div>
                             <div className="input1">
-                            <input required placeholder="Item brand" onChange={e => updateItem("brand", e.target.value)} style={{height: '90%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'none', color: 'black', fontSize: 10}}/>
+                            <input required placeholder="Item brand" onChange={e => updateItem("brand", e.target.value)} style={{height: '90%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'solid', borderWidth: 1, borderRadius: 4, borderColor: item.brand? 'grey' : 'red',  color: 'black', fontSize: 10}}/>
                             </div> 
                         </div> 
 
                         <div className="input-cont">
                             <div className="in">Delivery <span style={{fontSize: 16, color: 'red'}}>*</span></div>
-                            <div className="input1">
+                            <div className="input1" style={{borderStyle: 'solid', borderWidth: 1, borderRadius: 4, borderColor: item.freeDelivery? 'grey' : 'red', }}>
                                 <select onChange={event => updateItem("freeDelivery" ,event.target.value)} style={{height: '100%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'none', color: 'black', fontSize: 10}}>
-                                    <option value={false}>None</option>
                                     <option value={true}>Free delivery</option>
+                                    <option value={false}>None</option>
                                 </select>                            
                             </div> 
                         </div> 
@@ -451,7 +456,7 @@ export default function AddProduct() {
                     <div className="desc">Item Description</div>
                     <ReactQuill 
                         theme="snow" 
-                        onChange={(e) => description(e.target.value)}
+                        onChange={(e) => setDescription(e)}
                         className="description-input"
                         placeholder="Description of the product, atleast 50 characters"
                     />
@@ -459,20 +464,20 @@ export default function AddProduct() {
                     <div className="desc">What is in the box</div>
                     <ReactQuill 
                         theme="snow" 
-                        onChange={(e) => setWhatIsIn(e.target.value)}                        
+                        onChange={(e) => setWhatIsIn(e)}                        
                         className="description-input"
                         placeholder="What is in the box, write a bulleted list of items in the box"
                     />
 
                 </div>
 
-                <div type="submit" onClick={handleFormSubmit} style={{position: "sticky", cursor: "pointer", bottom: 0, display: "flex", alignItems: 'center', marginBlock: 16, marginTop: 40, marginLeft: 30, backgroundColor: 'orange', width: 'fit-content', padding: 10, borderRadius: 8, color : 'white', fontWeight: 'bold'}}>
-                    {!succMsg ? <div>Submit</div> : 
+                <div type="submit" onClick={handleFormSubmit} style={{position: "sticky", cursor: "pointer", bottom: 0, display: "flex", alignItems: 'center', marginBlock: 16, marginTop: 40, marginLeft: 30, backgroundColor: loading? 'grey': 'orange', width: 'fit-content', padding: 10, borderRadius: 8, color : 'white', fontWeight: 'bold'}}>
+                    {!loading ? <div>Submit</div> : 
                     <div>Loading...</div>}
                 </div>
             </form>
 
-            {succMsg && <div style={{fontSize: 14, color: "white", backgroundColor: 'black', paddingInline: 8, paddingBlock: 4, position: 'absolute', top: 20, left: '50%'}}>{succMsg}</div>}
+            {succMsg && <div style={{fontSize: 14, color: "white", backgroundColor: 'black', paddingInline: 8, paddingBlock: 10, position: 'absolute', bottom: 20, left: '50%'}}>{succMsg}</div>}
 
         </div>
     )
