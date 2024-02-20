@@ -62,6 +62,19 @@ export function CartProvider({ children }) {
       } 
   };
 
+  const incrementCart = (item) => {
+    // Check if the item already exists in the cart
+    const existingItem = cart.find((order) => order.item.itemID === item.itemID);
+  
+      if (existingItem) {
+        setCart((prevItems) =>
+          prevItems.map((cartItem) =>
+            cartItem.item.itemID === item.itemID ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
+          )
+        );
+      } 
+  };
+
   // Function to remove an item from the cart
   const removeFromCart = (itemId) => {
     setCart((prevItems) => prevItems.filter((cartItem) => cartItem.item.itemID !== itemId));
@@ -115,6 +128,7 @@ export function CartProvider({ children }) {
         favorites,
         addToCart,
         reduceCart,
+        incrementCart,
         getItemQuantity,
         removeFromCart,
         clearCart,
