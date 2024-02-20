@@ -204,7 +204,7 @@ const Cart = () => {
             </div>
 
             <div className='checkout-cart' onClick={handleCheckoutCart}>
-                <div style={{backgroundColor: 'orange', borderRadius: 3, width: '100%', marginInline: 10, cursor: 'pointer'}} className='inner-item' onClick={handleCheckoutCart}>CHECKOUT (UGX {tPrice.toLocaleString() })</div>
+                <div style={{backgroundColor: 'orange', borderRadius: 3, width: '100%', marginInline: 10, cursor: 'pointer'}} className='inner-item' onClick={handleCheckoutCart}>CHECKOUT (UGX {tPrice?.toLocaleString() })</div>
             </div>
             
             <Footer/>
