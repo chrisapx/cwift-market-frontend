@@ -29,7 +29,7 @@ const Cart = () => {
 
     const handleCheckoutCart = () => {
         // go to the checkout page
-        navigate('/checkout')
+        navigate('/checkout/'+ tPrice)
     }
 
     const truncateText = (text, maxLength) => {
@@ -105,7 +105,7 @@ const Cart = () => {
                             </div>
                             <div className='item-details'>
                                 <div style={{fontSize: 12, fontWeight: '600'}}>{order?.item.name.slice(0, 50)}</div>
-                                <div style={{fontSize: 10}}>{order?.item?.description.slice(0, 50)}</div>
+                                <div style={{fontSize: 10}}>{order?.item?.description?.slice(0, 50)}</div>
                                 <div style={{fontSize: 14, fontWeight: '500'}}>UGX {(order?.item?.price).toLocaleString()} <span style={{textDecoration: 'line-through', color: 'grey', fontWeight: 'normal', fontSize: 10}}>UGX {(order.item.globalPrice).toLocaleString()} </span></div>
                             </div>
                         </div>

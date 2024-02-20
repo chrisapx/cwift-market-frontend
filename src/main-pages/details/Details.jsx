@@ -12,6 +12,7 @@ import { useListing } from '../../context/ListingContext';
 const Details = () => {
 
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
     const [addCart, setAddCart] = useState(false);
     const [item, setItem] = useState({});
     const [alsoViewed, setAlsoViewed] = useState([]);
@@ -30,9 +31,10 @@ const Details = () => {
 
     
     useEffect(() => {
+        setLoading(true);
         
-        // fetch('http://127.0.0.1:8080/items/' + itemID)
-        fetch('https://inventory.nalmart.com/items/' + itemID)
+        fetch('http://127.0.0.1:8080/items/' + itemID)
+        // fetch('https://inventory.nalmart.com/items/' + itemID)
             .then((response) => response.json())
             .then((json) => {
                 setItem(json);
@@ -53,6 +55,8 @@ const Details = () => {
         document.title = item.name;
         document.description = item.description;
         
+        setLoading(false);
+
     }, [itemID]);
 
     return(
@@ -221,6 +225,14 @@ const Details = () => {
             <div className='footer-section'>
                 <Footer/>
             </div>
+
+
+            {loading && 
+            <div className='confirm-overlay' style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: 10, borderRadius: 5, backgroundColor: 'white', }}>
+                    Just a sec...
+                </div>
+            </div>}
 
         </div>
     )

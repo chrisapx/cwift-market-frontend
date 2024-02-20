@@ -1,7 +1,7 @@
 // Checkout.jsx
 
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import './Checkout.scss'; // Import the SCSS file
 import Header from '../../components/header/Header';
 import { RiCoupon2Line, RiSecurePaymentLine } from "react-icons/ri";
@@ -15,10 +15,11 @@ import { useCart } from '../../context/CartContext';
 const Checkout = () => {
 
   const navigate = useNavigate();
-  const { cart, cartItems,totalItems, totalPrice, } = useCart();
+  const { cart, cartItems,totalItems } = useCart();
   const [ confirm, setConfirm] = useState(false);
   const [ accept, setAccept] = useState(false);
   const [ pStatus, setPstatus] = useState('success');
+  const { totalPrice } = useParams();
 
   const handleConfirmOrder = async () => {
 
@@ -33,7 +34,7 @@ const Checkout = () => {
         itemOrders: modifiedCart,
         totalPrice: totalPrice,
         deliveryAddress: {},
-        paid: 'true',
+        paid: true,
         userID: 'usR-12988229382',
         userEmail: 'mcaplexya@gmail.com'
       };
@@ -45,6 +46,8 @@ const Checkout = () => {
       console.error('Error creating cart:', error);
     }
   };
+
+  let dateToday = new Date();
 
   const createCart = async (cartData) => {
     try {
@@ -81,7 +84,7 @@ const Checkout = () => {
 
       <div className='sec-1' style={{color: 'black', fontSize: 12, display: 'flex', justifyContent: 'space-between'}}>
           <div style={{color: 'black', fontSize: 12, fontWeight: '300', paddingTop: 10}}>Items' total ({totalItems})</div>
-          <div style={{color: 'black', fontSize: 12, fontWeight: '400', paddingTop: 10}}>UGX {(totalPrice).toLocaleString()}</div>
+          <div style={{color: 'black', fontSize: 12, fontWeight: '400', paddingTop: 10}}>UGX {parseFloat(totalPrice).toLocaleString()}</div>
       </div>
       <div className='sec-1' style={{color: 'black', fontSize: 12, display: 'flex', justifyContent: 'space-between'}}>
           <div style={{color: 'black', fontSize: 12, fontWeight: '300', }}>Delivery fees</div>
@@ -90,7 +93,7 @@ const Checkout = () => {
 
       <div className='sec-1' style={{color: 'black', fontSize: 12, display: 'flex', justifyContent: 'space-between'}}>
           <div style={{color: 'black', fontSize: 12, fontWeight: '500', paddingBlock: 12}}>Total</div>
-          <div style={{color: 'black', fontSize: 12, fontWeight: '700', paddingBlock: 12}}>UGX {(totalPrice + 3900).toLocaleString()}</div>
+          <div style={{color: 'black', fontSize: 12, fontWeight: '700', paddingBlock: 12}}>UGX {(parseFloat(totalPrice) + 39000).toLocaleString()}</div>
       </div>
 
       <div className='sec-2' style={{color: 'black', fontSize: 12, display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 10
@@ -108,11 +111,19 @@ const Checkout = () => {
          <div style={{color: 'orange'}}>CHANGE</div>
       </div>
 
-      <div className='sec-3'>
+      {/* <div className='sec-3'>
         <RiSecurePaymentLine size={20} color={'orange'} style={{paddingRight: 15}}/>
         <div className='pay'>
           <div style={{fontWeight: '600', fontSize: 12}}>Mobile money</div>
           <div style={{fontSize: 11, }} >{("Pay with your MTN / Airtel mobile money account. Please use number format as follows: 2567xxxxxxxx").substring(0, 55)}...</div>
+        </div> 
+      </div> */}
+
+      <div className='sec-3'>
+        <RiSecurePaymentLine size={20} color={'orange'} style={{paddingRight: 15}}/>
+        <div className='pay'>
+          <div style={{fontWeight: '600', fontSize: 12}}>Cash On Delivery</div>
+          <div style={{fontSize: 11, }} >{("Please ensure to have changed cash with you on picking the item, ").substring(0, 55)}...</div>
         </div> 
       </div>
       
@@ -123,8 +134,8 @@ const Checkout = () => {
       </div>
 
       <div className='sec-2' style={{paddingBlock: 5}}>
-        <div style={{fontWeight: '600', fontSize: 10, color: 'grey'}}>MWESIGWA CHRISTOPHER</div>
-        <div style={{fontSize: 10, color: 'grey' }} >{("Kyanja Ring road, Nakawa division | Kampala central division | Uganda | East Africa").substring(0, 75)}...</div> 
+        <div style={{fontWeight: '600', fontSize: 10, color: 'grey'}}>{"No name yet"}</div> 
+        <div style={{fontSize: 10, color: 'grey' }} >{("No address yet, Ensure to attach one").substring(0, 75)}...</div> 
       </div>
 
       {/* Delivery details header */}
