@@ -1,18 +1,42 @@
 .main-home-area {
-    
-  }
-  
-  /* For mobile screens (up to 768px width) */
-  @media (max-width: 768px) {
-    .desktop {
-      display: none; /* hide desktop content on mobile */
+    display: flex;
+    flex-direction: column;
     }
-  }
-  
-  /* For desktop screens (greater than 768px width) */
-  @media (min-width: 769px) {
-    .mobile {
-      display: none; /* hide mobile content on desktop */
+
+    @media screen and (min-width: 320px) {
+        .desktop {
+            display: none; /* hide desktop content on mobile */
+        }
+        .mobile {
+            display: block; /* hide mobile content on desktop */
+        }
     }
-  }
+
+    @media screen and (min-width: 380px) {
+        .desktop {
+            display: none; /* hide desktop content on mobile */
+        }
+        .mobile {
+            display: block; /* hide mobile content on desktop */
+        }
+    }
+
+    @media screen and (min-width: 425px) {
+        .desktop {
+            display: none; /* hide desktop content on mobile */
+        }
+        .mobile {
+            display: block; /* hide mobile content on desktop */
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        .desktop {
+            display: block; /* hide desktop content on mobile */
+        }
+        .mobile {
+            display: none; /* hide mobile content on desktop */
+        }
+    }
+
   

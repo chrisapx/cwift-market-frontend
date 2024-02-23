@@ -9,7 +9,7 @@ const MainHome = () => {
             <div className="mobile">
                 <Home/>
             </div>
-            <div className="dektop">
+            <div className="desktop">
                 <DHome/>
             </div>
         </div>
