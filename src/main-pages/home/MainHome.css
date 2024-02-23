@@ -1,0 +1,18 @@
+.main-home-area {
+    
+  }
+  
+  /* For mobile screens (up to 768px width) */
+  @media (max-width: 768px) {
+    .desktop {
+      display: none; /* hide desktop content on mobile */
+    }
+  }
+  
+  /* For desktop screens (greater than 768px width) */
+  @media (min-width: 769px) {
+    .mobile {
+      display: none; /* hide mobile content on desktop */
+    }
+  }
+  
