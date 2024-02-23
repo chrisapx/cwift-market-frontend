@@ -1,6 +1,6 @@
 // Checkout.jsx
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import './Checkout.scss'; // Import the SCSS file
 import Header from '../../components/header/Header';
@@ -20,22 +20,31 @@ const Checkout = () => {
   const [ accept, setAccept] = useState(false);
   const [ pStatus, setPstatus] = useState('success');
   const { totalPrice } = useParams();
+  const [ checkOutAmount, setCheckoutAmount ] = useState(0);
 
   const handleConfirmOrder = async () => {
 
+    useEffect(() => {
+      console.log("Total price:", totalPrice);
+      const price = parseFloat(totalPrice) || 0;
+      setCheckoutAmount(price + 3900);
+    }, [totalPrice]);
+    
     try {
       const modifiedCart = cart.map(order => ({
         ...order,
         itemID: order.item.itemID, 
-        item: undefined, 
+        userID: 'usR-12988229381',
+        orderStatus: 'COMPLETED'  //Check if the payment has been done then you set the order to paid if not set it to Pending
+        // item: undefined, 
       }));
   
       const cartData = {
         itemOrders: modifiedCart,
-        totalPrice: totalPrice,
+        totalPrice: (parseFloat(totalPrice) + 3900).toLocaleString(),
         deliveryAddress: {},
-        paid: true,
-        userID: 'usR-12988229382',
+        paymentStatus: 'DONE', //Create a function to process payment in the payment service and when the payment is complete, Update the payment status field to 'DONE' ON FALSE SAY 'FAILED'
+        userID: 'usR-12988229381',
         userEmail: 'mcaplexya@gmail.com'
       };
   
@@ -93,7 +102,7 @@ const Checkout = () => {
 
       <div className='sec-1' style={{color: 'black', fontSize: 12, display: 'flex', justifyContent: 'space-between'}}>
           <div style={{color: 'black', fontSize: 12, fontWeight: '500', paddingBlock: 12}}>Total</div>
-          <div style={{color: 'black', fontSize: 12, fontWeight: '700', paddingBlock: 12}}>UGX {(parseFloat(totalPrice) + 39000).toLocaleString()}</div>
+          <div style={{color: 'black', fontSize: 12, fontWeight: '700', paddingBlock: 12}}>UGX { (parseFloat(totalPrice) + 3900).toLocaleString() }</div>
       </div>
 
       <div className='sec-2' style={{color: 'black', fontSize: 12, display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 10
@@ -149,7 +158,7 @@ const Checkout = () => {
           <GiCardPickup size={20} color={'orange'} style={{paddingRight: 15}}/>
           <div className='pay'>
             <div style={{fontWeight: '600', fontSize: 12}}>Pick-up</div>
-            <div style={{fontSize: 11, }} >Delivery between <span style={{fontWeight: '600'}}>18th Jan</span> and <span style={{fontWeight: '600'}}>20th Jan</span></div>
+            <div style={{fontSize: 11}}>Delivery between <span style={{fontWeight: '600'}}>{dateToday.toDateString()}</span> and <span style={{fontWeight: '600'}}>{new Date(dateToday.setDate(dateToday.getDate() + 2)).toDateString()}</span></div>
           </div> 
         </div> 
 

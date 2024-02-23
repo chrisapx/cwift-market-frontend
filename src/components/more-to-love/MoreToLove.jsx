@@ -9,12 +9,14 @@ import { LuPackage, LuPackageOpen } from 'react-icons/lu';
 import { Rating } from 'react-simple-star-rating';
 import { useCart } from '../../context/CartContext';
 import { useListing } from '../../context/ListingContext';
+import { TiTick } from 'react-icons/ti';
 
 
 const MoreToLove = () => {
 
   const navigate = useNavigate();
   const [items, setItems] = useState([]);
+  const [ addCart, setAddCart ] = useState(false);
   const { cartItems,totalPrice, addToCart, removeFromCart } = useCart();
   const { listing } = useListing();
 
@@ -33,10 +35,6 @@ const MoreToLove = () => {
 
     }, [listing]);
 
-    const handleAddToCart = (item) => {
-      addToCart(item);
-    }
-
     const moreCats = [
       {name: "All", icon: "" },
       {name: "Deals", icon: <GiThunderStruck size={12}/>},
@@ -47,6 +45,13 @@ const MoreToLove = () => {
       {name: "Students Deals", icon: <PiStudent size={12}/>},
     ]
       
+    const handleAddToCart = ( item ) => {
+      addToCart( item );
+      setAddCart(true);
+      setTimeout(() => {
+          setAddCart(false)
+      }, 1000)
+    }
     
     return (
       <div className="main-more-section">
@@ -54,7 +59,7 @@ const MoreToLove = () => {
           More to love
         </div>
 
-        <div style={{display: 'flex', overflow: 'auto', flex: 1, alignItems: 'center', paddingInline: 10, marginBlock: 10, gap: 10}}>
+        <div style={{display: 'flex', overflow: 'auto', msOverflowStyle: 'none', scrollbarWidth: 'none', flex: 1, alignItems: 'center', paddingInline: 10, marginBlock: 10, gap: 10}}>
             {moreCats?.map((item, index) => (
                 <div key={index} onClick={() => handleCategory(item.name)} style={{display: 'flex', alignItems: 'center', whiteSpace: 'nowrap', gap: 3, fontSize: 12, color: selectedCategory === item.name? 'black' : 'grey', fontWeight: '600', borderBottomStyle: selectedCategory === item.name&& 'solid', borderBottomColor: 'black' }}>
                   <div>{item?.icon}</div>
@@ -63,7 +68,14 @@ const MoreToLove = () => {
             ))}
         </div>
 
-          <div style={{}} className="more-list">
+        {addCart && 
+          <div className='add-cart'>
+              <TiTick size={20} />
+              <span>Item successfuly added to cart</span>
+          </div>
+        }
+
+          <div style={{}} className="more-list" >
               {items.map((item, index) => (
                   <div key={index} className='item-card' style={{display: 'flex', flexDirection: 'column', color: 'black', padding: 3, lineHeight: 1, }} >
                       <div className='image-card' style={{ boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.1)', borderRadius: 8, width: '100%', padding: 10, display: 'flex', justifyContent: 'center', alignItems: 'center'}} onClick={() => navigate('/details/' + item.itemID )}>

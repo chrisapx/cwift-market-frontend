@@ -41,39 +41,40 @@ const Categories = () => {
                 ))
                 }
             </div> */}
-            <div style={{fontWeight: '500', fontSize: 12, paddingInline: 8, display: 'flex', alignItems: 'center', marginBlock: 10}}>
+            <div style={{fontWeight: '500', fontSize: 12, paddingInline: 8, display: 'flex', alignItems: 'center', marginBlock: 10,}}>
                 <div>Categories</div> 
                 <LuChevronRight /></div>
             <div>
-                <div className='category-section' style={{display: 'flex', overflow: 'scroll', gap: 18, paddingLeft: 8, marginBottom: 10}}>
+                <div className='category-section' style={{display: 'flex', overflow: 'scroll', msOverflowStyle: 'none', scrollbarWidth: 'none', gap: 12, paddingLeft: 8, marginBottom: 10, height: 'fit-content'}}>
                     {categories.map((cat, index) => (
-                       index%2 ==0 && <div key={index} className='category-card' style={{width: 60, fontSize: 10, backgroundColor: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                       index%2 ==0 && <div key={index} className='category-card' style={{width: 60, lineHeight: 1, textAlign: 'center', paddingInline: 10, fontSize: 12, backgroundColor: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                             {/* Image */}
-                            <div style={{width: 50, height: 50,  backgroundColor: 'whites', objectFit: 'fill', position: 'relative', borderRadius: 50, borderStyle: 'solid', borderWidth: 1, borderColor: 'grey'}}>
-                                {/* <img src={cat.image}  width={'100%'} height={'100%'} style={{borderRadius: 50, }}/> */}
+                            <div style={{width: 60, height: 60,  backgroundColor: 'whites', objectFit: 'contain', position: 'relative', borderRadius: 50, borderStyle: 'solid', borderWidth: 1, borderColor: 'grey'}}>
+                                <img src={cat.image}  width={'100%'} height={'100%'} style={{borderRadius: 50, }}/>
                             </div>
                             {/* Offers */}
-                            <div style={{ position: 'relative',  fontSize: 8, backgroundColor: 'white', color: 'orange', fontWeight: '700', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}>{cat.offers}</div>
+                            <div style={{ position: 'relative', bottom: 8,  fontSize: 8, backgroundColor: 'white', color: 'orange', fontWeight: '700', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}>{cat.offers}</div>
                             {/* Name */}
-                            <div style={{fontWeight: '500', color: 'black', lineHeight: 1}}>{cat.name}</div>
+                            <div style={{position: 'relative', bottom: 2, fontWeight: '500', color: 'black', lineHeight: 1}}>{cat.name}</div>
                         </div>     
                     ))}
                     
                 </div>
 
-                <div className='category-section' style={{display: 'flex', overflow: 'scroll', gap: 18, paddingLeft: 8, marginBottom: 10}}>
+                <div className='category-section' style={{display: 'flex', overflow: 'scroll',msOverflowStyle: 'none', scrollbarWidth: 'none', gap: 12, paddingLeft: 8, marginBottom: 10}}>
                     {categories.map((cat, index) => (
-                       index%2 != 0 && <div key={index} className='category-card' style={{width: 60, fontSize: 10, backgroundColor: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                       index%2 != 0 && <div key={index} className='category-card' style={{width: 60, lineHeight: 1, textAlign: 'center', paddingInline: 10, fontSize: 12, backgroundColor: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                             {/* Image */}
-                            <div style={{width: 50, height: 50,  backgroundColor: 'white', borderRadius: 50, borderStyle: 'solid', borderWidth: 1, borderColor: 'grey'}}>
-                                {/* <img src={cat.image}  width={'100%'} height={'100%'} style={{borderRadius: 50, }}/> */}
+                            <div style={{width: 60, height: 60,  backgroundColor: 'whites', objectFit: 'contain', position: 'relative', borderRadius: 50, borderStyle: 'solid', borderWidth: 1, borderColor: 'grey'}}>
+                                <img src={cat.image}  width={'100%'} height={'100%'} style={{borderRadius: 50, }}/>
                             </div>
                             {/* Offers */}
-                            <div style={{ position: 'relative',  fontSize: 8, backgroundColor: 'white', color: 'orange', fontWeight: '700', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}>{cat.offers}</div>
+                            <div style={{ position: 'relative', bottom: 8,  fontSize: 8, backgroundColor: 'white', color: 'orange', fontWeight: '700', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}>{cat.offers}</div>
                             {/* Name */}
-                            <div style={{fontWeight: '500', color: 'black', lineHeight: 1.1}}>{cat.name}</div>
+                            <div style={{position: 'relative', bottom: 2, fontWeight: '500', color: 'black', lineHeight: 1}}>{cat.name}</div>
                         </div>     
                     ))}
+                    
                 </div>
             </div>
         </div>

@@ -21,7 +21,7 @@ export function CartProvider({ children }) {
       quantity: 1,
       userID: 'usR-12988229382',
       totalPrice: item.price,
-      paid: false,
+      // paid: false,
       deliveryAddress: {},
       // specialInstructions: "",
     };

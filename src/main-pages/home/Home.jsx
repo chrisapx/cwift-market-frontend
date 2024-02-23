@@ -16,6 +16,7 @@ const Home = () => {
             {/* <div className='ad-section'>
                 <AdBar/>
             </div> */}
+            
             <div className='header-section'>
                 <Header/>
             </div>
