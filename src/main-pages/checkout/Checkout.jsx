@@ -1,6 +1,6 @@
 // Checkout.jsx
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import './Checkout.scss'; // Import the SCSS file
 import Header from '../../components/header/Header';
@@ -20,22 +20,29 @@ const Checkout = () => {
   const [ accept, setAccept] = useState(false);
   const [ pStatus, setPstatus] = useState('success');
   const { totalPrice } = useParams();
+  const [ checkOutAmount, setCheckoutAmount ] = useState();
 
   const handleConfirmOrder = async () => {
+
+    useEffect(() => {
+      setCheckoutAmount(parseFloat(totalPrice) + 39000);
+    }, [totalPrice])
 
     try {
       const modifiedCart = cart.map(order => ({
         ...order,
         itemID: order.item.itemID, 
-        item: undefined, 
+        userID: 'usR-12988229381',
+        orderStatus: 'COMPLETED'  //Check if the payment has been done then you set the order to paid if not set it to Pending
+        // item: undefined, 
       }));
   
       const cartData = {
         itemOrders: modifiedCart,
         totalPrice: totalPrice,
         deliveryAddress: {},
-        paid: true,
-        userID: 'usR-12988229382',
+        paymentStatus: 'DONE', //Create a function to process payment in the payment service and when the payment is complete, Update the payment status field to 'DONE' ON FALSE SAY 'FAILED'
+        userID: 'usR-12988229381',
         userEmail: 'mcaplexya@gmail.com'
       };
   
@@ -93,7 +100,7 @@ const Checkout = () => {
 
       <div className='sec-1' style={{color: 'black', fontSize: 12, display: 'flex', justifyContent: 'space-between'}}>
           <div style={{color: 'black', fontSize: 12, fontWeight: '500', paddingBlock: 12}}>Total</div>
-          <div style={{color: 'black', fontSize: 12, fontWeight: '700', paddingBlock: 12}}>UGX {(parseFloat(totalPrice) + 39000).toLocaleString()}</div>
+          <div style={{color: 'black', fontSize: 12, fontWeight: '700', paddingBlock: 12}}>UGX { parseFloat(checkOutAmount).toLocaleString()}</div>
       </div>
 
       <div className='sec-2' style={{color: 'black', fontSize: 12, display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 10

@@ -17,7 +17,7 @@ export default function SubHeader() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        setDeals(listing);
+        setDeals(listing.filter(e => e?.globalPrice && e?.globalPrice > e?.price));
         console.log(listing);
     },[listing])
 
@@ -32,7 +32,7 @@ export default function SubHeader() {
     return(
         <div className="sub-header-frame">
             {/* Horizontal scroll categories */}
-            <div className='upper-cat'>
+            <div className='upper-cat' style={{msOverflowStyle: 'none', scrollbarWidth: 'none',}}>
                 {upperCats.map((cat, index) => (
                     <div key={index} style={{paddingBlock: 0, borderBottomStyle: selected === cat.name &&  'solid', fontWeight: selected === cat.name ? 'bold' : '400' , color: selected === cat.name ? 'black' : 'rgba(0, 0, 0, 0.8)'}} onClick={() => handleSelected(cat.name)}>{cat.name}</div>
                     ))}
@@ -63,19 +63,19 @@ export default function SubHeader() {
 
             <div style={{display: 'flex', gap: 8, overflow: 'auto'}}>
                 {/* Item  listing section */}
-                {deals?.map((item, index) => (
+                {deals?.map((item, index) => item?.globalPrice && item?.globalPrice > item?.price && (
                     <div key={index} style={{width: 100, height: 'fit-content', color: 'black', }} onClick={() => navigate('/details/' + item.itemID )}>
                         {/* Image section */}
                         <div style={{height: 100, width: 100, boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.1)', borderRadius: 5}}>
                             <img src={item?.coverPhoto?.url} height={'100%'} width={'100%'} style={{borderRadius: 5, objectFit: 'contain'}}/>
                         </div>
                         {/* details section */}
-                        <div style={{display: 'flex', justifyContent: 'space-between', paddingBlock: 6}}>
-                            <div style={{fontSize: 12, whiteSpace: 'nowrap', color: 'orange', fontWeight: '700'}}><span style={{fontSize: 8}}>UGX</span> {(item.price/1000).toFixed(0)}K</div>
-                            <div style={{fontSize: 12, whiteSpace: 'nowrap', }}>{(item?.stockCount/1000).toFixed(0)}k+ <span style={{fontSize: 8}}>Sold</span></div>
+                        <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', paddingBlock: 6}}>
+                            <div style={{fontSize: 12, whiteSpace: 'nowrap', color: 'orange', fontWeight: '700'}}><span style={{fontSize: 8}}>UGX</span> {(item.price).toLocaleString()}</div>
+                            <div style={{fontSize: 8, whiteSpace: 'nowrap', }}>{(item?.stockCount)?.toFixed(0)}+ <span style={{fontSize: 8}}>Sold</span></div>
                         </div>
 
-                        <div style={{position: 'relative', bottom: 46, fontWeight: '700',width: 'fit-content',padding: 2, paddingInline: 6, fontSize: 8, left: 0, backgroundColor: '#c83f49', boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.1)', color: 'white', borderBottomRightRadius: 15, borderTopLeftRadius: 15}}>12% OFF</div>
+                        { item.globalPrice && <div style={{position: 'relative', bottom: 60, fontWeight: '700',width: 'fit-content',padding: 2, paddingInline: 6, fontSize: 8, left: 0, backgroundColor: '#c83f49', boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.1)', color: 'white', borderBottomRightRadius: 15, borderTopLeftRadius: 15}}>{ ((item?.globalPrice - item?.price)/item?.globalPrice * 100).toFixed(0)}% OFF</div> }
 
                     </div>
                 ))}

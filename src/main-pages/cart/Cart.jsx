@@ -86,7 +86,7 @@ const Cart = () => {
 
             <div className='sec-1' style={{color: 'black', fontSize: 12, display: 'flex', justifyContent: 'space-between'}}>
                 <div style={{paddingBlock: 10, color: 'black', fontSize: 12, fontWeight: '600'}}>Subtotal</div>
-                <div style={{paddingBlock: 10, color: 'black', fontSize: 12, fontWeight: '600'}}>UGX {(totalPrice).toLocaleString()}</div>
+                <div style={{paddingBlock: 10, color: 'black', fontSize: 12, fontWeight: '600'}}>UGX {(tPrice)?.toLocaleString()}</div>
             </div>
 
             {/* Cart items header */}

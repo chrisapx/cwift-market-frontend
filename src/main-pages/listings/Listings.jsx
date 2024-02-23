@@ -15,25 +15,32 @@ const Listing = () => {
 
   const { category } = useParams();
   const { listing } = useListing();
-  const [items, setItems] = useState([]);
-  const [addCart, setAddCart] = useState(false);
+  const [ currentCategory, setCurrentCategory ] = useState(category);
+  const [ items, setItems ] = useState([]);
+  const [ addCart, setAddCart ] = useState(false);
+  const [ selected, setSelected ] = useState(category);
   const { cartItems,totalPrice, addToCart, removeFromCart } = useCart();
   const navigate = useNavigate();
 
   useEffect(() => {
+    if(currentCategory === 'All' || currentCategory === null || currentCategory === ''){
+      setItems(listing);
+    }else{
+      setItems(listing?.filter(list => list?.category === currentCategory));
+    }
 
-    document.title = "Nalmart - Explore Listings";
-    setItems(listing);
-  }, []);
+    document.title = "Nalmart - Explore " + currentCategory +" Listings";
+    // setItems(listing);
+  }, [currentCategory]);
 
-  const [selected, setSelected] = useState('All');
 
   const handleSelected = ( select ) => {
       if(select){
           setSelected('');
           setSelected(select);
+        setCurrentCategory(select);
       }
-      navigate('/listings/' + select)
+      // navigate('/listings/' + select)
   }
 
   const handleAddToCart = ( item ) => {
@@ -69,7 +76,7 @@ const Listing = () => {
 
       <div className='recom-section'>
         <div style={{}} className="more-list">
-          {items.map((item, index) => (
+          {items.map((item, index) => items.length != 0 ? (
               <div key={index} className='item-card' style={{display: 'flex', flexDirection: 'column', color: 'black', padding: 3, lineHeight: 1, marginBlock: 6}} >
                   <div className='image-card' style={{ boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.1)', borderRadius: 8, width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}} onClick={() => navigate('/details/' + item.itemID )}>
                       { item.coverPhoto ? 
@@ -95,7 +102,10 @@ const Listing = () => {
                       </div>
                   </div>
               </div>
-            ))} 
+            ): (
+              <div>List is empty</div>
+            )
+            )} 
         </div>
       </div>
 
