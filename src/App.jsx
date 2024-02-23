@@ -6,10 +6,8 @@ import AddItem from './seller-pages/add-item/AddItem'
 import { CartProvider } from './context/CartContext'
 import AdminHome from './seller-pages/home-page/AdminHome'
 import { ListingProvider } from './context/ListingContext'
-import DHome from './main-pages/home/DHome'
 import MainHome from './main-pages/home/MainHome'
 
-const Home = lazy(() => import('./main-pages/home/Home'))
 const SearchPage = lazy(() => import('./main-pages/search/SearchPage'))
 const SearchResults = lazy(() => import('./main-pages/search-results/SearchResults'))
 const Details = lazy(() => import('./main-pages/details/Details'))
