@@ -32,7 +32,7 @@ export default function SubHeader() {
     return(
         <div className="sub-header-frame">
             {/* Horizontal scroll categories */}
-            <div className='upper-cat' style={{msOverflowStyle: 'none', scrollbarWidth: 'none',}}>
+            <div className='upper-cat' style={{overflow: 'auto', msOverflowStyle: 'none', scrollbarWidth: 'none',}}>
                 {upperCats.map((cat, index) => (
                     <div key={index} style={{paddingBlock: 0, borderBottomStyle: selected === cat.name &&  'solid', fontWeight: selected === cat.name ? 'bold' : '400' , color: selected === cat.name ? 'black' : 'rgba(0, 0, 0, 0.8)'}} onClick={() => handleSelected(cat.name)}>{cat.name}</div>
                     ))}
@@ -61,7 +61,7 @@ export default function SubHeader() {
             </div>
 
 
-            <div style={{display: 'flex', gap: 8, overflow: 'auto'}}>
+            <div style={{display: 'flex', gap: 8, overflow: 'auto', msOverflowStyle: 'none', scrollbarWidth: 'none',}}>
                 {/* Item  listing section */}
                 {deals?.map((item, index) => item?.globalPrice && item?.globalPrice > item?.price && (
                     <div key={index} style={{width: 100, height: 'fit-content', color: 'black', }} onClick={() => navigate('/details/' + item.itemID )}>

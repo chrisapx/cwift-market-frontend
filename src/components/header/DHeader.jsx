@@ -6,13 +6,16 @@ import { useState } from 'react';
 import { HiSearch } from 'react-icons/hi';
 import { PiShoppingCartSimple } from 'react-icons/pi';
 import { useCart } from '../../context/CartContext';
+import { useNavigate } from 'react-router-dom';
 const DHeader = () => {
 
     const [hoovered, setHoovered] = useState('');
     const { totalItems } = useCart();
+    const navigate = useNavigate();
+
     return(
         <div className="d-header-frame">
-            <div className="logo">
+            <div className="logo" onClick={() => navigate('/')}>
                 NALMART
             </div>
 
@@ -33,7 +36,7 @@ const DHeader = () => {
                 <span style={{marginLeft: 5, }}>Gift Offers</span>
             </div>
 
-            <div className='d-header-item'>
+            <div className='d-header-item' onClick={() => navigate('/listings/NewArrivals')}>
                 {/* <MdNewReleases /> */}
                 <span style={{marginLeft: 5, }}>New arrivals</span>
             </div>
@@ -87,9 +90,14 @@ const DHeader = () => {
                 <div style={{marginLeft: 5, fontSize: 12, fontWeight: '600'}}>UG</div>
             </div>
 
-            <div className='d-header-item' style={{display: 'flex'}}>
+            <div className='d-header-item' style={{display: 'flex'}} onClick={() => navigate('/cart')}>
                 <PiShoppingCartSimple size={22} />
                 <div style={{position: 'relative', right: 10, color: 'white', backgroundColor: 'orange', borderRadius: 30, paddingInline: 4, fontWeight: '700', fontSize: 8, height: 12}}>{totalItems}</div>
+            </div>
+            
+            {/* Cart for Desktop screens */}
+            <div>
+                
             </div>
             
         </div>

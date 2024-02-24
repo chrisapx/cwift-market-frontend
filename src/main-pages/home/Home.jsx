@@ -23,6 +23,9 @@ const Home = () => {
             <div className='sub-header'>
                 <SubHeader/>
             </div>
+            <div style={{}}>
+                <img src="src/assets/98658cdd-c5e8-4603-9ea7-b6c254e66e7d.png" width={'100%'} style={{objectFit: 'contain'}}/>
+            </div>
 
             <div className='main-body'>
                 <div >

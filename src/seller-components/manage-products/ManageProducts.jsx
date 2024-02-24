@@ -83,7 +83,7 @@ export default function ManageProducts() {
         status: "live",
         coverImage: row.coverPhoto?.url,
         price: currency === "UGX" | currency === "none" ? row.price : row.price/38000,
-        delete: <div><GridDeleteIcon size={6}/></div>
+        delete: <div><GridDeleteIcon size={6}/></div>,
       }))
     
     return(

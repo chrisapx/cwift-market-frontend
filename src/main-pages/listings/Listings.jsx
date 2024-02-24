@@ -29,27 +29,31 @@ const Listing = () => {
       setItems(listing?.filter(list => list?.category === currentCategory));
     }
 
-    document.title = "Nalmart - Explore " + currentCategory +" Listings";
     // setItems(listing);
   }, [currentCategory]);
-
-
+  
+  
   const handleSelected = ( select ) => {
-      if(select){
-          setSelected('');
-          setSelected(select);
-        setCurrentCategory(select);
-      }
-      // navigate('/listings/' + select)
+    if(select){
+      setSelected('');
+      setSelected(select);
+      setCurrentCategory(select);
+    }
+    // navigate('/listings/' + select)
   }
-
+  
   const handleAddToCart = ( item ) => {
     addToCart( item );
     setAddCart(true);
     setTimeout(() => {
-        setAddCart(false)
+      setAddCart(false)
     }, 1000)
   }
+  
+  useEffect(() => {
+    document.title = "Nalmart - Explore " + currentCategory +" Listings";
+    
+  },[])
 
   return (
     <div className="listings-container">
