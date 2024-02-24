@@ -45,8 +45,8 @@ const DDetailsPage = () => {
 
     
     useEffect(() => {
-        fetch('http://127.0.0.1:8080/items/' + itemID)
-        // fetch('https://inventory.nalmart.com/items/' + itemID)
+        // fetch('http://127.0.0.1:8080/items/' + itemID)
+        fetch('https://inventory.nalmart.com/items/' + itemID)
             .then((response) => response.json())
             .then((json) => {
             setItem(json);

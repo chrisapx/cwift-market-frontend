@@ -1,4 +1,23 @@
 .d-listings-frame {
+
+
+  .add-cart-notif {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15vw;
+    border-radius: 3px;
+    right: 0px;
+    top: 0;
+    height: 60px;
+    z-index: 300;
+    padding: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    background-color: #000000d5;
+    color: white;
+}
     .listing-section {
       position: sticky;
       top: 150px; /* Height of your sticky header */
@@ -19,14 +38,18 @@
 
         
         .i-section-contents {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          grid-gap: 24px;
+            // display: flex;
+            // flex-wrap: wrap;
+            // gap: 30px;
 
 
             .i-card {
                 min-width: 200px;
                 max-width: 230px;
+                cursor: pointer;
                 // height: 230px;
                 // background-color: #c3c3c3;
                 display: flex;
@@ -76,7 +99,57 @@
       }
   
       .filters {
-        background-color: #f9f9f9;
+        // background-color: #f9f9f9;
+
+        #filter-form {
+          color: black;
+
+          .filter-option {
+            margin-bottom: 15px;
+          
+            h4 {
+              margin-top: 0;
+              font-weight: bold;
+              font-size: small;
+              color: rgba(0, 0, 0, 0.842);
+            }
+          
+            input[type="range"] {
+              width: 70%;
+              /* Change the color of the range input */
+              &::-webkit-slider-thumb {
+                background-color: orange; /* Change to desired color */
+              }
+            }
+          
+            input[type="checkbox"] {
+              /* Hide the default checkbox */
+              appearance: none;
+              -webkit-appearance: none;
+              -moz-appearance: none;
+              width: 20px;
+              height: 20px;
+              border: 1px solid black; /* Thin black border */
+              border-radius: 50%; /* Round shape */
+              outline: none;
+              cursor: pointer;
+          
+              &:checked {
+                background-color: black; /* Change to black when selected */
+                
+                &:after {
+                  content: "\2713"; /* Unicode checkmark character */
+                  color: white; /* White checkmark */
+                  font-size: 12px;
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  transform: translate(-50%, -50%);
+                }
+              }
+            }
+          }
+        }
       }
   
       #f-header {

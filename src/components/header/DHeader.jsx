@@ -90,7 +90,7 @@ const DHeader = () => {
                 <div style={{marginLeft: 5, fontSize: 12, fontWeight: '600'}}>UG</div>
             </div>
 
-            <div className='d-header-item' style={{display: 'flex'}}>
+            <div className='d-header-item' style={{display: 'flex'}} onClick={() => navigate('/cart')}>
                 <PiShoppingCartSimple size={22} />
                 <div style={{position: 'relative', right: 10, color: 'white', backgroundColor: 'orange', borderRadius: 30, paddingInline: 4, fontWeight: '700', fontSize: 8, height: 12}}>{totalItems}</div>
             </div>
