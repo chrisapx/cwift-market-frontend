@@ -1,0 +1,103 @@
+.d-listings-frame {
+    .listing-section {
+      position: sticky;
+      top: 150px; /* Height of your sticky header */
+      display: grid;
+      grid-template-columns: 1fr 4fr;
+      padding-inline: 40px;
+  
+      .filters, .i-section {
+        overflow-y: auto;
+        scrollbar-width: none;
+        height: calc(100vh - 70px); 
+        background-color: #fff;
+        padding: 20px; 
+  
+        &::-webkit-scrollbar {
+          display: none; 
+        }
+
+        
+        .i-section-contents {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+
+
+            .i-card {
+                min-width: 200px;
+                max-width: 230px;
+                // height: 230px;
+                // background-color: #c3c3c3;
+                display: flex;
+                flex-direction: column;
+                // justify-content: s;
+
+                .i-card-image{
+                    min-width: 200px;
+                    max-width: 230px;
+                    height: 230px;
+                    // background-color: #c3c3c3;
+                }
+
+                // .i-info-section {
+                    // display: flex;
+                    // flex-direction: column;
+                    
+                    .i-name {
+                        font-size: small;
+                        color: black;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                    .i-price {
+                        color: rgb(255, 111, 0);
+                        font-weight: bold;
+                        font-size: 16px;
+                        line-height: 1px;
+                    }
+    
+                    .rating-n-cart {
+                        color: black;
+                        line-height: 0.5px;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+    
+                    }
+                // }
+
+            }
+        }
+
+
+
+      }
+  
+      .filters {
+        background-color: #f9f9f9;
+      }
+  
+      #f-header {
+        background-color: #fff;
+        color: rgba(0, 0, 0, 0.827);
+        font-size: large;
+        font-weight: bold;
+        position: sticky;
+        padding-top: 20px;
+        top: 20px;
+      }
+
+      #i-header {
+        background-color: #fff;
+        color: rgba(0, 0, 0, 0.827);
+        font-size: large;
+        font-weight: bold;
+        position: sticky;
+        padding-top: 20px;
+        // top: 20px;
+      }
+    }
+  }
+  

@@ -7,10 +7,11 @@ import { CartProvider } from './context/CartContext'
 import AdminHome from './seller-pages/home-page/AdminHome'
 import { ListingProvider } from './context/ListingContext'
 import MainHome from './main-pages/home/MainHome'
+import MainDetails from './main-pages/details/MainDetails'
+import MainListing from './main-pages/listings/MainListing'
 
 const SearchPage = lazy(() => import('./main-pages/search/SearchPage'))
 const SearchResults = lazy(() => import('./main-pages/search-results/SearchResults'))
-const Details = lazy(() => import('./main-pages/details/Details'))
 const NotFoundPage = lazy(() => import('./main-pages/notFound/NotFound'))
 const Cart = lazy(() => import('./main-pages/cart/Cart'))
 const Account = lazy(() => import('./main-pages/profile/Account'))
@@ -53,12 +54,12 @@ function App() {
                 <Route path="/" element={ <MainHome/> } />
                 <Route path="/search" element={<SearchPage />} />
                 <Route path="/search-results/:input" element={<SearchResults />} />
-                <Route path="/details/:itemID" element={<Details />} />
+                <Route path="/details/:itemID" element={<MainDetails />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/account" element={<Account />} />
                 <Route path="/checkout/:totalPrice" element={<Checkout />} />
                 <Route path="/payment/:pstatus" element={<Payment />} />
-                <Route path="/listings/:category" element={<Listing />} />
+                <Route path="/listings/:category" element={<MainListing />} />
                 <Route path="/add-item" element={<AddItem />} />
                 <Route path='/admin-home' element={<AdminHome/>}/>
                 <Route path="/login" element={<Login />} />

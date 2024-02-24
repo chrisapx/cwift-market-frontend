@@ -20,7 +20,7 @@ export function CartProvider({ children }) {
       item: item,
       quantity: 1,
       userID: 'usR-12988229382',
-      totalPrice: item.price,
+      totalPrice: item?.price,
       // paid: false,
       deliveryAddress: {},
       // specialInstructions: "",

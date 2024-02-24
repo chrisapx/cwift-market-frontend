@@ -24,6 +24,12 @@
         border-radius: 8px;
     }
 
+    .logo:hover {
+      cursor: pointer;
+      box-shadow: 8px 8px 16px 0px rgba(0,0,0,0.2);
+
+    }
+    
     .d-header-item {
         color: rgba(0, 0, 0, 0.816);
         font-size: 13px;
@@ -44,6 +50,16 @@
           z-index: 10;
         }
         
+    }
+
+    .d-header-item:hover {
+      padding: 8px;
+      background-color: #f9f9f9;
+      border: #f6f6f6 2px solid ;
+      border-radius: 16px;
+      cursor: pointer;
+      // box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.2);
+
     }
     
     .d-header-item:hover .dropdown-content {

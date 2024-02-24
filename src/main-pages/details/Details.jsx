@@ -8,6 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useCart } from '../../context/CartContext';
 import { useListing } from '../../context/ListingContext';
+import ItemDescription from '../../global/ItemDescription';
 
 const Details = () => {
 
@@ -33,8 +34,8 @@ const Details = () => {
     useEffect(() => {
         setLoading(true);
         
-        // fetch('http://127.0.0.1:8080/items/' + itemID)
-        fetch('https://inventory.nalmart.com/items/' + itemID)
+        fetch('http://127.0.0.1:8080/items/' + itemID)
+        // fetch('https://inventory.nalmart.com/items/' + itemID)
             .then((response) => response.json())
             .then((json) => {
                 setItem(json);
@@ -124,8 +125,15 @@ const Details = () => {
 
             <div className='sec-1' style={{paddingBottom: 20, color: 'black', fontSize: 12}}>
                 <div style={{paddingBlock: 10, color: 'black', fontSize: 12, fontWeight: '600'}}>Description</div>
-                <div>{item.description}</div>
+                {item?.description ? <ItemDescription htmlContent={item?.description}/> : <div>No Description, Check the User manual</div>}
             </div>
+
+            {item?.guide ? <div className='sec-1' style={{paddingBottom: 20, color: 'black', fontSize: 12}}>
+                <div style={{paddingBlock: 10, color: 'black', fontSize: 12, fontWeight: '600'}}>Item User Manual</div>
+                <div><a style={{color: 'blue'}} href=''>download user manual</a></div>
+            </div> : null}
+
+            
 
             {/* Customers also viewed */}
             <div className='sec-1' style={{paddingBottom: 20, color: 'black', fontSize: 12}}>
