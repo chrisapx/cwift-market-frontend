@@ -1,8 +1,7 @@
-// Checkout.jsx
 
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import './Checkout.scss'; // Import the SCSS file
+import './Checkout.scss';
 import Header from '../../components/header/Header';
 import { RiCoupon2Line, RiSecurePaymentLine } from "react-icons/ri";
 import { FaAngleLeft } from "react-icons/fa6";
@@ -22,28 +21,29 @@ const Checkout = () => {
   const { totalPrice } = useParams();
   const [ checkOutAmount, setCheckoutAmount ] = useState(0);
 
+  useEffect(() => {
+    console.log("Total price:", totalPrice);
+    const price = parseFloat(totalPrice) || 0;
+    setCheckoutAmount(price + 3900);
+  }, [totalPrice]);
+
   const handleConfirmOrder = async () => {
 
-    useEffect(() => {
-      console.log("Total price:", totalPrice);
-      const price = parseFloat(totalPrice) || 0;
-      setCheckoutAmount(price + 3900);
-    }, [totalPrice]);
     
     try {
       const modifiedCart = cart.map(order => ({
         ...order,
         itemID: order.item.itemID, 
         userID: 'usR-12988229381',
-        orderStatus: 'COMPLETED'  //Check if the payment has been done then you set the order to paid if not set it to Pending
+        orderStatus: 'COMPLETED'  //Will Check if the payment has been done then you set the order to paid if not set it to Pending
         // item: undefined, 
       }));
   
       const cartData = {
         itemOrders: modifiedCart,
-        totalPrice: (parseFloat(totalPrice) + 3900).toLocaleString(),
+        totalPrice: totalPrice.toLocaleString(),
         deliveryAddress: {},
-        paymentStatus: 'DONE', //Create a function to process payment in the payment service and when the payment is complete, Update the payment status field to 'DONE' ON FALSE SAY 'FAILED'
+        paymentStatus: 'DONE', //Will Create a function to process payment in the payment service and when the payment is complete, Update the payment status field to 'DONE' ON FALSE SAY 'FAILED'
         userID: 'usR-12988229381',
         userEmail: 'mcaplexya@gmail.com'
       };
@@ -60,7 +60,9 @@ const Checkout = () => {
 
   const createCart = async (cartData) => {
     try {
-      const response = await fetch('http://127.0.0.1:8080/carts', {
+      const response = await 
+      // fetch('http://127.0.0.1:8080/carts', {
+        fetch('https://inventory.nalmart.com/carts', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

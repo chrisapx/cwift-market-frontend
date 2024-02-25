@@ -21,7 +21,7 @@ export default function DListings (){
 
     useEffect(() => {
         setItems(listing?.filter(ls => ls?.price >= minPrice && ls?.price <= maxPrice));
-    }, [maxPrice, minPrice])
+    }, [maxPrice, minPrice, listing])
 
     const subCats = [
         {name: 'Lighting', image: 'https://firebasestorage.googleapis.com/v0/b/cwift-marketplace.appspot.com/o/item-images%2Flighting.jpeg57e8c991-b2f3-4dc8-b493-6eff339937a1?alt=media&token=dbf37ac9-6308-414a-8630-6e02f7055bc2'},
@@ -114,8 +114,15 @@ export default function DListings (){
                     {items?.length == 0 ? <div>No Items</div> : null}
 
                     <div className="i-section-contents">
-                        {items?.map((item, index) => (
-                        <div className="i-card">
+                        {items?.map((item, index) => {
+
+                            const itemRating = item?.reviews.reduce((totalRate, review) => {
+                                if (review && review.rating !== undefined || review.rating != 0) return totalRate + review.rating;
+                                else return totalRate;
+                            }, 0.0)
+
+                            return(
+                        <div key={index} className="i-card">
                             <div className="i-card-image" onClick={() => navigate('/details/' + item.itemID)}>
                                 <img src={item?.coverPhoto?.url} width={'100%'} height={'100%'} style={{objectFit: 'contain', borderRadius: 4}}/>
                             </div>
@@ -126,7 +133,7 @@ export default function DListings (){
                                 <div className="rating-n-cart">
                                     <div style={{fontSize: 12}}>
                                         <StarRatings
-                                            rating={item?.reviews[0]?.rating}
+                                            rating={itemRating}
                                             starRatedColor="black"
                                             numberOfStars={5}
                                             starDimension="14px"
@@ -152,7 +159,8 @@ export default function DListings (){
                                 </div>
                             </div>
                         </div>
-                        ))}
+                        )}
+                        )}
                     </div>
 
                 </div>
