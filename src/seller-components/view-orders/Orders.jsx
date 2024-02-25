@@ -9,7 +9,7 @@ export default function Orders() {
 
     useEffect(()=>{
         // fetch('http://127.0.0.1:8080/items/categories')
-        fetch('https://inventory.nalmart.com/orders')
+        fetch('https://inventory.nalmart.com/carts')
         .then(response => {
             if (!response.ok) { 
                 throw new Error('Network response was not ok'); 
@@ -25,13 +25,14 @@ export default function Orders() {
 
     const columns = [
         { field: 'id', headerName: '#', },
-        { field: 'orderID', headerName: 'Order ID', width: 150 },
-        { field: 'quantity', headerName: 'Quantity', width: 130, editable: true },
+        { field: 'cartID', headerName: 'Cart ID', width: 150 },
+        { field: 'itemOrders', headerName: 'Item Orders', width: 150 },
         { field: 'totalPrice', headerName: 'Amount', width: 130, type: 'number', editable: true },
-        { field: 'paid', headerName: 'Paid', type: 'boolean', width: 150, editable: true },
+        { field: 'paymentStatus', headerName: 'Payment Status', width: 150, editable: true },
         { field: 'specialInstructions', headerName: 'Special Instructions', width: 150, editable: true },
-        { field: 'userID', headerName: 'Cistomer ID', width: 130, editable: true },
-        { field: 'dateCreated', headerName: 'Date created', width: 130, type: 'number', editable: true },
+        { field: 'userID', headerName: 'Customer ID', width: 130, editable: true },
+        { field: 'userEmail', headerName: 'Customer Email', width: 130, editable: true },
+        { field: 'createdAt', headerName: 'Date created', width: 130, type: 'number', editable: true },
               
     ];
 
@@ -134,7 +135,7 @@ export default function Orders() {
                 {/* Order list */}
                 <div style={{ width: '100%', marginTop: 20, marginBottom: 40, backgroundColor: 'white', fontSize: 8, boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.1)' }}>
                     <DataGrid 
-                        rows={rows} 
+                        rows={orders} 
                         columns={columns} 
                         checkboxSelection 
                         rowHeight={35} 
