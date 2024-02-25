@@ -6,6 +6,9 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { app } from "../../../Firebase";
 import Compressor from "compressorjs";
 import { v4 } from "uuid";
+import { PiPencil } from "react-icons/pi";
+import { FaPlus } from "react-icons/fa";
+import { HiMinus, HiPlus, HiX } from "react-icons/hi";
 
 export default function AddProduct() {
 
@@ -21,6 +24,9 @@ export default function AddProduct() {
     const [errors, setErrors] = useState({});
     const [succMsg, setSucMsg] = useState('');
 
+    const [variations, setVariations] = useState([{ name: '', value: '' }]);
+
+
 
     
     const [compressedPhoto, setCompressedPhoto] = useState();
@@ -28,6 +34,24 @@ export default function AddProduct() {
     const [compressedAd, setCompressedAd] = useState();
     
     const [categories, setCategories] = useState([]);
+
+    const handleChange = (index, name, value) => {
+        const updatedVariations = [...variations];
+        updatedVariations[index][name] = value;
+        setVariations(updatedVariations);
+
+        console.log(variations)
+    };
+    
+    const handleAddVariation = () => {
+        setVariations([...variations, { name: '', value: '' }]);
+    };
+    
+    const handleRemoveVariation = index => {
+        const updatedVariations = variations.filter((_, i) => i !== index);
+        setVariations(updatedVariations);
+    };
+    
 
     const handleAddSuccess = ( item ) => {
         setSucMsg(item.name.slice(0, 10) + '... Successfuly added');
@@ -76,6 +100,10 @@ export default function AddProduct() {
         });
             
     },[])
+
+    useEffect(() => {
+        console.log(whatIsIn);
+    }, [whatIsIn])
 
 
     const handleCoverPhotoUpload = async () => {
@@ -194,7 +222,7 @@ export default function AddProduct() {
             const itemData = {
                 name: item.name, 
                 qty: item.qty,
-                // description: description,
+                description: description,
                 globalPrice: item.globalPrice,
                 price: item.price,
                 freeDelivery: item.freeDelivery,
@@ -205,9 +233,9 @@ export default function AddProduct() {
                 serialNumber: item.serialNumber,
                 vendorID: item.vendorID,
                 category: item.category,
-                // whatIsIn: whatIsIn,
+                whatIsInTheBox: whatIsIn,
                 coverPhoto: { url: coverPhotoUrl },
-                details: [],
+                details: variations,
                 photos: photoUrls,
                 ads: adUrls,
             };
@@ -246,7 +274,7 @@ export default function AddProduct() {
         setItem({
             name: '', 
             qty: '',
-            description: '',
+            // description: '',
             globalPrice: 0,
             price: 0.0,
             // freeDelivery: false,
@@ -257,7 +285,7 @@ export default function AddProduct() {
             serialNumber: '',
             vendorID: '', //Get this from the logged in User
             // category: '',
-            whatIsIn: '',
+            // whatIsIn: '',
             coverPhoto: {},
             details: [],
             photos: [],
@@ -285,6 +313,10 @@ export default function AddProduct() {
 
             <form onSubmit={handleFormSubmit}>
                 <div className="product-info">
+
+                    <div style={{fontWeight: 'bold', color: 'rgba(0,0,0,0.8)', marginTop: 20}}>Item images</div>
+                    <div style={{fontSize: 8, color: 'grey'}}>This is where you record additional information as specified by the text fields</div>
+
                     
                     <div className="image-pickers">
 
@@ -325,6 +357,9 @@ export default function AddProduct() {
 
                     </div>
                     <div className="image-caution">Image needs to be between 500x500 and 2000x2000 pixels. White backgrounds are recommended. No watermarks. Maximum image size 2Mb.</div>
+
+                    <div style={{fontWeight: 'bold', color: 'rgba(0,0,0,0.8)', marginTop: 40}}>Core Item Information</div>
+                    <div style={{fontSize: 8, color: 'grey'}}>This is where you record the most important information as specified by the text fields</div>
 
                     <div className="name-cat">
                         
@@ -398,14 +433,14 @@ export default function AddProduct() {
                         <div className="input-cont">
                             <div className="in">Stock Count <span style={{fontSize: 16, color: 'red'}}>*</span></div>
                             <div className="input1">
-                                <input placeholder="Number of items in stock" onChange={event => updateItem("stockCount" , parseInt(event.target.value))} style={{height: '90%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'solid', borderWidth: 1, borderRadius: 4, borderColor: item.stockCount? 'grey' : 'red', color: 'black', fontSize: 10}}/>
+                                <input required placeholder="Number of items in stock" onChange={event => updateItem("stockCount" , parseInt(event.target.value))} style={{height: '90%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'solid', borderWidth: 1, borderRadius: 4, borderColor: item.stockCount? 'grey' : 'red', color: 'black', fontSize: 10}}/>
                             </div> 
                         </div>
 
                         <div className="input-cont">
                             <div className="in">Store <span style={{fontSize: 16, color: 'red'}}>*</span></div>
                             <div className="input1">
-                                <input placeholder="Vendor store supplying the product" onChange={event => updateItem("store" ,event.target.value)}  style={{height: '90%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'solid', borderWidth: 1, borderRadius: 4, borderColor: item.store? 'grey' : 'red', color: 'black', fontSize: 10}}/>
+                                <input required placeholder="Vendor store supplying the product" onChange={event => updateItem("store" ,event.target.value)}  style={{height: '90%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'solid', borderWidth: 1, borderRadius: 4, borderColor: item.store? 'grey' : 'red', color: 'black', fontSize: 10}}/>
                             </div> 
                         </div> 
                         
@@ -442,7 +477,7 @@ export default function AddProduct() {
                         <div className="input-cont">
                             <div className="in">Delivery <span style={{fontSize: 16, color: 'red'}}>*</span></div>
                             <div className="input1" style={{borderStyle: 'solid', borderWidth: 1, borderRadius: 4, borderColor: item.freeDelivery? 'grey' : 'red', }}>
-                                <select onChange={event => updateItem("freeDelivery" ,event.target.value)} style={{height: '100%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'none', color: 'black', fontSize: 10}}>
+                                <select required onChange={event => updateItem("freeDelivery" ,event.target.value)} style={{height: '100%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'none', color: 'black', fontSize: 10}}>
                                     <option value={true}>Free delivery</option>
                                     <option value={false}>None</option>
                                 </select>                            
@@ -452,6 +487,57 @@ export default function AddProduct() {
                     </div>
 
                     
+                    {/* Varation key value pairs */}
+                    <div className="key-value-container">
+
+                    <div style={{fontWeight: 'bold', color: 'rgba(0,0,0,0.8)'}}>Item Variations</div>
+                    <div style={{fontSize: 8, color: 'grey'}}>This is where you define the specifications like, RAM, color, weight etc</div>
+
+                        {variations.map((variation, index) => (
+                            <div key={index} className="name-cat">
+                                <div className="input-cont">
+                                    <div className="in">Name {index + 1}</div>
+                                    <div className="input1">
+                                        <input
+                                            type="text"
+                                            placeholder={"Key " + (index + 1)}
+                                            value={variation.key}
+                                            onChange={e => handleChange(index, 'name', e.target.value)}
+                                            style={{height: '90%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'solid', borderWidth: 1, borderRadius: 4, borderColor: 'grey',  color: 'black', fontSize: 10}}
+                                        />
+                                    </div>
+                                </div>
+                                
+                                <div className="input-cont">
+                                    <div className="in">Value {index + 1}</div>
+                                    <div className="input1">
+                                        <input
+                                            type="text"
+                                            placeholder={"Value " +(index + 1)}
+                                            value={variation.value}
+                                            onChange={e => handleChange(index, 'value', e.target.value)}
+                                            style={{height: '90%', width: '100%', paddingInline: 12, backgroundColor: 'white', borderStyle: 'solid', borderWidth: 1, borderRadius: 4, borderColor: 'grey',  color: 'black', fontSize: 10}}
+
+                                        />
+                                    </div>
+                                </div>
+                                
+                                <div className="add-button" onClick={() => handleRemoveVariation(index)}>
+                                    <div>Remove</div>
+                                    <HiX/>
+                                </div>
+                            </div>
+                        ))}
+                        <div className="add-button" onClick={handleAddVariation}>
+                            <div>Add</div> 
+                            <HiPlus/>
+                        </div>
+
+                        </div>
+
+                    <div style={{fontWeight: 'bold', color: 'rgba(0,0,0,0.8)', marginTop: 40}}>More Information</div>
+                    <div style={{fontSize: 8, color: 'grey'}}>This is where you record additional information as specified by the text fields</div>
+
 
                     <div className="desc">Item Description</div>
                     <ReactQuill 

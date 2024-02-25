@@ -57,9 +57,15 @@ const DDetailsPage = () => {
         .catch((error) => {
             console.error(error);
         })
-        
 
+        
+        
     }, [])
+    
+    const itemRating = item?.reviews.reduce((totalRate, review) => {
+        if (review && review.rating !== undefined || review.rating != 0) return totalRate + review.rating;
+        else return totalRate;
+    }, 0)  
 
     return(
         <div className="details-frame">
@@ -93,21 +99,21 @@ const DDetailsPage = () => {
                         <div id="item-name">{item?.name}</div>
                         <div style={{fontSize: 16, color: 'rgb(5, 121, 106)'}}>{item?.brand}</div>
                         <div style={{display: "flex", flexDirection: 'row', alignItems: 'center', whiteSpace: 'nowrap', borderBottomWidth: 1, borderBottomColor: 'rgb(231, 227, 227)', borderBottomStyle: 'solid'}}>
-                            <p style={{color: 'black', fontSize: 12, paddingLeft: 4, fontWeight: '600', marginRight: 5}}>3.7</p>
+                            <p style={{color: 'black', fontSize: 12, paddingLeft: 4, fontWeight: '600', marginRight: 5}}>{itemRating}</p>
                             <div onMouseOver={() => setSelect('star')} onMouseOut={() => setSelect('')}>
                                 <StarRatings
-                                        rating={3.7} // Initial rating
-                                        starRatedColor="orange" // Color of selected stars
+                                        rating={itemRating}                                        
+                                        starRatedColor="orange" 
                                         // changeRating={(newRating) => setRating(newRating)} // Update the rating directly
-                                        numberOfStars={6} // Total number of stars
-                                        name='rating' // Name of the rating input (required for accessibility)
-                                        starDimension="15px" // Size of the stars
-                                        starSpacing="1px" // Spacing between stars
+                                        numberOfStars={6} 
+                                        name='rating'
+                                        starDimension="15px" 
+                                        starSpacing="1px"
                                     />
                             </div>
-                            <div style={{color: select === 'rating'? 'orange' : 'rgb(5, 121, 106)' , textDecoration: select === 'rating' && 'underline', fontSize: 12, paddingLeft: 8, fontWeight: '600', cursor: 'pointer'}} onMouseOver={() => setSelect('rating')} onMouseOut={() => setSelect('')}>234 ratings</div>
+                            <div style={{color: select === 'rating'? 'orange' : 'rgb(5, 121, 106)' , textDecoration: select === 'rating' && 'underline', fontSize: 12, paddingLeft: 8, fontWeight: '600', cursor: 'pointer'}} onMouseOver={() => setSelect('rating')} onMouseOut={() => setSelect('')}>{item?.reviews?.length} ratings</div>
                             <div style={{color: 'black', fontSize: 8, paddingLeft: 10, }}> | </div>
-                            <div style={{color: select === 'questions'? 'orange' : 'rgb(5, 121, 106)', textDecoration: select === 'questions' && 'underline', fontSize: 12, paddingLeft: 8, fontWeight: '600', cursor: 'pointer'}} onMouseOver={() => setSelect('questions')} onMouseOut={() => setSelect('')}> 23 answered questions</div>
+                            <div style={{color: select === 'questions'? 'orange' : 'rgb(5, 121, 106)', textDecoration: select === 'questions' && 'underline', fontSize: 12, paddingLeft: 8, fontWeight: '600', cursor: 'pointer'}} onMouseOver={() => setSelect('questions')} onMouseOut={() => setSelect('')}> {0} answered questions</div>
                         </div>
 
                         {/* Description section */}
@@ -115,15 +121,6 @@ const DDetailsPage = () => {
                             <div style={{padding: 6, fontSize: 14, fontWeight: '600', color: 'rgba(0,0,0,0.8)'}}>Description:</div>
                             <div style={{padding: 6, fontSize: 14}}> 
                                 {item?.description ? <ItemDescription htmlContent={item?.description}/> : <div>No Description, Check the User manual</div>}
-                                {/* Unleash Inner Stunt Driver: Our RC Stunt Car is designed for kids who love adventure 
-                                and excitement! It can tumble and flip at 360 degrees, and drive on both sides, which offers a 
-                                thrilling and unique experience for children and even adults alike, with all-terrain performance, 
-                                our remote control car can handle various terrains, including sand, lawn, stone road, and more, 
-                                making it perfect for taking your stunts and races anywhere you want.
-                                Long-Lasting Fun: Featuring with upgraded 1400mAh battery, our remote control car can provide up to 
-                                90 minutes of non-stop action on a  */}
-                                {/* single charge, giving you plenty of time to perfect your stunts and wow your audience. So, 
-                                grab your remote and get ready to push the limits with our long-lasting and exciting RC cars!  */}
                             </div>
                         </div>
                         {/* Additional details */}
@@ -182,7 +179,7 @@ const DDetailsPage = () => {
                         <h1 id="product-info-header">Product information</h1>
                             {item?.details?.map((product, index) => (
                                 <div key={index} id="info-table">
-                                    <div style={{color: 'grey', height: 30}}>{product.key}</div>
+                                    <div style={{color: 'grey', height: 30}}>{product.name}:</div>
                                     <div style={{color: 'black'}}>{product.value}</div>
                                 </div>
                             ))}
@@ -190,12 +187,12 @@ const DDetailsPage = () => {
                     <div id="info-area">
                         <div>
                             <h id='product-info-header'>Waranty information</h>
-                            <p>This is the Waranty info</p>
+                            <p style={{color: 'grey'}}>Not available</p>
 
                         </div>
                         <div>
                             <h id='product-info-header'>Return policy</h>
-
+                            <p style={{color: 'grey'}}>Not available</p>
 
                         </div>
                     </div>
@@ -243,18 +240,18 @@ const DDetailsPage = () => {
                             <div style={{display: "flex", flexDirection: 'row', alignItems: 'center',whiteSpace: 'nowrap' }}>
                                 <div onMouseOver={() => setSelect('star')} onMouseOut={() => setSelect('')}>
                                     <StarRatings
-                                            rating={3.7}
+                                            rating={itemRating}
                                             starRatedColor="orange"
                                             // changeRating={(newRating) => setRating(newRating)} // Update the rating directly
-                                            numberOfStars={6}
+                                            numberOfStars={5}
                                             name='rating'
                                             starDimension="16px"
                                             starSpacing="1px"
                                         />
                                 </div>
-                                <div style={{color: 'black' , textDecoration: select === 'rating' && 'underline', fontSize: 14, paddingLeft: 8, fontWeight: '400', cursor: 'pointer', marginRight: 8}} onMouseOver={() => setSelect('rating')} onMouseOut={() => setSelect('')}>3.7 OUT OF 5</div>
+                                <div style={{color: 'black' , textDecoration: select === 'rating' && 'underline', fontSize: 12, paddingLeft: 8, fontWeight: '400', cursor: 'pointer', marginRight: 8}} onMouseOver={() => setSelect('rating')} onMouseOut={() => setSelect('')}>{itemRating} OUT OF 5</div>
                             </div>
-                            <div style={{color: 'grey', fontSize: 14}}>452 Ratings</div>
+                            <div style={{color: 'grey', fontSize: 14}}>{item?.reviews?.length} Ratings</div>
 
 
                         </div>
