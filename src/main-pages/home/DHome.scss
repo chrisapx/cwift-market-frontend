@@ -2,4 +2,103 @@
     color: black;
 
     
+
+    .i-section-contents {
+        display: flex;
+        // grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+        overflow-x: auto;
+        margin-inline: 40px;
+          // display: flex;
+          // flex-wrap: wrap;
+          // gap: 30px;
+
+
+        .i-card {
+            margin-block: 20px;
+            margin-right: 20px;
+            width: 230px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+
+            .i-card-image{
+                border-radius: 5px 5px 0 0;
+                width: 230px;
+                height: 230px;
+                border: 1px rgb(234, 234, 234) solid;
+                padding: 12px;
+            }
+                  
+                .i-name {
+                    font-size: small;
+                    color: black;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+                .i-price {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    white-space: nowrap;
+                    color: rgb(255, 111, 0);
+                    font-weight: bold;
+                    font-size: 16px;
+                    line-height: 1px;
+                }
+  
+                .rating-n-cart {
+                    color: black;
+                    line-height: 0.5px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+  
+                }
+        }
+    }
+
+    .ls-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bolder;
+        font-size: 30px;
+        margin-top: 50px;
+        padding-block: 10px;
+        color: white;
+        background-color: #ff3700db;
+    }
+
+    .cat-section {
+        display: flex;
+        padding-inline: 40px;
+        padding-block: 40px;
+        gap: 20px;
+        overflow-x: auto;
+
+        .cat-card {
+            padding: 15px;
+            border: 1px solid grey;
+            border-radius: 40px;
+            // width: fit-content;
+            font-size: medium;
+            color: rgba(0, 0, 0, 0.882);
+            white-space: nowrap;
+        }
+        
+        .cat-card:hover {
+            font-weight: bold;
+            background-color: #fff;
+            box-shadow: 8px 8px 8px 8px rgb(236, 236, 236);
+            cursor: pointer;
+        }
+
+        .cat-card:active {
+            border-width: 2px;
+        }
+        
+    }
+
 }

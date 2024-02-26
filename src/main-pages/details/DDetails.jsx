@@ -8,6 +8,8 @@ import DHeader from "../../components/header/DHeader";
 import ItemDescription from "../../global/ItemDescription";
 import { MdVerified } from "react-icons/md";
 import { useCart } from "../../context/CartContext";
+import Footer from "../../components/d-footer/Footer";
+import Signing from "../../components/d-footer/Signing";
 
 const DDetailsPage = () => {
 
@@ -302,6 +304,14 @@ const DDetailsPage = () => {
                     </div>
                 </div>
                 
+            </div>
+            <div>
+                <div>
+                    <Footer/>
+                </div>
+                <div>
+                    <Signing/>
+                </div>
             </div>      
         </div>
     )

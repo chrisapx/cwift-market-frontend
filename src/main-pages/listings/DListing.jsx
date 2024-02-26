@@ -7,6 +7,8 @@ import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { useListing } from "../../context/ListingContext";
 import { useNavigate } from "react-router-dom";
 import { TiTick } from "react-icons/ti";
+import Footer from "../../components/d-footer/Footer";
+import Signing from "../../components/d-footer/Signing";
 
 export default function DListings (){
 
@@ -109,7 +111,12 @@ export default function DListings (){
 
                 </div>
                 <div className="i-section">
-                    <h1 id="i-header">Trending Items</h1>
+                    <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                        <h1 id="i-header">Trending Items</h1>
+                        <h1 id="i-header">
+                            Sort by
+                        </h1>
+                    </div>
                     
                     {items?.length == 0 ? <div>No Items</div> : null}
 
@@ -164,8 +171,18 @@ export default function DListings (){
                     </div>
 
                 </div>
+                
+                
             </div>
 
+            <footer style={{}}>
+                <div>
+                    <Footer/>
+                </div>
+                <div>
+                    <Signing/>
+                </div>
+            </footer>
             {addCart && 
                 <div className='add-cart-notif'>
                     <TiTick size={20} />

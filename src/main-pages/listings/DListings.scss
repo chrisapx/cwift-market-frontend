@@ -19,22 +19,23 @@
     color: white;
 }
     .listing-section {
-      position: sticky;
-      top: 150px; /* Height of your sticky header */
+      // position: sticky;
+      // top: 150px; /* Height of your sticky header */
       display: grid;
       grid-template-columns: 1fr 4fr;
       padding-inline: 40px;
+      margin-bottom: 40px;
   
-      .filters, .i-section {
-        overflow-y: auto;
-        scrollbar-width: none;
-        height: calc(100vh - 70px); 
-        background-color: #fff;
-        padding: 20px; 
+      // .filters, .i-section {
+      //   overflow-y: auto;
+      //   scrollbar-width: none;
+      //   height: calc(100vh - 70px); 
+      //   background-color: #fff;
+      //   padding: 20px; 
   
-        &::-webkit-scrollbar {
-          display: none; 
-        }
+      //   &::-webkit-scrollbar {
+      //     display: none; 
+      //   }
 
         
         .i-section-contents {
@@ -96,7 +97,7 @@
 
 
 
-      }
+      // }
   
       .filters {
         // background-color: #f9f9f9;
