@@ -9,9 +9,16 @@ import { useCart } from '../../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 const DHeader = () => {
 
-    const [hoovered, setHoovered] = useState('');
+    const [ hoovered, setHoovered] = useState('');
     const { totalItems } = useCart();
     const navigate = useNavigate();
+
+    const handleHover = (item) => {
+        if(hoovered) {
+            setHoovered('');
+            setHoovered(item);
+        }else setHoovered(item);
+    }
 
     return(
         <div className="d-header-frame">
@@ -42,23 +49,78 @@ const DHeader = () => {
             </div>
 
             <div className='d-header-item'>
-                <div style={{display: 'flex', alignItems: 'center'}}>
+                <div style={{display: 'flex', alignItems: 'center'}} onMouseOver={() => handleHover('categories')} onMouseOut={() => handleHover('')}>
                     <div style={{marginLeft: 5, marginRight: 3}}>Categories</div>
                     {hoovered === 'categories' ? <IoChevronUpOutline /> : <IoChevronDownOutline /> }
                 </div>
                 
                 <div className="dropdown-content">
-                    <p>Hello World!</p>
-                    <div>This is testing </div>
+                    
+                    <div className='d-content'>
+                        <h4>Categories</h4>
+
+                        <div className='d-content-2'>
+                            <div>
+                                <p>Recomended</p>
+                                <p>Recomended</p>
+                                <p>Recomended</p>
+                                <p>Recomended</p>
+                                <p>Recomended</p>
+                                <p>Recomended</p>
+                                <p>Recomended</p>
+                            </div>
+
+                            <div>
+                                <p>Recomended</p>
+                                <p>Recomended</p>
+                                <p>Recomended</p>
+                                <p>Recomended</p>
+                                <p>Recomended</p>
+                                <p>Recomended</p>
+                                <p>Recomended</p>
+                            </div>
+                        </div>
+                        
+                    </div>
                 </div>
 
             </div>
 
             <div className='d-header-item-search'>
-                <input type='search' placeholder='Search...' style={{ display: 'flex', flex: 1,color: 'grey', height: '100%', borderBottomLeftRadius: 30, borderTopLeftRadius: 30, borderStyle: 'none', backgroundColor: 'white', paddingInline: 10, }} />
+                <input type='search' placeholder='Search...' onFocus={() => setHoovered('search')} style={{ display: 'flex', flex: 1,color: 'grey', height: '100%', borderBottomLeftRadius: 30, borderTopLeftRadius: 30, borderStyle: 'none', backgroundColor: 'white', paddingInline: 10, }} />
                 <span style={{}} className='s-button'>
                     <HiSearch color={'white'} size={20}/>
                 </span>
+
+                {/* <div className="dropdown-content" style={{display: hoovered === 'search' ? 'block' : 'none'}}>
+                    
+                    <div className='d-content'>
+                        <h4>Categories</h4>
+
+                        <div className='d-content-2'>
+                            <div>
+                                <p>Recomended</p>
+                                <p>Recomended</p>
+                                <p>Recomended</p>
+                                <p>Recomended</p>
+                                <p>Recomended</p>
+                                <p>Recomended</p>
+                                <p>Recomended</p>
+                            </div>
+
+                            <div>
+                                <p>Recomended</p>
+                                <p>Recomended</p>
+                                <p>Recomended</p>
+                                <p>Recomended</p>
+                                <p>Recomended</p>
+                                <p>Recomended</p>
+                                <p>Recomended</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div> */}
             </div>
 
             <div className='d-header-item' style={{display: 'flex', alignItems: 'center'}}>
