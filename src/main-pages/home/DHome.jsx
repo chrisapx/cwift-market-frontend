@@ -54,8 +54,8 @@ const DHome = () => {
 
     return(
         <div className="d-home-frame">
-            <div style={{width: '100vw', position: "sticky", top: 0, backgroundColor: 'white', zIndex: 1}}>
-                <DHeader />
+            <div className="h-header">
+                <DHeader bc={'orangered'}/>
             </div>
             <div style={{}}>
                 <img src="https://firebasestorage.googleapis.com/v0/b/cwift-marketplace.appspot.com/o/item-images%2F98658cdd-c5e8-4603-9ea7-b6c254e66e7d.png26c5f385-74e8-4220-8b5a-6e06be571dbf?alt=media&token=2198a089-369e-4d50-9bfb-afa7f242f695" width={'100%'} style={{objectFit: 'contain'}}/>
@@ -63,7 +63,7 @@ const DHome = () => {
 
             {/* Deals section */}
 
-            <div style={{display: "flex", justifyContent: "center", alignItems: 'center', fontSize: 30, fontWeight: '700', fontStyle: 'italic', gap: 20, color: 'white', marginTop: 30, borderStyle: 'solid', borderWidth: 1, borderColor: 'rgba(0,0,0,0.1)', backgroundColor: 'green'}}>
+            <div className="promo-header" >
                 <GiCometSpark/>
                 <div>Sparking deals</div>
                 <div style={{display: 'flex', alignItems: "center", fontWeight: '500', fontSize: 16, fontStyle: 'normal', cursor: 'pointer'}}>
