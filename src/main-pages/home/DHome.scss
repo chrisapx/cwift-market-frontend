@@ -1,17 +1,42 @@
 .d-home-frame {
     color: black;
 
-    
+    .h-header {
+        position: sticky;
+        top: 0;
+        background-color: #fff;
+        z-index: 1;
+    }
+
+    .promo-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 30px;
+        font-weight: 700;
+        font-style: 'italic';
+        gap: 20px;
+        // color: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        // background-color: #232F3E;
+        margin-top: 30px;
+    }
 
     .i-section-contents {
         display: flex;
         // grid-template-columns: repeat(4, 1fr);
         gap: 24px;
         overflow-x: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
         margin-inline: 40px;
           // display: flex;
           // flex-wrap: wrap;
           // gap: 30px;
+
+            &::-webkit-scrollbar {
+                display: none; 
+            }
 
 
         .i-card {
@@ -67,23 +92,27 @@
         font-size: 30px;
         margin-top: 50px;
         padding-block: 10px;
-        color: white;
-        background-color: #ff3700db;
+        // color: white;
+        // background-color: #ff3700db;
     }
 
     .cat-section {
         display: flex;
         padding-inline: 40px;
-        padding-block: 40px;
+        padding-block: 30px;
         gap: 20px;
         overflow-x: auto;
 
+        &::-webkit-scrollbar {
+            display: none; 
+        }
+
         .cat-card {
-            padding: 15px;
+            padding: 12px;
             border: 1px solid grey;
             border-radius: 40px;
-            // width: fit-content;
-            font-size: medium;
+            width: fit-content;
+            font-size: smaller;
             color: rgba(0, 0, 0, 0.882);
             white-space: nowrap;
         }
