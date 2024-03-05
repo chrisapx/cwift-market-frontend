@@ -107,7 +107,7 @@ const DDetailsPage = () => {
                                         rating={itemRating}                                        
                                         starRatedColor="orange" 
                                         // changeRating={(newRating) => setRating(newRating)} // Update the rating directly
-                                        numberOfStars={6} 
+                                        numberOfStars={5} 
                                         name='rating'
                                         starDimension="15px" 
                                         starSpacing="1px"
