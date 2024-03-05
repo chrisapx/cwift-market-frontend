@@ -90,6 +90,11 @@ export function CartProvider({ children }) {
     return cart.reduce((total, item) => total + ( item.totalPrice ), 0);
   };
 
+  // Function to calculate the total price of all items in the cart
+  const calculateTotalDiscount = () => {
+    return cart.reduce((total, order) => total + ( order?.item?.globalPrice ), 0);
+  };
+
   //This calculates the total number of items in the cart
   const calculateTotalItems = () => {
     return cart.reduce((total, item) => total + item.quantity, 0);
@@ -117,8 +122,8 @@ export function CartProvider({ children }) {
   const totalPrice = useMemo(calculateTotalPrice, [cart]);
   // total number fof item in the cart
   const totalItems = useMemo(calculateTotalItems, [cart]);
-  //Total discount
-  // const totalDiscount = useMemo(calculateTotalDiscount, [cart]);
+  // Total discount
+  const totalDiscount = useMemo(calculateTotalDiscount, [cart]);
 
 
   return (
@@ -126,6 +131,7 @@ export function CartProvider({ children }) {
       value={{
         cart,
         favorites,
+        totalDiscount,
         addToCart,
         reduceCart,
         incrementCart,
