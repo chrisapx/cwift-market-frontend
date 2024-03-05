@@ -125,14 +125,20 @@ const DDetailsPage = () => {
                                 {item?.description ? <ItemDescription htmlContent={item?.description}/> : <div>No Description, Check the User manual</div>}
                             </div>
                         </div>
+                        {/* Stock count */}
+                        <div>
+                            {/* <div style={{padding: 6, fontSize: 14, fontWeight: '600', color: "rgba(0,0,0,0.8)"}}>Items count in Stock:</div> */}
+                            <div style={{paddingLeft: 12, paddingBlock: 14, border: '1px solid rgba(0,0,0,0.3)', borderRadius: 8, fontSize: 16, fontWeight: '500', color: 'rgba(0,0,100,0.9)'}}>{item?.stockCount} Items Available</div>                            
+                        </div>
                         {/* Additional details */}
                         <div>
-                            <div style={{padding: 6, fontSize: 14, fontWeight: '600', color: "rgba(0,0,0,0.8)"}}>Additional details:</div>
+                            <div style={{padding: 6, fontSize: 14, fontWeight: '600', color: "rgba(0,0,0,0.8)"}}>Additional details</div>
                             <div style={{paddingLeft: 6, fontSize: 14, fontWeight: '500', color: 'rgba(0,0,0,0.6)'}}>Color: {item?.color}</div>                            
                             <div style={{paddingLeft: 6, fontSize: 14, fontWeight: '500', color: 'rgba(0,0,0,0.6)'}}>User manual: <span ><a style={{color: 'blue'}} href="">download</a></span></div>
 
                             <div style={{padding: 6, fontSize: 14, fontWeight: '400', color: 'rgb(5, 121, 86)'}}>Verified by Nalmart QA<span><MdVerified/></span></div>
                         </div>
+                        
 
                     </div>
                     {/* Actions and state */}
@@ -219,8 +225,8 @@ const DDetailsPage = () => {
                 {/* What is in the box */}
                 <div className="box-items-frame"> 
                     <div style={{fontWeight: '600', fontSize: 18, color: 'rgba(0,0,0,0.8)'}}>What's in the Box</div>
-                    <div>
-                        <ItemDescription htmlContent={item?.whatIsInTheBox}/>
+                    <div style={{color: 'black'}}>
+                        {item?.whatIsInTheBox ? <ItemDescription htmlContent={item?.whatIsInTheBox}/> : <div>Not Specified, Check the User manual</div>}
                     </div>
                 </div>
 
