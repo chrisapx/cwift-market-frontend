@@ -8,6 +8,7 @@ import { TiTick } from 'react-icons/ti';
 import { useCart } from '../../context/CartContext';
 import { HiHeart } from 'react-icons/hi';
 import { FaHeartCircleCheck, FaHeartCirclePlus } from 'react-icons/fa6';
+import ItemDescription from '../../global/ItemDescription';
 
 const Cart = () => {
 
@@ -105,7 +106,7 @@ const Cart = () => {
                             </div>
                             <div className='item-details'>
                                 <div style={{fontSize: 12, fontWeight: '600'}}>{order?.item.name.slice(0, 50)}</div>
-                                <div style={{fontSize: 10}}>{order?.item?.description?.slice(0, 50)}</div>
+                                <div style={{fontSize: 10}}>{<ItemDescription htmlContent={order?.item?.description?.slice(0, 50)} />}</div>
                                 <div style={{fontSize: 14, fontWeight: '500'}}>UGX {(order?.item?.price).toLocaleString()} <span style={{textDecoration: 'line-through', color: 'grey', fontWeight: 'normal', fontSize: 10}}>UGX {(order.item.globalPrice).toLocaleString()} </span></div>
                             </div>
                         </div>
@@ -149,7 +150,7 @@ const Cart = () => {
                             </div>
                             <div className="recom-details">
                                 <div style={{ fontSize: 12, fontWeight: '600', color: 'black', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}} onClick={() => navigate('/details/' +item.itemID)}>{item.name}</div>
-                                <div style={{ fontSize: 12, fontWeight: '600', color: 'black', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}} onClick={() => navigate('/details/' +item.itemID)}>{item.description ? truncateText(item.description, 30) : ''}</div>
+                                <div style={{ fontSize: 12, fontWeight: '600', color: 'black', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}} onClick={() => navigate('/details/' +item.itemID)}>{item.description ? truncateText(<ItemDescription htmlContent={item?.description} />, 30) : ''}</div>
                                 <div style={{color: 'black', fontSize: 12}}>UGX <span style={{fontSize: 16, color: 'black', fontWeight: '600'}}>{item.price.toLocaleString()}</span></div>
                                 <div className='add-cart' onClick={() => handleAddToCart(item)}>ADD</div>
                             </div>
@@ -193,7 +194,7 @@ const Cart = () => {
                             </div>
                             <div className="recom-details">
                                 <div style={{ fontSize: 12, fontWeight: '600', color: 'black', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}} onClick={() => navigate('/details/' +item.itemID)}>{item.name}</div>
-                                <div style={{ fontSize: 12, fontWeight: '500', color: 'black', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}>{item.description? truncateText(item.description, 20) : ''}</div>
+                                <div style={{ fontSize: 12, fontWeight: '500', color: 'black', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}>{item.description? truncateText(<ItemDescription htmlContent={item?.description} />, 20) : ''}</div>
                                 <div style={{color: 'black', fontSize: 12}}>UGX <span style={{fontSize: 16, color: 'black', fontWeight: '600'}}>{item.price.toLocaleString()}</span></div>
                                 <div className='add-cart' onClick={() => handleAddToCart(item)}>ADD</div>
                             </div>
