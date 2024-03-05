@@ -141,7 +141,7 @@ export default function DCart () {
                 </div>
 
             </div>
-            <div style={{marginTop: 700}}>
+            <div style={{marginTop: 100}}>
                 <Footer/>
             </div>
 
