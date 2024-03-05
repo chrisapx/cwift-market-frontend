@@ -1,0 +1,97 @@
+
+.d-cart-frame {
+    color: black;
+    
+    .d-cart-header {
+        position: sticky;
+        top: 0;
+        background-color: #fff;
+
+        .dir-tracker {
+            padding-block: 16px;
+            font-size: smaller;
+            padding-inline: 70px;
+            color: gray;
+        }
+    }
+
+    .d-cart-body {
+        padding-inline: 70px;
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        
+        
+        .cb-left {
+            margin-right: 50px;
+            height: 700px;
+            // background-color: #dadada;
+
+            .left-header {
+                display: flex;
+                justify-content: space-between;
+                border-bottom: 1px rgb(231, 231, 231) solid;
+                padding-bottom: 8px;
+            }
+
+            .cart-items-container {
+                overflow-y: auto;
+
+                .cart-item-card {
+                    display: flex;
+                    height: 140px;
+                    // background-color: #ededed;
+                    margin-block: 20px;
+                    border-bottom: 1px rgb(231, 231, 231) solid;
+
+                    .select-section{
+                        display: flex;
+                        padding-right: 10px;
+                        align-items: center;
+
+                    }
+                    .img-container {
+                        height: 130px;
+                        width: 130px;
+                        background-color: #f3f3f3;
+                        
+                    }
+                    .details-container {
+                        margin-left: 12px;
+                        width: 53vw;
+                        // background-color: #ffc8c8;
+
+                        .name-n-del {
+                            display: flex;
+                            font-size: small;
+                            padding-left: 8px;
+                        }
+
+                    }
+
+                }
+            }
+        }
+
+        .cb-right {
+            // background-color: #ff9a9a;
+
+            .right-header {
+                font-weight: bold;
+                font-size: 18px;
+                margin-bottom: 8px;
+            }
+
+            .price-item {
+                display: flex;
+                justify-content: space-between;
+                font-size: small;
+                padding-top: 8px;
+            }
+
+        }
+        
+
+    }
+    
+    
+}
