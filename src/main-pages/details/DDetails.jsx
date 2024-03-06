@@ -179,7 +179,7 @@ const DDetailsPage = () => {
                                 display: "flex", 
                                 gap: 8, alignItems: "center", 
                                 justifyContent: "center", 
-                                backgroundColor: select === 'acart' ? 'red' : 'orange'}} 
+                                backgroundColor: select === 'acart' ? 'red' : 'orangered'}} 
                                 onMouseOver={() => setSelect('acart')} 
                                 onMouseOut={() => setSelect('')}
                                 onClick={() => handleAddToCart(item)} >
