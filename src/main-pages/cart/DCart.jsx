@@ -103,7 +103,7 @@ export default function DCart () {
                                     </div>
 
                                     <div className='three-btns'>
-                                        <div className='itm-btn' style={{backgroundColor: quantity <= 1 ? 'grey' : 'orange'}} onClick={() => quantity > 0 && reduceCart(citem?.item)}>-</div>
+                                        <div className='itm-btn' style={{backgroundColor: quantity <= 1 ? 'rgba(255, 69, 0, 0.2)' : 'orangered'}} onClick={() => quantity > 0 && reduceCart(citem?.item)}>-</div>
                                         <div className='count'>{quantity}</div>
                                         <div className='itm-btn' onClick={() => incrementCart(citem?.item)}>+</div>
                                     </div>
@@ -133,7 +133,7 @@ export default function DCart () {
                     </div>
 
                     <div 
-                        style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginBlock: 20, fontSize: 14, fontWeight: '600', color: 'whitesmoke', backgroundColor: 'rgb(241, 112, 0)', cursor: 'pointer', padding: 12, borderRadius: 6}}
+                        style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginBlock: 20, fontSize: 14, fontWeight: '600', color: 'whitesmoke', backgroundColor: 'rgb(255, 69, 0, 0.9)', cursor: 'pointer', padding: 12, borderRadius: 6}}
                         onClick={() => navigate('/checkout/' + tPrice)}
                         >
                         {tPrice <= 500 ? <div>Shop 5,000 Min. to Checkout</div> : <div>Checkout({tPrice?.toLocaleString()})</div>}

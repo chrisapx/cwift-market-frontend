@@ -31,8 +31,10 @@ const Cart = () => {
      } = useCart();
 
     const handleCheckoutCart = () => {
+        if(tPrice >= 5000){
+            navigate('/checkout/'+ tPrice)
+        }
         // go to the checkout page
-        navigate('/checkout/'+ tPrice)
     }
 
     const truncateText = (text, maxLength) => {
@@ -112,7 +114,7 @@ const Cart = () => {
                                 <div style={{fontSize: 14, fontWeight: '500'}}>UGX {(order?.item?.price).toLocaleString()} <span style={{textDecoration: 'line-through', color: 'grey', fontWeight: 'normal', fontSize: 10}}>UGX {(order.item.globalPrice).toLocaleString()} </span></div>
                             </div>
                         </div>
-                        <div onClick={() => addToFavorites(order.item)}><FaHeartCirclePlus size={22} color={'orange'}/></div>
+                        <div onClick={() => addToFavorites(order.item)}><FaHeartCirclePlus size={22} color={'orangered'}/></div>
                     </div>
 
                     {/* {item.discount && <div className='discount'>-{item.discount}%</div>} */}
@@ -122,7 +124,7 @@ const Cart = () => {
                             <span style={{color: 'orange', fontSize: 12, }} onClick={() => removeFromCart(order.item.itemID)}>Remove</span>
                         </div>
                         <div className='three-btns'>
-                            <div className='itm-btn' style={{backgroundColor: quantity <= 1 && 'grey'}} onClick={() => reduceCart(order?.item)}>-</div>
+                            <div className='itm-btn' style={{backgroundColor: quantity <= 1 && 'rgba(255,69,0,0.3)'}} onClick={() => reduceCart(order?.item)}>-</div>
                             <div className='count'>{quantity}</div>
                             <div className='itm-btn' onClick={() => incrementCart(order?.item)}>+</div>
                         </div>
@@ -209,8 +211,8 @@ const Cart = () => {
                 </div> */}
             </div>
 
-            <div className='checkout-cart' onClick={handleCheckoutCart}>
-                <div style={{backgroundColor: 'orangered', borderRadius: 3, width: '100%', marginInline: 10, cursor: 'pointer'}} className='inner-item' onClick={handleCheckoutCart}>CHECKOUT (UGX {tPrice?.toLocaleString() })</div>
+            <div className='checkout-cart' onClick={ handleCheckoutCart }>
+                <div style={{backgroundColor: tPrice >= 5000 ? 'orangered' : 'rgba(255, 69, 0, 0.2)', borderRadius: 3, width: '100%', marginInline: 10, cursor: 'pointer'}} className='inner-item' onClick={handleCheckoutCart}>{ tPrice >= 5000 ? 'CHECKOUT' + '( UGX ' + tPrice?.toLocaleString() : 'Shop more to checkout !!' }</div>
             </div>
             
             <Footer/>
