@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import './DDetails.scss';
 import StarRatings from "react-star-ratings";
 import { useEffect, useState } from "react";
@@ -15,6 +15,7 @@ const DDetailsPage = () => {
 
     const { itemID } = useParams();
     const { addToCart } = useCart();
+    const navigate = useNavigate();
     const [ select, setSelect ] = useState('');
     const [ item, setItem] = useState();
     const [ addCart, setAddCart ] = useState(false);
@@ -36,33 +37,41 @@ const DDetailsPage = () => {
 
     ]
 
+    
     const handleAddToCart = ( item ) => {
         addToCart(item);
         setAddCart(true);
+        navigate('/cart')
         setTimeout(() => {
             setAddCart(false)
         }, 1000)
     }
-
-
+    
+    
     
     useEffect(() => {
         // fetch('http://127.0.0.1:8080/items/' + itemID)
         fetch('https://inventory.nalmart.com/items/' + itemID)
-            .then((response) => response.json())
-            .then((json) => {
+        .then((response) => response.json())
+        .then((json) => {
             setItem(json);
-    
+            
             setClickedImage(json?.photos[0].url);
             console.log(json);
         })
         .catch((error) => {
             console.error(error);
         })
-
+        
         
         
     }, [])
+    
+    useEffect(() => {
+        document.title = item?.name;
+        document.description = item?.description;
+
+    },[item?.name])
     
     const itemRating = item?.reviews.reduce((totalRate, review) => {
         if (review && review.rating !== undefined || review.rating != 0) return totalRate + review.rating;
@@ -170,7 +179,7 @@ const DDetailsPage = () => {
                                 display: "flex", 
                                 gap: 8, alignItems: "center", 
                                 justifyContent: "center", 
-                                backgroundColor: select === 'acart' ? 'red' : 'orange'}} 
+                                backgroundColor: select === 'acart' ? 'red' : 'orangered'}} 
                                 onMouseOver={() => setSelect('acart')} 
                                 onMouseOut={() => setSelect('')}
                                 onClick={() => handleAddToCart(item)} >

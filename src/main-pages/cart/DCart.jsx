@@ -36,7 +36,13 @@ export default function DCart () {
         const disc = cart.reduce((acc, order) => acc + (order.item.globalPrice * getItemQuantity(order.item)), 0);
         setTPrice(totalPrice);
         setDiscount(disc);
-    }, [cart]);
+    }, [cart, discount, totalItems]);
+
+    useEffect(() => {
+        document.title = "Checkout | " + totalItems + " Items";
+        // document.description = item.description;
+
+    },[])
     
 
     // const handleSelect = ( name ) => {
@@ -97,7 +103,7 @@ export default function DCart () {
                                     </div>
 
                                     <div className='three-btns'>
-                                        <div className='itm-btn' style={{backgroundColor: quantity <= 1 ? 'grey' : 'orange'}} onClick={() => quantity > 0 && reduceCart(citem?.item)}>-</div>
+                                        <div className='itm-btn' style={{backgroundColor: quantity <= 1 ? 'rgba(255, 69, 0, 0.2)' : 'orangered'}} onClick={() => quantity > 0 && reduceCart(citem?.item)}>-</div>
                                         <div className='count'>{quantity}</div>
                                         <div className='itm-btn' onClick={() => incrementCart(citem?.item)}>+</div>
                                     </div>
@@ -113,24 +119,24 @@ export default function DCart () {
                 <div className="cb-right">
                     <div className="right-header">Order summery</div>
                     <div className="price-item">
-                        <div>Items total:</div>
+                        <div>Normal total:</div>
                         <div style={{textDecoration: 'line-through', color: 'grey'}}>UGX {discount?.toLocaleString()}</div>
                     </div>
                     <div className="price-item">
-                        <div>Items discount:</div>
-                        <div style={{color: 'orangered', fontWeight: '500'}}>- UGX {(totalDiscount - tPrice)?.toLocaleString()}</div>
+                        <div>Discounted total:</div>
+                        <div style={{color: 'orangered', fontWeight: '500'}}>UGX {(tPrice)?.toLocaleString()}</div>
                     </div>
 
                     <div className="price-item" style={{ fontWeight: '500', borderTop: '2px solid rgba(0,0,0,0.1)', marginTop: 16, paddingTop: 12}}>
-                        <div>Total({totalItems}):</div>
+                        <div>Checkout Total({totalItems}):</div>
                         <div style={{color: '', fontWeight: '500'}}>UGX {tPrice?.toLocaleString()}</div>
                     </div>
 
                     <div 
-                        style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginBlock: 20, fontSize: 14, fontWeight: '600', color: 'whitesmoke', backgroundColor: 'rgb(241, 112, 0)', cursor: 'pointer', padding: 12, borderRadius: 6}}
+                        style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginBlock: 20, fontSize: 14, fontWeight: '600', color: 'whitesmoke', backgroundColor: 'rgb(255, 69, 0, 0.9)', cursor: 'pointer', padding: 12, borderRadius: 6}}
                         onClick={() => navigate('/checkout/' + tPrice)}
                         >
-                        {tPrice <= 500 ? <div>Shop 5,000 Min. to Checkout</div> : <div>Checkout({tPrice})</div>}
+                        {tPrice <= 500 ? <div>Shop 5,000 Min. to Checkout</div> : <div>Checkout({tPrice?.toLocaleString()})</div>}
                     </div>
                     <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginBlock: 20, fontSize: 14, fontWeight: '600', color: 'black', border: '1px rgba(0,0,0,0.3) solid', cursor: 'pointer', padding: 12, borderRadius: 6}}>Express checkout with <span style={{color: "rgba(0,0,233,0.7)", marginLeft: 5}}> NPay</span></div>
 

@@ -47,7 +47,7 @@
                     display: flex;
                     flex-direction: column;
                     justify-content: space-between;
-                    height: 220px;
+                    // height: 120px;
                     margin-inline: 10px;
                     min-width: 140px;
                     max-width: 150px;
@@ -58,7 +58,7 @@
                         align-items: center;
                         justify-content: center;
                         // width: 30vw;
-                        height: 40%;
+                        height: 100px;
                     }
 
                     .recom-details {
@@ -67,14 +67,16 @@
                             display: flex;
                             justify-content: center;
                             align-items: center;
+                            gap: 5px;
                             width: 95%;
-                            background-color: orange;
+                            border: rgba(255,69,0,0.3) solid 2px;
+                            background-color: rgb(255, 241, 236);
                             border-radius: 3px;
                             margin-block: 8px;
                             padding-block: 8px;
-                            font-size: xx-small;
+                            font-size: x-small;
                             font-weight: 700;
-                            color: #ffffff;
+                            color: orangered;
                         }
                     }
                 }
@@ -138,7 +140,7 @@
                 .itm-btn {
                     padding-inline: 8px;
                     color: #fff;
-                    background-color: orange;
+                    background-color: orangered;
                     font-size: medium;
                     border-radius: 2px;
                     

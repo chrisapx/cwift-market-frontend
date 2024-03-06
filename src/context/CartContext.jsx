@@ -30,12 +30,12 @@ export function CartProvider({ children }) {
       // Update qty if exixts
           setCart((prevItems) =>
             prevItems.map((cartItem) =>
-              cartItem.item.id === existingOrder.item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
+              cartItem.item.itemID === existingOrder.item.itemID ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
             )
           );
-        } else {
-          setCart([...cart, newOrder]);
-        }    
+    } else {
+      setCart([...cart, newOrder]);
+    }    
   };
 
   const addToFavorites = ( item ) => {
