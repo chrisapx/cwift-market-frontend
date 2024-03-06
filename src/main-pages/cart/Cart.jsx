@@ -9,6 +9,8 @@ import { useCart } from '../../context/CartContext';
 import { HiHeart } from 'react-icons/hi';
 import { FaHeartCircleCheck, FaHeartCirclePlus } from 'react-icons/fa6';
 import ItemDescription from '../../global/ItemDescription';
+import { CiShoppingBasket } from 'react-icons/ci';
+import { PiShoppingBagOpen } from 'react-icons/pi';
 
 const Cart = () => {
 
@@ -146,7 +148,7 @@ const Cart = () => {
                         <div className="recom-card" key={index} >
                             <div className="recom-image" onClick={() => navigate('/details/' + item.itemID)}>
                                 {/* <img src={item.coverPhoto} alt={item.name} height={'100%'}/> */}
-                                <img src='src/assets/Laptop.png' height={'100%'}/>
+                                <img src={item?.coverPhoto?.url} height={'100%'} width={'100%'} style={{objectFit: 'contain'}}/>
                             </div>
                             <div className="recom-details">
                                 <div style={{ fontSize: 12, fontWeight: '600', color: 'black', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}} onClick={() => navigate('/details/' +item.itemID)}>{item.name}</div>
@@ -163,15 +165,18 @@ const Cart = () => {
                 <div className='recom-section'>
                     <div className="recom-list">
                         {items.map((item, index) => (
-                        <div className="recom-card" key={index} style={{height: 170}}>
+                        <div className="recom-card" key={index} style={{}}>
                             <div className="recom-image" onClick={() => navigate('/details/' +item.itemID)}>
-                                <img src={item?.coverPhoto} alt={item.name} height={'100%'} />
+                                <img src={item?.coverPhoto?.url} height={'100%'} width={'100%'} style={{objectFit: 'contain'}}/>
                             </div>
                             <div className="recom-details">
                                 <div style={{ fontSize: 12, fontWeight: '600', color: 'black', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}} onClick={() => navigate('/details/' +item.itemID)}>{item.name}</div>
-                                <div style={{ fontSize: 12, fontWeight: '500', color: 'black', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}>{item.description ? truncateText(item.description, 20) : ''}</div>
+                                <div style={{ fontSize: 12, fontWeight: '500', color: 'black', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}><ItemDescription htmlContent={item.description ? truncateText(item.description, 20) : ''}/></div>
                                 <div style={{color: 'black', fontSize: 12}}>UGX <span style={{fontSize: 16, color: 'black', fontWeight: '600'}}>{item.price.toLocaleString()}</span></div>
-                                <div className='add-cart' onClick={() => handleAddToCart(item)}>ADD</div>
+                                <div className='add-cart' onClick={() => handleAddToCart(item)}>
+                                    <PiShoppingBagOpen />
+                                    <div>BUY</div>
+                                </div>
                             </div>
                         </div>
                         ))}
@@ -184,13 +189,13 @@ const Cart = () => {
             {/* Most popular */}
             <div className='sec-1' style={{paddingBottom: 20, color: 'black', fontSize: 12}}>
 
-                <div style={{paddingBlock: 10, color: 'black', fontSize: 12, fontWeight: '600'}}>Most popular</div>
+                {/* <div style={{paddingBlock: 10, color: 'black', fontSize: 12, fontWeight: '600'}}>Most popular</div>
                 <div className='recom-section'>
                     <div className="recom-list">
                         {items.map((item, index) => (
-                        <div className="recom-card" key={index} style={{height: 180}}>
+                        <div className="recom-card" key={index} style={{}}>
                             <div className="recom-image" onClick={() => navigate('/details/' +item.itemID)}>
-                                <img src={item.img} alt={item.name} height={'100%'} />
+                                <img src={item?.coverPhoto?.url} height={'100%'} width={'100%'} style={{objectFit: 'contain'}}/>
                             </div>
                             <div className="recom-details">
                                 <div style={{ fontSize: 12, fontWeight: '600', color: 'black', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}} onClick={() => navigate('/details/' +item.itemID)}>{item.name}</div>
@@ -201,11 +206,11 @@ const Cart = () => {
                         </div>
                         ))}
                     </div>
-                </div>
+                </div> */}
             </div>
 
             <div className='checkout-cart' onClick={handleCheckoutCart}>
-                <div style={{backgroundColor: 'orange', borderRadius: 3, width: '100%', marginInline: 10, cursor: 'pointer'}} className='inner-item' onClick={handleCheckoutCart}>CHECKOUT (UGX {tPrice?.toLocaleString() })</div>
+                <div style={{backgroundColor: 'orangered', borderRadius: 3, width: '100%', marginInline: 10, cursor: 'pointer'}} className='inner-item' onClick={handleCheckoutCart}>CHECKOUT (UGX {tPrice?.toLocaleString() })</div>
             </div>
             
             <Footer/>
