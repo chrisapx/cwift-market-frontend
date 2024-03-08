@@ -54,7 +54,8 @@ export default function DCart () {
         <div className="d-cart-frame">
             <div className="d-cart-header">
                 <DHeader/>
-                <div className="dir-tracker">Home {">"} cart</div>
+                {/* <div >Home {">"} cart</div> */}
+                <div className="dir-tracker"> Home {window.location.pathname.replace('/', ' > ')}</div>
             </div>
 
             <div className="d-cart-body">
@@ -136,7 +137,7 @@ export default function DCart () {
                         style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginBlock: 20, fontSize: 14, fontWeight: '600', color: 'whitesmoke', backgroundColor: 'rgb(255, 69, 0, 0.9)', cursor: 'pointer', padding: 12, borderRadius: 6}}
                         onClick={() => navigate('/checkout/' + tPrice)}
                         >
-                        {tPrice <= 500 ? <div>Shop 5,000 Min. to Checkout</div> : <div>Checkout({tPrice?.toLocaleString()})</div>}
+                        {tPrice <= 5000 ? <div>Shop 5,000 Min. to Checkout</div> : <div>Checkout({tPrice?.toLocaleString()})</div>}
                     </div>
                     <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginBlock: 20, fontSize: 14, fontWeight: '600', color: 'black', border: '1px rgba(0,0,0,0.3) solid', cursor: 'pointer', padding: 12, borderRadius: 6}}>Express checkout with <span style={{color: "rgba(0,0,233,0.7)", marginLeft: 5}}> NPay</span></div>
 

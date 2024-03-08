@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 const Footer = () => {
 
     const navigate = useNavigate();
+    
 
     return(
         <div className="footer-frame">
@@ -15,7 +16,6 @@ const Footer = () => {
                     <div id="footer-item">Chat with us</div>
                     <div id="footer-item">Help center</div>
                     <div id="footer-item">Contact Us</div>
-
                 </div>
 
                 <div>
