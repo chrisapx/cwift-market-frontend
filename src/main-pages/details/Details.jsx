@@ -205,7 +205,10 @@ const Details = () => {
 
             <div className='add-to-cart'>
                     <div style={{backgroundColor: 'orange', borderTopLeftRadius: 30, borderBottomLeftRadius: 30}} className='add-item' onClick={() => handleAddToCart(item)}>Add to cart</div>
-                    <div style={{backgroundColor: 'red', borderTopRightRadius: 30, borderBottomRightRadius: 30}} className='add-item'>Buy now</div>
+                    <div style={{backgroundColor: 'red', borderTopRightRadius: 30, borderBottomRightRadius: 30}} className='add-item' onClick={() => {
+                        addToCart(item);
+                        navigate('/cart');
+                    }}>Buy now</div>
             </div>
 
             {/* Recently viewed */}
