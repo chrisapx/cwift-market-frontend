@@ -35,7 +35,7 @@ export default function DCheckout () {
     const [ confirm, setConfirm] = useState(false);
     const [ pStatus, setPstatus] = useState(false);
     const [ couponDiscount, setCouponDiscount ] = useState(0);
-    const [ paymentStatus, setPaymentStatus ] = useState('PENDING');
+    const [ paymentStatus, setPaymentStatus ] = useState('NOT');
 
     useEffect(() => {
         // Calculate total price based on the items in the cart
@@ -65,7 +65,7 @@ export default function DCheckout () {
       
           const cartData = {
             itemOrders: modifiedCart,
-            totalPrice: (totalPrice + 4000 - couponDiscount).toLocaleString(),
+            totalPrice: (totalPrice + parseFloat(4000) - couponDiscount),
             deliveryAddress: {},
             paymentStatus: paymentStatus, //Will Create a function to process payment in the payment service and when the payment is complete, Update the payment status field to 'DONE' ON FALSE SAY 'FAILED'
             userID: 'usR-12988229381',
@@ -75,7 +75,7 @@ export default function DCheckout () {
           const createdCart = await createCart(cartData);
           console.log('Created cart:', createdCart);
           setConfirm(true);
-          setPstatus(true);
+        //   setPstatus(true);
         } catch (error) {
           console.error('Error creating cart:', error);
         } finally{
@@ -86,8 +86,8 @@ export default function DCheckout () {
     const createCart = async (cartData) => {
         try {
           const response = await 
-          // fetch('http://127.0.0.1:8080/carts', {
-            fetch('https://inventory.nalmart.com/carts', {
+          fetch('http://127.0.0.1:8080/carts', {
+            // fetch('https://inventory.nalmart.com/carts', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
