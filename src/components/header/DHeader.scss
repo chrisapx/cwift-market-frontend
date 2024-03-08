@@ -11,6 +11,7 @@
     // border-bottom-color: rgb(238, 238, 238);
 
     .logo {
+      text-decoration: none;
         width: fit-content;
         padding-inline: 5px;
         font-weight: bolder;
@@ -35,6 +36,7 @@
         font-size: 13px;
         font-weight: 500;
         white-space: nowrap;
+        text-decoration: none;
 
         position: relative;
         // display: inline-block;

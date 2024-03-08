@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { HiChevronRight, HiSearch } from 'react-icons/hi';
 import { PiShoppingCartSimple } from 'react-icons/pi';
 import { useCart } from '../../context/CartContext';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { BsPersonCircle } from 'react-icons/bs';
 const DHeader = () => {
 
@@ -61,31 +61,31 @@ const DHeader = () => {
 
     return(
         <div className="d-header-frame">
-            <div className="logo" onClick={() => navigate('/')}>
+            <Link className="logo" to={'/'}>
                 NALMART
-            </div>
+            </Link>
 
             <div className='page-overlay'></div>
 
-            <div className='d-header-item'>
+            <Link to={'/'} className='d-header-item'>
                 <FaThumbsUp />
                 <span style={{marginLeft: 5, }}>Best Sellers</span>
-            </div>
+            </Link>
 
-            <div className='d-header-item'>
+            <Link className='d-header-item' to={'/'}>
                 <MdRateReview />
                 <span style={{marginLeft: 5, }}>5-Star Rated</span>
-            </div>
+            </Link>
 
-            <div className='d-header-item'>
+            <Link className='d-header-item' to={'/'}>
                 <FaGift />
                 <span style={{marginLeft: 5, }}>Gift Offers</span>
-            </div>
+            </Link>
 
-            <div className='d-header-item' onClick={() => navigate('/listings/NewArrivals')}>
+            <Link className='d-header-item' to={'/listings/NewArrivals'}>
                 {/* <MdNewReleases /> */}
                 <span style={{marginLeft: 5, }}>New arrivals</span>
-            </div>
+            </Link>
 
             <div className='d-header-item'>
                 <div style={{display: 'flex', alignItems: 'center'}} onMouseOver={() => handleHover('categories')} onMouseOut={() => handleHover('')}>
@@ -154,20 +154,20 @@ const DHeader = () => {
             </div>
 
             <div className='d-header-item' style={{display: 'flex', alignItems: 'center'}}>
-                <div style={{width: 30, height: 30, borderRadius: 40, display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'grey'}}>
+                <Link to={'/account'} style={{width: 30, height: 30, borderRadius: 40, display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'grey', color: 'black'}}>
                     {/* <img src='src/assets/Chris_passport_us.jpeg'width={'100%'} height={'100%'} style={{objectFit: 'contain', borderRadius: 40}}/> */}
                     <BsPersonCircle/>
-                </div>
-                <div style={{marginLeft: 8, lineHeight: 1.1}}>
+                </Link>
+                <Link to={'/account'} style={{marginLeft: 8, lineHeight: 1.1, textDecoration: 'none', color: 'black'}}>
                     <div style={{fontWeight: 400, }}>Hello Chris</div>
                     <span style={{fontWeight: 600, }}>Orders & Account</span>
-                </div>
+                </Link>
             </div>
 
-            <div className='d-header-item' style={{display: 'flex', alignItems: 'center'}}>
+            <Link to={'/'} className='d-header-item' style={{display: 'flex', alignItems: 'center'}}>
                 <MdLiveHelp size={24} />
                 <div style={{marginLeft: 5, fontSize: 14, fontWeight: '600'}}>Support</div>
-            </div>
+            </Link>
 
             <div className='d-header-item' style={{display: 'flex', alignItems: 'center'}}>
                 <div style={{
@@ -182,10 +182,10 @@ const DHeader = () => {
                 <div style={{marginLeft: 5, fontSize: 12, fontWeight: '600'}}>UG</div>
             </div>
 
-            <div className='d-header-item' style={{display: 'flex'}} onClick={() => navigate('/cart')}>
+            <Link to={'/cart'} className='d-header-item' style={{display: 'flex'}} onClick={() => navigate('/cart')}>
                 <PiShoppingCartSimple size={22} />
                 <div style={{position: 'relative', right: 10, color: 'white', backgroundColor: 'orange', borderRadius: 30, paddingInline: 4, fontWeight: '700', fontSize: 8, height: 12}}>{totalItems}</div>
-            </div>
+            </Link>
             
             {/* Cart for Desktop screens */}
             <div>

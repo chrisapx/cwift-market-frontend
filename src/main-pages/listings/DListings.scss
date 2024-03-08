@@ -18,9 +18,29 @@
     background-color: #000000d5;
     color: white;
 }
+
+  .s-cats-section {
+    display: flex;
+    overflow-y: auto;
+    gap: 30px;
+    margin-block: 20px;
+    margin-inline: 80px;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+
+    // style={{ margin: 20, marginInline: 80, display: 'flex', overflowY: 'auto', gap: 30, flexWrap: 'nowrap' }}
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+
+  .main-body-section {
+
     .listing-section {
-      // position: sticky;
-      // top: 150px; /* Height of your sticky header */
+      position: sticky;
+      top: 150px; /* Height of your sticky header */
+      overflow-y: auto;
       display: grid;
       grid-template-columns: 1fr 4fr;
       padding-inline: 40px;
@@ -61,7 +81,12 @@
                     min-width: 200px;
                     max-width: 230px;
                     height: 230px;
-                    // background-color: #c3c3c3;
+                    border-radius: 6px;
+                    background-color: #f0f0f0;
+
+                    img{
+                      border-radius: 6px;
+                    }
                 }
 
                 // .i-info-section {
@@ -173,5 +198,6 @@
         // top: 20px;
       }
     }
+  }
   }
   
