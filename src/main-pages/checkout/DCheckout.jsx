@@ -86,8 +86,8 @@ export default function DCheckout () {
     const createCart = async (cartData) => {
         try {
           const response = await 
-          fetch('http://127.0.0.1:8080/carts', {
-            // fetch('https://inventory.nalmart.com/carts', {
+        //   fetch('http://127.0.0.1:8080/carts', {
+            fetch('https://inventory.nalmart.com/carts', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
