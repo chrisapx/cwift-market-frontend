@@ -154,7 +154,7 @@ const DHeader = () => {
             </div>
 
             <div className='d-header-item' style={{display: 'flex', alignItems: 'center'}}>
-                <Link to={'/account'} style={{width: 30, height: 30, borderRadius: 40, display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'grey', color: 'black'}}>
+                <Link to={'/login'} style={{width: 30, height: 30, borderRadius: 40, display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'grey', color: 'black'}}>
                     {/* <img src='src/assets/Chris_passport_us.jpeg'width={'100%'} height={'100%'} style={{objectFit: 'contain', borderRadius: 40}}/> */}
                     <BsPersonCircle/>
                 </Link>
