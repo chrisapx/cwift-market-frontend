@@ -9,6 +9,8 @@ import { ListingProvider } from './context/ListingContext'
 import MainHome from './main-pages/home/MainHome'
 import MainDetails from './main-pages/details/MainDetails'
 import MainListing from './main-pages/listings/MainListing'
+import ContextProvider from './context/ContextProvider'
+import Notification from './components/Notification'
 // import MainCheckout from './main-pages/checkout/MainCheckout'
 
 const SearchPage = lazy(() => import('./main-pages/search/SearchPage'))
@@ -19,7 +21,7 @@ const Account = lazy(() => import('./main-pages/profile/Account'))
 const MainCheckout = lazy(() => import('./main-pages/checkout/MainCheckout'))
 const Payment = lazy(() => import('./main-pages/payment/Payment'))
 const Listing = lazy(() => import('./main-pages/listings/Listings'))
-const Login = lazy(() => import('./auth-pages/login/Login'))
+const Login = lazy(() => import('./auth-pages/login/LoginPage'))
 const Signup = lazy(() => import('./auth-pages/signup/Signup'))
 
 
@@ -45,31 +47,32 @@ function App() {
 
   return (
     <div className='app-container'>
-      <ListingProvider>
-        <CartProvider>
-          <Suspense fallback={
-              <div className="fallback-container">
-                <img src={'https://firebasestorage.googleapis.com/v0/b/cwift-marketplace.appspot.com/o/item-images%2Fcwift-logo.png8e87a133-f46c-44b9-addc-d677e44efed5?alt=media&token=ef17292f-094b-4107-96b5-d0572146e20b'} alt="Spinning Logo" className="spinning-logo" />
-              </div> } >
-            <Routes>
-                <Route path="/" element={ <MainHome/> } />
-                <Route path="/search" element={<SearchPage />} />
-                <Route path="/search-results/:input" element={<SearchResults />} />
-                <Route path="/details/:itemID" element={<MainDetails />} />
-                <Route path="/cart" element={<MainCart />} />
-                <Route path="/account" element={<Account />} />
-                <Route path="/checkout/:totalPrice" element={<MainCheckout />} />
-                <Route path="/payment/:pstatus" element={<Payment />} />
-                <Route path="/listings/:category" element={<MainListing />} />
-                <Route path="/add-item" element={<AddItem />} />
-                <Route path='/admin-home' element={<AdminHome/>}/>
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
-                <Route path="*" element={<NotFoundPage />} />      
-            </Routes>
-          </Suspense>
-        </CartProvider>
-      </ListingProvider>
+      <Notification />
+        <ListingProvider>
+          <CartProvider>
+            <Suspense fallback={
+                <div className="fallback-container">
+                  <img src={'https://firebasestorage.googleapis.com/v0/b/cwift-marketplace.appspot.com/o/item-images%2Fcwift-logo.png8e87a133-f46c-44b9-addc-d677e44efed5?alt=media&token=ef17292f-094b-4107-96b5-d0572146e20b'} alt="Spinning Logo" className="spinning-logo" />
+                </div> } >
+              <Routes>
+                  <Route path="/" element={ <MainHome/> } />
+                  <Route path="/search" element={<SearchPage />} />
+                  <Route path="/search-results/:input" element={<SearchResults />} />
+                  <Route path="/details/:itemID" element={<MainDetails />} />
+                  <Route path="/cart" element={<MainCart />} />
+                  <Route path="/account" element={<Account />} />
+                  <Route path="/checkout/:totalPrice" element={<MainCheckout />} />
+                  <Route path="/payment/:pstatus" element={<Payment />} />
+                  <Route path="/listings/:category" element={<MainListing />} />
+                  <Route path="/add-item" element={<AddItem />} />
+                  <Route path='/admin-home' element={<AdminHome/>}/>
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/signup" element={<Signup />} />
+                  <Route path="*" element={<NotFoundPage />} />      
+              </Routes>
+            </Suspense>
+          </CartProvider>
+        </ListingProvider>
     </div>
   )
 }

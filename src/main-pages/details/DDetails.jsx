@@ -52,6 +52,7 @@ const DDetailsPage = () => {
     useEffect(() => {
         // fetch('http://127.0.0.1:8080/items/' + itemID)
         fetch('https://inventory.nalmart.com/items/' + itemID)
+        // fetch(import.meta.env.VITE_API_URL +'/items/' + itemID)
         .then((response) => response.json())
         .then((json) => {
             setItem(json);
@@ -203,8 +204,8 @@ const DDetailsPage = () => {
                     </div>
                     <div id="info-area">
                         <div>
-                            <h id='product-info-header'>Waranty information</h>
-                            <p style={{color: 'grey'}}>Not available</p>
+                            <div id='product-info-header'>Waranty information</div>
+                            <div style={{color: 'grey'}}>Not available</div>
 
                         </div>
                         <div>
@@ -243,7 +244,7 @@ const DDetailsPage = () => {
                 <div className="guide-doc-frame"> 
                     <div style={{fontWeight: '600', fontSize: 18, color: 'rgba(0,0,0,0.8)'}}>Product guides and documents</div>
                     <div>
-                        <a href="" style={{color: 'rgb(5, 121, 86)', fontSize: 14}}>Instructions of Use (UFU) (PDF)</a>
+                        <a href={item?.coverPhoto?.url} style={{color: 'rgb(5, 121, 86)', fontSize: 14}} download>Instructions of Use (UFU) (PDF)</a>
                     </div>
 
                 </div>
