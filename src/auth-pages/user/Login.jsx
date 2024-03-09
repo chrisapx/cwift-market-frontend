@@ -46,9 +46,10 @@ const Login = ( { open, close, }) => {
         payload: {
           open: true,
           severity: 'error',
-          message: 'Passwords do not match',
+          message: 'Passwords mismatch',
         },
-      });
+      }); 
+
     register({ name, email, password }, dispatch);
   };
 
