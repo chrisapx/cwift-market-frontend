@@ -228,13 +228,6 @@ export default function ManageProducts() {
             ), 
             // height: 40            
         },
-        { 
-            field: 'none', 
-            headerName: '', 
-            width: 130, 
-            type: 'number', 
-            editable: true ,
-        },
               
     ];
      
