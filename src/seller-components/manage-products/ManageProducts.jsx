@@ -225,37 +225,6 @@ export default function ManageProducts() {
             clicked,
             renderCell: (params) => ( 
                 <ItemActions {...{ params, rowId, setRowId }} />
-
-            //     <Box
-            //         sx={{
-            //             m: 1,
-            //             position: 'relative',
-            //         }}
-            //     >
-            //         <Fab
-            //             color="primary"
-            //             sx={{
-            //                 width: 40,
-            //                 height: 40,
-            //             }}
-            //             disabled={params.row.id !== rowId}
-            //             onClick={() => handleItemUpdate(params.row)}
-            //         >
-            //             <Save />
-            //         </Fab>   
-            //         {loading === params.row.itemID && (
-            //             <CircularProgress
-            //                 size={52}
-            //                 sx={{
-            //                     color: 'green',
-            //                     position: 'absolute',
-            //                     top: -6,
-            //                     left: -6,
-            //                     zIndex: 1,
-            //                 }}
-            //             />
-            //         )}
-            //     </Box>
             ), 
             // height: 40            
         },
