@@ -106,7 +106,7 @@ export default function ManageProducts() {
             renderCell: p => (
                 <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 20}}>
                     {p.row.photos.map((photo, index) => (
-                        <Avatar src={photo.url} />
+                        <Avatar key={index} src={photo.url} />
                     ))}
                 </div>
             )
