@@ -1,6 +1,6 @@
 import { Box, CircularProgress, Fab } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { Check, Save } from '@mui/icons-material';
+import { Check, Delete, Save } from '@mui/icons-material';
 import { green } from '@mui/material/colors';
 import { useValue } from '../context/ContextProvider';
 // import { updateStatus } from '../../../actions/user';
@@ -17,40 +17,39 @@ const ItemActions = ({ params, rowId, setRowId }) => {
     // const { role, active, _id } = params.row;
     // const result = await updateStatus({ role, active }, _id, dispatch);
     // if (result) {
-    //   setSuccess(true);
-    //   setRowId(null);
-    // }
-  //   setLoading(false);
-  // };
-
-  const handleItemUpdate = () => {
-    // alert('clicked');
-    setLoading(params.row.itemID);
-    try {
-        fetch('https://inventory.nalmart.com/items/update?itemID=' + params.row.itemID, {
+      //   setRowId(null);
+      // }
+      //   setLoading(false);
+      // };
+      
+      const handleItemUpdate = () => {
+        setLoading(params.row.itemID);
+        try {
+          fetch('https://inventory.nalmart.com/items/update?itemID=' + params.row.itemID, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json',
-                // 'Authorization': `Bearer ${token}`
+              'Content-Type': 'application/json',
+              // 'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(params.row),
-        }).then(response => {
+          }).then(response => {
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+              throw new Error('Network response was not ok');
             }
             return response.json();
-        }).then(data => {
+          }).then(data => {
             console.log('Item updated successfully:', data);
             dispatch({
               type: 'UPDATE_ALERT',
               payload: {
-                  open: true,
-                  severity: 'error',
-                  message: 'Item updated successfully: ID: ' + data.itemID
+                open: true,
+                severity: 'success',
+                message: 'Item updated successfully: ID: ' + data.itemID
               },
-          });
+            });
+              setSuccess(true);
             setLoading('');
-        }).catch(error => {
+          }).catch(error => {
             console.error('Error updating item:', error);
             dispatch({
                 type: 'UPDATE_ALERT',
@@ -98,7 +97,7 @@ const ItemActions = ({ params, rowId, setRowId }) => {
             width: 40,
             height: 40,
           }}
-          // disabled={params.row.itemID === rowId || !loading !== params.row.itemID}
+          // disabled={params.row.itemID === rowId || loading }
           onClick={handleItemUpdate}
         >
           <Save />

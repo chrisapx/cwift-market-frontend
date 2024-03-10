@@ -7,6 +7,7 @@ import { useValue } from "../../context/ContextProvider";
 import ItemActions from "../../actions/ItemActions";
 import { grey } from "@mui/material/colors";
 import { Lock } from "@mui/icons-material";
+import DeleteActions from "../../actions/DeleteAction";
 
 export default function ManageProducts() {
 
@@ -95,23 +96,23 @@ export default function ManageProducts() {
             field: 'coverImage', 
             headerName: 'Cover Photo',
             editable: true, 
-            // renderCell: (params) => ( 
-            //     <div style={{display: 'flex', justifyContent: 'center'}}>
-            //         <Avatar sx={{objectFit: 'contain'}} src={params?.row.coverPhoto?.url }/>
-            //     </div>
-            // ) , width: 130 
+            renderCell: (params) => ( 
+                <div style={{display: 'flex', justifyContent: 'center'}}>
+                    <Avatar sx={{objectFit: 'contain'}} src={params?.row.coverPhoto?.url }/>
+                </div>
+            ) , width: 130 
         },
         { 
             field: 'photos', 
             headerName: 'Display Images', 
             width: 200 ,
-            // renderCell: p => (
-            //     <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 20}}>
-            //         {p.row.photos.map((photo, index) => (
-            //             <Avatar key={index} src={photo.url} />
-            //         ))}
-            //     </div>
-            // )
+            renderCell: p => (
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 20}}>
+                    {p.row.photos.map((photo, index) => (
+                        <Avatar key={index} src={photo.url} />
+                    ))}
+                </div>
+            )
         },
         { 
             field: 'status', 
@@ -239,6 +240,16 @@ export default function ManageProducts() {
             headerName: 'Commit', 
             renderCell: (params) => ( 
                 <ItemActions 
+                    {...{ params, rowId, setRowId }} 
+                    />
+            ), 
+            // height: 40            
+        },
+        { 
+            field: 'delete', 
+            headerName: 'Delete', 
+            renderCell: (params) => ( 
+                <DeleteActions 
                     {...{ params, rowId, setRowId }} 
                     />
             ), 
