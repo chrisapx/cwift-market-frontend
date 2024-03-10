@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import './ManageProducts.scss'
 import { DataGrid } from "@mui/x-data-grid";
 import Login from "../../auth-pages/user/Login";
-import { Avatar, Box, CircularProgress, Dialog, Fab, Select } from "@mui/material";
-import { Delete, PinDrop, Save, Update } from "@mui/icons-material";
-import SelectInput from "@mui/material/Select/SelectInput";
+import { Avatar, Box, gridClasses } from "@mui/material";
 import { useValue } from "../../context/ContextProvider";
 import ItemActions from "../../actions/ItemActions";
+import { grey } from "@mui/material/colors";
+import { Lock } from "@mui/icons-material";
 
 export default function ManageProducts() {
 
@@ -14,8 +14,10 @@ export default function ManageProducts() {
     const [items, setItems] = useState([]);
     const [currency, setCurrency] = useState('UGX');
     const [ clicked, setClicked ] = useState('');
-    const [ rowId, setRowId ] = useState();
+    const [ rowId, setRowId ] = useState(null);
+    const [pageSize, setPageSize] = useState(5);
     const [ loading, setLoading ] = useState('');
+    const [ login, setLogin ] = useState(false);
 
     useEffect(()=>{
         // fetch('http://127.0.0.1:8080/items/categories')
@@ -93,23 +95,23 @@ export default function ManageProducts() {
             field: 'coverImage', 
             headerName: 'Cover Photo',
             editable: true, 
-            renderCell: (params) => ( 
-                <div style={{display: 'flex', justifyContent: 'center'}}>
-                    <Avatar sx={{objectFit: 'contain'}} src={params?.row.coverPhoto?.url }/>
-                </div>
-            ) , width: 130 
+            // renderCell: (params) => ( 
+            //     <div style={{display: 'flex', justifyContent: 'center'}}>
+            //         <Avatar sx={{objectFit: 'contain'}} src={params?.row.coverPhoto?.url }/>
+            //     </div>
+            // ) , width: 130 
         },
         { 
             field: 'photos', 
             headerName: 'Display Images', 
             width: 200 ,
-            renderCell: p => (
-                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 20}}>
-                    {p.row.photos.map((photo, index) => (
-                        <Avatar key={index} src={photo.url} />
-                    ))}
-                </div>
-            )
+            // renderCell: p => (
+            //     <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 20}}>
+            //         {p.row.photos.map((photo, index) => (
+            //             <Avatar key={index} src={photo.url} />
+            //         ))}
+            //     </div>
+            // )
         },
         { 
             field: 'status', 
@@ -222,51 +224,15 @@ export default function ManageProducts() {
         { 
             field: 'actions', 
             headerName: 'Commit', 
-            clicked,
             renderCell: (params) => ( 
-                <ItemActions {...{ params, rowId, setRowId }} />
+                <ItemActions 
+                    {...{ params, rowId, setRowId }} 
+                    />
             ), 
             // height: 40            
         },
               
     ];
-     
-    const handleItemUpdate = ({ row }) => {
-        alert('clicked');
-        setLoading(row.itemID);
-        try {
-            fetch('https://inventory.nalmart.com/items/' + row.itemID, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    // 'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify(row),
-            }).then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            }).then(data => {
-                console.log('Item updated successfully:', data);
-                setLoading('');
-            }).catch(error => {
-                console.error('Error updating item:', error);
-                dispatch({
-                    type: 'UPDATE_ALERT',
-                    payload: {
-                        open: true,
-                        severity: 'error',
-                        message: 'Error updating item: ' + error.message
-                    },
-                });
-                setLoading('');
-            });
-        } catch (error) {
-            console.error('Error updating item:', error);
-            setLoading('');
-        }
-    }
     
     const rows = items.map(row => ({
         ...row,
@@ -280,7 +246,13 @@ export default function ManageProducts() {
     
     return(
         <div className='main-frame'>
-                <div className='tittle'>Products Management</div>
+                <div className='tittle'>
+                    <div>Products Management</div>
+                    <div style={{display: 'flex', alignItems: 'center', backgroundColor: 'rgba(0,0,200,0.7)', paddingInline: 6, borderRadius: 6, color: 'white', cursor: 'pointer' ,fontSize: 'medium'}} onClick={() => setLogin(true)}>
+                        <p>Login</p> 
+                        <Lock sx={{fontSize: 16, }} size={'medium'}/>
+                    </div>
+                </div>
                 
                 <div className='orders-filter'>
                     <div style={{color: 'orange', paddingBottom: 10, fontSize: 8, fontWeight: '600'}}>FILTERS</div>
@@ -312,31 +284,37 @@ export default function ManageProducts() {
                 </div>
 
                 {/* Items list */}
-                <div style={{ width: '100%', marginTop: 20, marginBottom: 40, backgroundColor: 'white', fontSize: 8, boxShadow: 'black' }}>
-                    <DataGrid 
-                        rows={rows} 
-                        columns={columns} 
-                        checkboxSelection 
-                        rowHeight={35} 
-                        columnHeaderHeight={50} 
-                        showCellVerticalBorder 
-                        showColumnVerticalBorder
-                        getRowSpacing={(params) => ({
-                            top: params.isFirstVisible ? 0 : 5,
-                            bottom: params.isLastVisible ? 0 : 5,
-                          })}
-                        sx={{
-                            borderStyle: 'solid', 
-                            fontSize: 12, 
-                            boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.1)'
-                        }}
-                        onCellEditCommit={(params) => setRowId(params.row.id)}
-                    />
+                <Box>
+                    <div style={{ width: '100%', marginTop: 20, marginBottom: 40, backgroundColor: 'white', fontSize: 8, boxShadow: 'black' }}>
 
-                    {items.length == 0 && <div style={{display: "flex", justifyContent: "center", alignItems: "center", padding: 20}}>No records found</div>}
+                        <DataGrid
+                            columns={columns}
+                            rows={rows}
+                            getRowId={(row) => row.itemID}
+                            rowsPerPageOptions={[5, 10, 20]}
+                            pageSize={pageSize}
+                            checkboxSelection
+                            showColumnVerticalBorder={true}
+                            showCellVerticalBorder={true}
+                            onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                            getRowSpacing={(params) => ({
+                                top: params.isFirstVisible ? 0 : 5,
+                                bottom: params.isLastVisible ? 0 : 5,
+                            })}
+                            sx={{
+                            [`& .${gridClasses.row}`]: {
+                                bgcolor: (theme) =>
+                                theme.palette.mode === 'light' ? grey[200] : grey[900],
+                            },
+                            }}
+                            onCellEditCommit={(params) => setRowId(params.id)}
+                        />
 
-                </div>
-                <Login/>
+                        {items.length == 0 && <div style={{display: "flex", justifyContent: "center", alignItems: "center", padding: 20}}>No records found</div>}
+
+                    </div>
+                    <Login open={login}/>
+                </Box>
 
             </div>
     )
