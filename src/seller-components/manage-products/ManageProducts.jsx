@@ -131,7 +131,10 @@ export default function ManageProducts() {
             // valueOptions: ['Electronics', 'Home'],
             editable: true,
             renderCell: param => (
-                <select style={{backgroundColor: 'whitesmoke', whiteSpace: 'nowrap', flex: 1, color: 'black', border: 'none'}}>
+                <select 
+                    style={{backgroundColor: 'whitesmoke', whiteSpace: 'nowrap', flex: 1, color: 'black', border: 'none'}}
+                    onClick={ e => {param.row.category = e.target.value}}
+                    >
                     <option>{param.row.category}</option>
                     <option>{'Electronics'}</option>
                     <option>{'Home apliances and many more'}</option>
@@ -147,11 +150,19 @@ export default function ManageProducts() {
             color: 'grey',
             type: 'singleSelect',
             renderCell: param => (
-                <select style={{backgroundColor: 'whitesmoke', whiteSpace: 'nowrap', flex: 1, color: 'black', border: 'none'}}>
+                <select 
+                    style={{
+                        backgroundColor: 'whitesmoke', 
+                        whiteSpace: 'nowrap', 
+                        flex: 1, color: 'black', 
+                        border: 'none'
+                        }} 
+                    onChange={e => { param.row.subCategory = e.target.value;
+                     }}>
                     <option>{param.row.subCategory ? param.row.subCategory : 'Sub Category'}</option>
-                    {subCategories.map((sub, index) => (
-                        <option key={index}>{sub.name}</option>
-                    ))}
+                        {subCategories.map((sub, index) => (
+                            <option key={index}>{sub.name}</option>
+                        ))}
                     <option>{'Home apliances and many more'}</option>
                 </select>
             )
@@ -196,7 +207,9 @@ export default function ManageProducts() {
             width: 150, 
             editable: true,
             renderCell: param => (
-                <select style={{backgroundColor: 'whitesmoke', whiteSpace: 'nowrap', flex: 1, color: 'black', border: 'none'}}>
+                <select style={{backgroundColor: 'whitesmoke', whiteSpace: 'nowrap', flex: 1, color: 'black', border: 'none'}}
+                onClick={ e => {param.row.type = e.target.value}}
+                >
                     <option>{param.row.type}</option>
                     { param.row.type !== 'NEW' ? <option>{'NEW'}</option> : null}
                     { param.row.type !== 'USED' ? <option>{'USED'}</option> : null}
