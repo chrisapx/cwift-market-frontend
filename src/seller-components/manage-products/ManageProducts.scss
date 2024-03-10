@@ -4,10 +4,13 @@
     overflow-y: scroll;
 
     .tittle {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         font-size: small;
         font-weight: 700;
         color: #676767;
-        padding-block: 20px;
+        padding-block: 16px;
     }
 
     .orders-filter {

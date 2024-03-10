@@ -9,6 +9,7 @@ import Promotions from '../../seller-components/promotions/Promotions';
 import Fullfilment from '../../seller-components/fullfilment/Fullfilment';
 import Advertise from '../../seller-components/advertise/Advertise';
 import AccountStatement from '../../seller-components/account-statement/AccountStatement';
+import { Avatar } from '@mui/material';
 
 
 export default function AdminHome () {
@@ -96,9 +97,7 @@ export default function AdminHome () {
 
                 </div>
                 <div className='drawer-footer'>
-                    <div className="footer-dp">
-                        <img src='src/assets/Chris_passport_us.jpeg' height={'100%'}/>
-                    </div>
+                    <Avatar src=''/>
                     <div className='footer-text'>
                         <div style={{fontSize: 14, fontWeight: '700', color: 'grey'}}>Chris</div>
                         <div style={{fontSize: 12, color: 'grey'}}>mcaplexya@gmail.com</div>
