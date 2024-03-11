@@ -11,6 +11,8 @@ import MainDetails from './main-pages/details/MainDetails'
 import MainListing from './main-pages/listings/MainListing'
 import ContextProvider from './context/ContextProvider'
 import Notification from './components/Notification'
+import Loading from './actions/utils/Loader'
+import OtpDialogue from './auth-pages/user/OtpDialogue'
 // import MainCheckout from './main-pages/checkout/MainCheckout'
 
 const SearchPage = lazy(() => import('./main-pages/search/SearchPage'))
@@ -48,6 +50,8 @@ function App() {
   return (
     <div className='app-container'>
       <Notification />
+      <Loading/>
+      <OtpDialogue/>
         <ListingProvider>
           <CartProvider>
             <Suspense fallback={

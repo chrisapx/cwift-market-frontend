@@ -20,7 +20,7 @@ const PasswordField = ({
   return (
     <TextField
       margin="normal"
-      variant="standard"
+      variant="outlined"
       id={id}
       label={label}
       type={showPassword ? 'text' : 'password'}

@@ -4,6 +4,11 @@ const reducer = (state, action) => {
       return { ...state, openLogin: true };
     case 'CLOSE_LOGIN':
       return { ...state, openLogin: false };
+    case 'OPEN_OTP_DIALOGUE':
+      return { ...state, openOtp: true };
+    case 'CLOSE_OTP_DIALOGUE':
+      return { ...state, openOtp: false };
+  
 
     case 'START_LOADING':
       return { ...state, loading: true };

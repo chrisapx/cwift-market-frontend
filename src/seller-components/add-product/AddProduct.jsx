@@ -9,10 +9,14 @@ import { v4 } from "uuid";
 import { PiPencil } from "react-icons/pi";
 import { FaPlus } from "react-icons/fa";
 import { HiMinus, HiPlus, HiX } from "react-icons/hi";
+import { Button } from "@mui/material";
+import { IoLogIn } from "react-icons/io5";
+import { useValue } from "../../context/ContextProvider";
 
 export default function AddProduct() {
 
     const storage = getStorage(app);
+    const { dispatch } = useValue();
     const [loading, setLoading] = useState(false);
     const [description, setDescription] = useState('');
     const [whatIsIn, setWhatIsIn] = useState('');
@@ -180,11 +184,26 @@ export default function AddProduct() {
         e.preventDefault();
 
         setLoading(true);
-        try {
+        dispatch({
+            type: 'UPDATE_ALERT',
+            payload: {
+              open: true,
+              severity: 'success',
+              message: 'Product added successfully',
+            },
+          });
+          try {
             console.log(item.name + '\n' + item.category + item.globalPrice + item.price + item.qty + item.stockCount + item.store + item.type + item.serialNumber + item.brand + item.description + item.whatIsIn + coverPhoto + photoImages.length )
-            // Check if required fields are empty
             if (!item.name || !item.category || !item.globalPrice || !item.price || !item.qty || !item.stockCount || !item.store || !item.type || !item.serialNumber || !item.brand || !coverPhoto || photoImages.length === 0 ) {
-                throw new Error('Please fill in all required fields and upload all necessary images.');
+                
+                dispatch({
+                    type: 'UPDATE_ALERT',
+                    payload: {
+                      open: true,
+                      severity: 'error',
+                      message: 'Fill in all the required fields',
+                    },
+                  });
             }
     
             // Upload cover photo...
@@ -250,17 +269,36 @@ export default function AddProduct() {
             });
             const data = await response.json();
             console.log('Product added successfully:', data);
-            handleAddSuccess(data);
+
+            dispatch({
+                type: 'UPDATE_ALERT',
+                payload: {
+                  open: true,
+                  severity: 'success',
+                  message: 'Product added successfully',
+                },
+              });
+          
+            dispatch({ type: 'END_LOADING' });
+            // handleAddSuccess(data);
             resetForm();
     
         } catch (error) {
-            console.error('Error adding product:', error);
-            alert(error.message);
-        }
-
-        setLoading(false);
+            // console.error('Error adding product:', error);
+            // alert(error.message);
+            dispatch({
+                type: 'UPDATE_ALERT',
+                payload: {
+                  open: true,
+                  severity: 'error',
+                  message: 'Login error: ' + error.message,
+                },
+              });
+            }
+          
+            dispatch({ type: 'END_LOADING' });
+     
     };
-    
 
     const resetForm = () => {
         setDescription('');
@@ -294,17 +332,17 @@ export default function AddProduct() {
         setErrors([]);
     };
     
-    
+
     const updateItem = (property, value) => {
         setItem(prevItem => ({
           ...prevItem,
           [property]: value,
         }));
       };
-
+    
     const elements = [{id: 0, name:'Image 1'},{id: 1, name: 'Image 2'},{id: 2, name: 'Image 3'},{id: 3, name: 'Image 4'},{id: 4, name: 'Image 5'}];
     const usageImages = [{id: 0, name: 'Usage Image 1'},{id: 1, name: 'Usage Image 2'},{id: 2, name: 'Usage Image 3'}];
-
+    
     return(
         <div className="main-product-frame">
             <div className='tittle'>Add Products</div>
@@ -557,13 +595,12 @@ export default function AddProduct() {
 
                 </div>
 
-                <div type="submit" onClick={handleFormSubmit} style={{position: "sticky", cursor: "pointer", bottom: 0, display: "flex", alignItems: 'center', marginBlock: 16, marginTop: 40, marginLeft: 30, backgroundColor: loading? 'grey': 'orange', width: 'fit-content', padding: 10, borderRadius: 8, color : 'white', fontWeight: 'bold'}}>
-                    {!loading ? <div>Submit</div> : 
-                    <div>Loading...</div>}
-                </div>
+                <Button sx={{marginLeft: 4, mt: 6}} type="submit" onClick={handleFormSubmit} variant="contained" endIcon={<IoLogIn />}>
+                    Submit
+                </Button>
             </form>
 
-            {succMsg && <div style={{fontSize: 14, color: "white", backgroundColor: 'black', paddingInline: 8, paddingBlock: 10, position: 'absolute', bottom: 20, left: '50%'}}>{succMsg}</div>}
+            {/* {succMsg && <div style={{fontSize: 14, color: "white", backgroundColor: 'black', paddingInline: 8, paddingBlock: 10, position: 'absolute', bottom: 20, left: '50%'}}>{succMsg}</div>} */}
 
         </div>
     )

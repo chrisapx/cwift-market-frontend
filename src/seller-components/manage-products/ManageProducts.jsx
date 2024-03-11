@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import './ManageProducts.scss'
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Login from "../../auth-pages/user/Login";
-import { Avatar, Box, gridClasses } from "@mui/material";
+import { Avatar, Box, Button, gridClasses } from "@mui/material";
 import { useValue } from "../../context/ContextProvider";
 import ItemActions from "../../actions/ItemActions";
 import { grey } from "@mui/material/colors";
 import { Lock } from "@mui/icons-material";
 import DeleteActions from "../../actions/DeleteAction";
+import { IoLogIn } from "react-icons/io5";
 
 export default function ManageProducts() {
 
@@ -273,10 +274,9 @@ export default function ManageProducts() {
         <div className='main-frame'>
                 <div className='tittle'>
                     <div>Products Management</div>
-                    <div style={{display: 'flex', alignItems: 'center', backgroundColor: 'rgba(0,0,200,0.7)', paddingInline: 6, borderRadius: 6, color: 'white', cursor: 'pointer' ,fontSize: 'medium'}} onClick={() => setLogin(true)}>
-                        <p>Login</p> 
-                        <Lock sx={{fontSize: 16, }} size={'medium'}/>
-                    </div>
+                    <Button type="submit" onClick={() => { dispatch({ type: 'OPEN_LOGIN' }) }} variant="contained" endIcon={<IoLogIn />}>
+                        Login
+                    </Button>
                 </div>
                 
                 <div className='orders-filter'>
@@ -340,7 +340,7 @@ export default function ManageProducts() {
                         {items.length == 0 && <div style={{display: "flex", justifyContent: "center", alignItems: "center", padding: 20}}>No records found</div>}
 
                     </div>
-                    <Login open={login}/>
+                    <Login />
                 </Box>
 
             </div>

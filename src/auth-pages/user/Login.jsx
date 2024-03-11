@@ -17,28 +17,51 @@ import { useValue } from '../../context/ContextProvider';
 import PasswordField from './PasswordField';
 import { IoLogIn } from 'react-icons/io5';
 
-const Login = ( { open, close, }) => {
+const Login = () => {
   const {
     state: { openLogin },
     dispatch,
   } = useValue();
   const [title, setTitle] = useState('Login');
   const [isRegister, setIsRegister] = useState(register);
-  const nameRef = useRef();
+  const usernameRef = useRef();
+  const firstNameRef = useRef();
+  const lastNameRef = useRef();
   const emailRef = useRef();
+  const emailOrPhoneRef = useRef();
+  const phoneRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
+  const birthDateRef = useRef();
 
   const handleClose = () => {
     dispatch({ type: 'CLOSE_LOGIN' });
   };
 
+  useEffect(() => {
+    if(handleSubmit) setIsRegister(false);
+  }, [])
+
   const handleSubmit = (e) => {
+    // alert('submitting')
     e.preventDefault();
-    const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    if (!isRegister) return login({ email, password }, dispatch);
-    const name = nameRef.current.value;
+    
+    if (!isRegister){
+      const username = emailOrPhoneRef.current.value;
+      const userObj = { 
+        username: username,
+        password: password
+      }
+
+      return login(userObj, dispatch);
+    } 
+    const userName = usernameRef.current.value;
+    const firstName = firstNameRef.current.value;
+    const lastName = lastNameRef.current.value;
+    const email = emailRef.current.value;
+    const phone = phoneRef.current.value;
+    const birthDate = birthDateRef.current.value;
     const confirmPassword = confirmPasswordRef.current.value;
     if (password !== confirmPassword)
       return dispatch({
@@ -50,16 +73,24 @@ const Login = ( { open, close, }) => {
         },
       }); 
 
-    register({ name, email, password }, dispatch);
+    const regUserObj = {
+      username: userName, 
+      firstname: firstName, 
+      lastname: lastName, 
+      email: email, 
+      phone: phone, 
+      dateOfBirth : birthDate, 
+      password : password 
+    };
+
+    register(regUserObj, dispatch);
   };
 
   useEffect(() => {
     isRegister ? setTitle('Register') : setTitle('Login');
   }, [isRegister]);
   return (
-    // <Dialog open={openLogin} onClose={handleClose}>
-
-    <Dialog open={open} onClose={close} >
+    <Dialog open={openLogin} onClose={handleClose}>
       
       <DialogTitle 
         sx={{
@@ -80,7 +111,7 @@ const Login = ( { open, close, }) => {
           }}
           onClick={handleClose}
         >
-          {/* <Close /> */}
+          <Close />
         </IconButton>
       </DialogTitle>
       <form onSubmit={handleSubmit}>
@@ -92,27 +123,97 @@ const Login = ( { open, close, }) => {
             <TextField
               autoFocus
               margin="normal"
-              variant="standard"
-              id="name"
-              label="Name"
+              variant="outlined"
+              id="username"
+              label="Username"
               type="text"
               fullWidth
-              inputRef={nameRef}
+              inputRef={usernameRef}
+              inputProps={{ minLength: 2,  }}
+              required
+            />
+          )}
+          {isRegister && (
+            <TextField
+              autoFocus
+              margin="normal"
+              variant="outlined"
+              id="firstName"
+              label="First Name"
+              type="text"
+              fullWidth
+              inputRef={firstNameRef}
+              inputProps={{ minLength: 2,  }}
+              required
+            />
+          )}
+          {isRegister && (
+            <TextField
+              autoFocus
+              margin="normal"
+              variant="outlined"
+              id="lastName"
+              label="Last Name"
+              type="text"
+              fullWidth
+              inputRef={lastNameRef}
               inputProps={{ minLength: 2 }}
               required
             />
           )}
+          { isRegister ? (
+            <TextField
+              autoFocus={!isRegister}
+              margin="normal"
+              variant="outlined"
+              id="email"
+              label="Email"
+              type="email"
+              fullWidth
+              inputRef={emailRef}
+              required
+            />
+          ) : (
+            <TextField
+              autoFocus={!isRegister}
+              margin="normal"
+              variant="outlined"
+              id="email or phone"
+              label="Email or phone"
+              type="email or phone"
+              fullWidth
+              inputRef={emailOrPhoneRef}
+              required
+            />
+
+          )}
+          { isRegister && (
           <TextField
             autoFocus={!isRegister}
             margin="normal"
-            variant="standard"
-            id="email"
-            label="Email"
-            type="email"
+            variant="outlined"
+            id="phone"
+            label="Phone Number"
+            type="tel"
             fullWidth
-            inputRef={emailRef}
+            inputRef={phoneRef}
             required
           />
+          // <input type='datetime-local'/>
+          )}
+          {isRegister && (
+          <TextField
+            autoFocus={!isRegister}
+            margin="normal"
+            variant="outlined"
+            // id="birthDate"
+            label="Date of Birth" 
+            type="date"
+            fullWidth
+            inputRef={birthDateRef}
+            // required
+          />
+          )}
           <PasswordField {...{ passwordRef }} />
           {isRegister && (
             <PasswordField
