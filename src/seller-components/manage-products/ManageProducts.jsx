@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import './ManageProducts.scss'
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Login from "../../auth-pages/user/Login";
 import { Avatar, Box, gridClasses } from "@mui/material";
 import { useValue } from "../../context/ContextProvider";
@@ -222,6 +222,7 @@ export default function ManageProducts() {
             headerName: 'Description', 
             width: 130, 
             editable: true 
+            
         },
         { 
             field: 'discount', 
@@ -314,12 +315,14 @@ export default function ManageProducts() {
                         <DataGrid
                             columns={columns}
                             rows={rows}
+                            slots={{ toolbar: GridToolbar }}
                             getRowId={(row) => row.itemID}
                             rowsPerPageOptions={[5, 10, 20]}
                             pageSize={pageSize}
                             checkboxSelection
                             showColumnVerticalBorder={true}
                             showCellVerticalBorder={true}
+                            
                             onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
                             getRowSpacing={(params) => ({
                                 top: params.isFirstVisible ? 0 : 5,
