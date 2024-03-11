@@ -56,25 +56,6 @@ const AddItem = () => {
     const uploadImage = async () =>  {
     if (imageUpload == null) return;
 
-    // const compressedImage = await compress(imageUpload, {
-    //     quality: 0.8, // Adjust the quality as needed (0 to 1)
-    //     maxWidth: 800, // Adjust the maximum width as needed
-    //   });
-
-    // Use squoosh for image compression
-    // const compressedImage = await encode(imageUpload, {
-    //         webp: {},
-    //         mozjpeg: { quality: 80 }, // Adjust quality as needed
-    //         oxipng: {}, // Optional: Use Oxipng for PNG compression
-    // });
-
-    // const compressedImageBuffer = await imagemin.buffer(imageUpload, {
-    //     plugins: [
-    //       imageminMozjpeg({ quality: 80 }), // Adjust quality as needed
-    //       imageminWebp(),
-    //     ],
-    //   });
-
     new Compressor(imageUpload, {
         quality: 0.6, // 0.6 can also be used, but its not recommended to go below.
         success: (compressedResult) => {
