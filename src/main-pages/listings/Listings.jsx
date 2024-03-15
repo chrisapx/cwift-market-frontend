@@ -69,7 +69,7 @@ const Listing = () => {
       }
 
       {/* Horizontal scroll categories */}
-      <div className='upper-categs'>
+      <div className='upper-categs' >
         {upperCats.map((cat, index) => (
           <div key={index} style={{paddingBlock: 0, borderBottomStyle: selected === cat.name &&  'solid', fontWeight: selected === cat.name ? 'bold' : '400' , color: selected === cat.name ? 'black' : 'rgba(0, 0, 0, 0.8)'}} onClick={() => handleSelected(cat.name)}>{cat.name}</div>
           ))}

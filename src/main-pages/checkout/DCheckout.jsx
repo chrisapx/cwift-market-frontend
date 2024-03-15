@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { CiLocationOn } from "react-icons/ci";
 import { MdLocalShipping } from "react-icons/md";
 import { TiChevronRight, TiChevronRightOutline } from "react-icons/ti";
+import UnderDevelopment from "../../actions/UnderDevelopment";
 
 export default function DCheckout () {
 
@@ -128,6 +129,9 @@ export default function DCheckout () {
                 <DHeader/>
                 {/* <div >Home {">"} cart</div> */}
                 <div className="dir-tracker"> Home {window.location.pathname.replace('/', ' > ')}</div>
+            </div>
+            <div>
+                <UnderDevelopment dev={true}/>
             </div>
 
             <div className="d-cart-body">

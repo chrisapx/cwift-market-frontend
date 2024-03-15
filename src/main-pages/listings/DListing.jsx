@@ -91,7 +91,7 @@ export default function DListings (){
             <div className="s-cats-section" onMouseEnter={handleHover} onMouseLeave={handleHover}>
                 <BsChevronDoubleLeft color={'black'}/>
                 {subCats?.map((sc, index) => (
-                    <Link to={'/listings/' + sc?.name} key={index} style={{ width: 100, textDecoration: 'none', display: 'flex', flexDirection: "column", alignItems: 'center', marginRight: 10, cursor: 'pointer' }}>
+                    <Link title={sc.name} to={'/listings/' + sc?.name} key={index} style={{ width: 100, textDecoration: 'none', display: 'flex', flexDirection: "column", alignItems: 'center', marginRight: 10, cursor: 'pointer' }}>
                         <div style={{ width: 80, height: 80, borderRadius: '50%', backgroundColor: '#f7f7f7' }}>
                             <img src={sc?.image} alt="lighting" style={{ width: '100%', height: '100%', objectFit: "cover", borderRadius: '50%', }} />
                         </div>
@@ -166,7 +166,9 @@ export default function DListings (){
                                                 name='rating'
                                                 />({item?.reviews?.length})
                                         </div>
-                                        <div style={{
+                                        <div 
+                                            title="Add item to cart"
+                                            style={{
                                             display: 'flex', 
                                             justifyContent: 'center', 
                                             alignItems: 'center', 
