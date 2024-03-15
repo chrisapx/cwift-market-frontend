@@ -26,10 +26,9 @@ const Listing = () => {
     if(currentCategory === 'All' || currentCategory === null || currentCategory === ''){
       setItems(listing);
     }else{
-      setItems(listing?.filter(list => list?.category === currentCategory));
+      setItems(listing?.filter(item => item?.category === currentCategory));
     }
 
-    // setItems(listing);
   }, [currentCategory]);
   
   
@@ -57,8 +56,6 @@ const Listing = () => {
 
   return (
     <div className="listings-container">
-      {/* <title>Nalmart - Explore Listings</title> */}
-
       <meta name="description" content="Browse through a diverse collection of products on the Nalmart listings . Discover top-quality items in various categories such as electronics, fashion, home decor, and more. Find the perfect products from trusted sellers. Enjoy a seamless shopping experience with secure transactions and exclusive deals." />
       <div className='header-section'>
         <Header showBack={true} showSearch={true}/>
