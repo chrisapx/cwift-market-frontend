@@ -5,11 +5,14 @@ import StarRatings from "react-star-ratings";
 import { useCart } from "../../context/CartContext";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { useListing } from "../../context/ListingContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { TiTick } from "react-icons/ti";
 import Footer from "../../components/d-footer/Footer";
 import Signing from "../../components/d-footer/Signing";
 import { BsChevronDoubleLeft } from "react-icons/bs";
+import { useValue } from "../../context/ContextProvider";
+import { TextField } from "@mui/material";
+import { FilterNone } from "@mui/icons-material";
 
 export default function DListings (){
 
@@ -21,8 +24,10 @@ export default function DListings (){
     const [scrollIndex, setScrollIndex] = useState(0);
 
     const [ items, setItems] = useState([]);
+    const { dispatch } = useValue();
     const { cartItems,totalPrice, addToCart, removeFromCart } = useCart();
     const { listing } = useListing();
+    const { category } = useParams();
     const navigate = useNavigate();
 
     const handleHover = () => {
@@ -30,8 +35,11 @@ export default function DListings (){
     };
 
     useEffect(() => {
-        setItems(listing?.filter(ls => ls?.price >= minPrice && ls?.price <= maxPrice));
-    }, [maxPrice, minPrice, listing])
+        dispatch({ type: 'START_LOADING' });
+        if(category === 'NewArrivals') setItems(listing?.filter(ls => ls?.price >= minPrice && ls?.price <= maxPrice))
+        else setItems(listing?.filter(ls => (ls.subCategory == (category)) && ls?.price >= minPrice && ls?.price <= maxPrice ));
+        dispatch({ type: 'END_LOADING' });
+    }, [maxPrice, minPrice, listing, category])
     
     const subCats = [
         {name: 'Lighting', image: 'https://firebasestorage.googleapis.com/v0/b/cwift-marketplace.appspot.com/o/item-images%2Flighting.jpeg57e8c991-b2f3-4dc8-b493-6eff339937a1?alt=media&token=dbf37ac9-6308-414a-8630-6e02f7055bc2'},
@@ -113,25 +121,6 @@ export default function DListings (){
                                 <div id="price-value">UGX {parseFloat(maxPrice).toLocaleString('en-US')}</div>
                             </div>
 
-                            {/* <div class="filter-option">
-                                <h4>Color</h4>
-                                <select name="color" id="color-select">
-                                    <option value="red">Red</option>
-                                    <option value="blue">Blue</option>
-                                    <option value="green">Green</option>
-                                </select>
-                            </div> */}
-                            {/* <div class="filter-option">
-                                <h4>Brand</h4>
-                                <input type="checkbox" name="brand" value="brand1" id="brand1"/><label for="brand1">Brand 1</label><br></br>
-                                <input type="checkbox" name="brand" value="brand2" id="brand2"/><label for="brand2">Brand 2</label><br></br>
-                            </div>
-                            <div class="filter-option">
-                                <h4>Size</h4>
-                                <input type="checkbox" name="size" value="small" id="small"/><label for="small">Small</label><br></br>
-                                <input type="checkbox" name="size" value="medium" id="medium"/><label for="medium">Medium</label><br></br>
-                            </div> */}
-                            {/* <button type="submit">Apply Filters</button> */}
                         </form>
 
                     </div>
@@ -143,9 +132,9 @@ export default function DListings (){
                             </h1>
                         </div>
                         
-                        {items?.length == 0 ? <div>No Items</div> : null}
 
-                        <div className="i-section-contents">
+                        { items.length > 0? 
+                            (<div className="i-section-contents">
                             {items?.map((item, index) => {
 
                                 const itemRating = item?.reviews.reduce((totalRate, review) => {
@@ -162,7 +151,7 @@ export default function DListings (){
                                 </Link>
                                 <div className="i-info-section">
                                     <Link style={{textDecoration: 'none'}} to={'/details/' + item.itemID}>
-                                    <p className="i-name">{item?.name}</p>
+                                    <p className="i-name" title={item.name}>{item?.name}</p>
                                     <p className="i-price">UGX {(item?.price).toLocaleString()} <span style={{marginLeft: 8, color: 'rgba(0,0,0,0.4)', fontSize: 12, textDecoration: 'line-through', fontWeight: 'normal'}}>UGX {(item?.globalPrice).toLocaleString()}</span></p>
                                     <div style={{color: 'rgba(0,0,0,0.5)', fontSize: 14, fontWeight: '400'}}>{item?.stockCount} sold</div>
                                     </Link>
@@ -197,7 +186,13 @@ export default function DListings (){
                             </div>
                             )}
                             )}
-                        </div>
+                        </div>) :
+                        (<div style={{color: 'black', display: "flex", alignItems: "center", gap: 16}}>
+                            <FilterNone/>
+                            <text>No Items available with those filters</text>
+                            
+                        </div>)
+                        }
 
                     </div>
                     

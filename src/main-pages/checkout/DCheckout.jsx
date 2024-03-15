@@ -69,7 +69,7 @@ export default function DCheckout () {
             deliveryAddress: {},
             paymentStatus: paymentStatus, //Will Create a function to process payment in the payment service and when the payment is complete, Update the payment status field to 'DONE' ON FALSE SAY 'FAILED'
             userID: 'usR-12988229381',
-            userEmail: 'franciskusiimwa@gmail.com'
+            userEmail: 'mcaplexya@gmail.com@gmail.com'
           };
       
           const createdCart = await createCart(cartData);
