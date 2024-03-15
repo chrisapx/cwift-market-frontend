@@ -5,9 +5,6 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { app,  } from '../../../Firebase';
 import { v4 } from 'uuid';
 import Compressor from 'compressorjs';
-// import imagemin from 'imagemin';
-// import imageminMozjpeg from 'imagemin-mozjpeg';
-// import imageminWebp from 'imagemin-webp';
 
 
 const AddItem = () => {
@@ -54,48 +51,25 @@ const AddItem = () => {
     };
 
     const uploadImage = async () =>  {
-    if (imageUpload == null) return;
+        if (imageUpload == null) return;
 
-    // const compressedImage = await compress(imageUpload, {
-    //     quality: 0.8, // Adjust the quality as needed (0 to 1)
-    //     maxWidth: 800, // Adjust the maximum width as needed
-    //   });
-
-    // Use squoosh for image compression
-    // const compressedImage = await encode(imageUpload, {
-    //         webp: {},
-    //         mozjpeg: { quality: 80 }, // Adjust quality as needed
-    //         oxipng: {}, // Optional: Use Oxipng for PNG compression
-    // });
-
-    // const compressedImageBuffer = await imagemin.buffer(imageUpload, {
-    //     plugins: [
-    //       imageminMozjpeg({ quality: 80 }), // Adjust quality as needed
-    //       imageminWebp(),
-    //     ],
-    //   });
-
-    new Compressor(imageUpload, {
-        quality: 0.6, // 0.6 can also be used, but its not recommended to go below.
-        success: (compressedResult) => {
-          // compressedResult has the compressed file.
-          // Use the compressed file to upload the images to your server.        
-          setCompressedFile(compressedResult)
-        },
-      });
-
-        const imageRef = ref(storage, `item-images/${compressedFile.name + v4()}`);  //Add the item name for easy tracing
-        uploadBytes(imageRef, compressedFile).then((snapshot) => {
-          getDownloadURL(snapshot.ref).then((url) => {
-            console.log(url);
-            alert(url);
-            updateItem(coverPhoto, url)
-            // setImageUrls((prev) => [...prev, url]);
-          });
+        new Compressor(imageUpload, {
+            quality: 0.6,
+            success: (compressedResult) => {        
+            setCompressedFile(compressedResult)
+            },
         });
+
+            const imageRef = ref(storage, `item-images/${compressedFile.name + v4()}`);  
+            uploadBytes(imageRef, compressedFile).then((snapshot) => {
+            getDownloadURL(snapshot.ref).then((url) => {
+                console.log(url);
+                alert(url);
+                updateItem(coverPhoto, url)
+            });
+            });
       };
 
-    // useEffect(() => {
     const handleSubmit = () => {
         fetch('https://inventory.nalmart.com/items/item', {
             method: 'POST',
@@ -108,7 +82,6 @@ const AddItem = () => {
         .then(res => console.log(res))
         .catch((error) => console.log(error));
     }
-    // })
 
     return(
         <div className="add-item-frame">
@@ -134,9 +107,6 @@ const AddItem = () => {
             </div>
             <div>
                 <input className='input' placeholder='Serial number..' onInput={(e) => updateItem('serialNumber', e )}/>
-            </div>
-            <div>
-                {/* <input className='input' placeholder='Category..' type='search' onInput={(e) => updateItem(name, e )}/> */}
             </div>
 
             <input

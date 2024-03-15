@@ -66,14 +66,17 @@ const DHome = () => {
                     <div>Saved</div>
                 </div>
                 {subCats?.map((cat, index) => (
-                    <div className="cat-bar-item">{cat.name}</div>
+                    <div 
+                        className="cat-bar-item" 
+                        onClick={() => navigate('/listings/' +cat.name)}>
+                        {cat.name}</div>
                 ))
                 }
                 <div style={{position: "sticky", right: 0, backgroundColor: 'white', paddingLeft: 6}}><BsChevronDoubleRight/></div>
             </div>
-            {/* <div className="ad-image" style={{}}>
+            <div className="ad-image" style={{}}>
                 <img src="https://firebasestorage.googleapis.com/v0/b/cwift-marketplace.appspot.com/o/item-images%2F98658cdd-c5e8-4603-9ea7-b6c254e66e7d.png26c5f385-74e8-4220-8b5a-6e06be571dbf?alt=media&token=2198a089-369e-4d50-9bfb-afa7f242f695" width={'100%'} style={{objectFit: 'contain', borderRadius: 12}}/>
-            </div> */}
+            </div>
 
             {/* Deals section */}
 

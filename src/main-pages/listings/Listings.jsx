@@ -26,10 +26,9 @@ const Listing = () => {
     if(currentCategory === 'All' || currentCategory === null || currentCategory === ''){
       setItems(listing);
     }else{
-      setItems(listing?.filter(list => list?.category === currentCategory));
+      setItems(listing?.filter(item => item?.category === currentCategory));
     }
 
-    // setItems(listing);
   }, [currentCategory]);
   
   
@@ -57,8 +56,6 @@ const Listing = () => {
 
   return (
     <div className="listings-container">
-      {/* <title>Nalmart - Explore Listings</title> */}
-
       <meta name="description" content="Browse through a diverse collection of products on the Nalmart listings . Discover top-quality items in various categories such as electronics, fashion, home decor, and more. Find the perfect products from trusted sellers. Enjoy a seamless shopping experience with secure transactions and exclusive deals." />
       <div className='header-section'>
         <Header showBack={true} showSearch={true}/>
@@ -72,7 +69,7 @@ const Listing = () => {
       }
 
       {/* Horizontal scroll categories */}
-      <div className='upper-categs'>
+      <div className='upper-categs' >
         {upperCats.map((cat, index) => (
           <div key={index} style={{paddingBlock: 0, borderBottomStyle: selected === cat.name &&  'solid', fontWeight: selected === cat.name ? 'bold' : '400' , color: selected === cat.name ? 'black' : 'rgba(0, 0, 0, 0.8)'}} onClick={() => handleSelected(cat.name)}>{cat.name}</div>
           ))}

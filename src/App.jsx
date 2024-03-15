@@ -11,6 +11,10 @@ import MainDetails from './main-pages/details/MainDetails'
 import MainListing from './main-pages/listings/MainListing'
 import ContextProvider from './context/ContextProvider'
 import Notification from './components/Notification'
+import Loading from './actions/utils/Loader'
+import OtpDialogue from './auth-pages/user/OtpDialogue'
+import { CircularProgress } from '@mui/material'
+import PhotosAction from './actions/PhotosAction'
 // import MainCheckout from './main-pages/checkout/MainCheckout'
 
 const SearchPage = lazy(() => import('./main-pages/search/SearchPage'))
@@ -27,31 +31,17 @@ const Signup = lazy(() => import('./auth-pages/signup/Signup'))
 
 function App() {
 
-  // const [gadget, setGadget] = useState();
-
-  // useEffect(() => {
-  //   function handleResize() {
-  //     if (window.innerWidth <= 426) {
-  //       setGadget('Mobile');
-  //     } else {
-  //       setGadget('Desktop');
-  //     }
-  //   }
-  //   // Initial check
-  //   handleResize();
-  //   // Event listener for resize
-  //   window.addEventListener('resize', handleResize);
-  //   // Clean up
-  //   return () => window.removeEventListener('resize', handleResize);
-  // }, []);
-
   return (
     <div className='app-container'>
       <Notification />
+      <Loading/>
+      <PhotosAction/>
+      <OtpDialogue/>
         <ListingProvider>
           <CartProvider>
             <Suspense fallback={
                 <div className="fallback-container">
+                  <CircularProgress  sx={{ color: 'white' }}/>
                   <img src={'https://firebasestorage.googleapis.com/v0/b/cwift-marketplace.appspot.com/o/item-images%2Fcwift-logo.png8e87a133-f46c-44b9-addc-d677e44efed5?alt=media&token=ef17292f-094b-4107-96b5-d0572146e20b'} alt="Spinning Logo" className="spinning-logo" />
                 </div> } >
               <Routes>

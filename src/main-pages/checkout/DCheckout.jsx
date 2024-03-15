@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { CiLocationOn } from "react-icons/ci";
 import { MdLocalShipping } from "react-icons/md";
 import { TiChevronRight, TiChevronRightOutline } from "react-icons/ti";
+import UnderDevelopment from "../../actions/UnderDevelopment";
 
 export default function DCheckout () {
 
@@ -69,7 +70,7 @@ export default function DCheckout () {
             deliveryAddress: {},
             paymentStatus: paymentStatus, //Will Create a function to process payment in the payment service and when the payment is complete, Update the payment status field to 'DONE' ON FALSE SAY 'FAILED'
             userID: 'usR-12988229381',
-            userEmail: 'franciskusiimwa@gmail.com'
+            userEmail: 'mcaplexya@gmail.com@gmail.com'
           };
       
           const createdCart = await createCart(cartData);
@@ -128,6 +129,9 @@ export default function DCheckout () {
                 <DHeader/>
                 {/* <div >Home {">"} cart</div> */}
                 <div className="dir-tracker"> Home {window.location.pathname.replace('/', ' > ')}</div>
+            </div>
+            <div>
+                <UnderDevelopment dev={true}/>
             </div>
 
             <div className="d-cart-body">

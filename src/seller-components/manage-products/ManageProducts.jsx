@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import './ManageProducts.scss'
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Login from "../../auth-pages/user/Login";
-import { Avatar, Box, gridClasses } from "@mui/material";
+import { Avatar, Box, Button, gridClasses } from "@mui/material";
 import { useValue } from "../../context/ContextProvider";
 import ItemActions from "../../actions/ItemActions";
 import { grey } from "@mui/material/colors";
 import { Lock } from "@mui/icons-material";
 import DeleteActions from "../../actions/DeleteAction";
+import { IoLogIn } from "react-icons/io5";
 
 export default function ManageProducts() {
 
@@ -21,6 +22,8 @@ export default function ManageProducts() {
     const [ login, setLogin ] = useState(false);
 
     useEffect(()=>{
+        dispatch({ type: 'START_LOADING' });
+        
         // fetch('http://127.0.0.1:8080/items/categories')
         fetch('https://inventory.nalmart.com/items')
         .then(response => {
@@ -34,6 +37,7 @@ export default function ManageProducts() {
         }).catch(error => { 
             console.error('Error fetching items:', error); 
         });
+        dispatch({ type: 'END_LOADING' });
     },[])
 
     const subCategories = [
@@ -107,9 +111,13 @@ export default function ManageProducts() {
             headerName: 'Display Images', 
             width: 200 ,
             renderCell: p => (
-                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 20}}>
+                <div 
+                    onClick={() => { dispatch({ type: 'OPEN_IMAGE_DIALOGUE', photos: p.row.photos }) } }
+                    style={{display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20}}>
                     {p.row.photos.map((photo, index) => (
-                        <Avatar key={index} src={photo.url} />
+                        <div>
+                            <Avatar key={index} src={photo.url} />
+                        </div>
                     ))}
                 </div>
             )
@@ -222,6 +230,7 @@ export default function ManageProducts() {
             headerName: 'Description', 
             width: 130, 
             editable: true 
+            
         },
         { 
             field: 'discount', 
@@ -272,10 +281,9 @@ export default function ManageProducts() {
         <div className='main-frame'>
                 <div className='tittle'>
                     <div>Products Management</div>
-                    <div style={{display: 'flex', alignItems: 'center', backgroundColor: 'rgba(0,0,200,0.7)', paddingInline: 6, borderRadius: 6, color: 'white', cursor: 'pointer' ,fontSize: 'medium'}} onClick={() => setLogin(true)}>
-                        <p>Login</p> 
-                        <Lock sx={{fontSize: 16, }} size={'medium'}/>
-                    </div>
+                    <Button type="submit" onClick={() => { dispatch({ type: 'OPEN_LOGIN' }) }} variant="contained" endIcon={<IoLogIn />}>
+                        Login
+                    </Button>
                 </div>
                 
                 <div className='orders-filter'>
@@ -314,12 +322,14 @@ export default function ManageProducts() {
                         <DataGrid
                             columns={columns}
                             rows={rows}
+                            slots={{ toolbar: GridToolbar }}
                             getRowId={(row) => row.itemID}
                             rowsPerPageOptions={[5, 10, 20]}
                             pageSize={pageSize}
                             checkboxSelection
                             showColumnVerticalBorder={true}
                             showCellVerticalBorder={true}
+                            
                             onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
                             getRowSpacing={(params) => ({
                                 top: params.isFirstVisible ? 0 : 5,
@@ -337,7 +347,7 @@ export default function ManageProducts() {
                         {items.length == 0 && <div style={{display: "flex", justifyContent: "center", alignItems: "center", padding: 20}}>No records found</div>}
 
                     </div>
-                    <Login open={login}/>
+                    <Login />
                 </Box>
 
             </div>
