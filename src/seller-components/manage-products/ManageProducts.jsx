@@ -22,6 +22,8 @@ export default function ManageProducts() {
     const [ login, setLogin ] = useState(false);
 
     useEffect(()=>{
+        dispatch({ type: 'START_LOADING' });
+        
         // fetch('http://127.0.0.1:8080/items/categories')
         fetch('https://inventory.nalmart.com/items')
         .then(response => {
@@ -35,6 +37,7 @@ export default function ManageProducts() {
         }).catch(error => { 
             console.error('Error fetching items:', error); 
         });
+        dispatch({ type: 'END_LOADING' });
     },[])
 
     const subCategories = [
@@ -108,9 +111,13 @@ export default function ManageProducts() {
             headerName: 'Display Images', 
             width: 200 ,
             renderCell: p => (
-                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 20}}>
+                <div 
+                    onClick={() => { dispatch({ type: 'OPEN_IMAGE_DIALOGUE', photos: p.row.photos }) } }
+                    style={{display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20}}>
                     {p.row.photos.map((photo, index) => (
-                        <Avatar key={index} src={photo.url} />
+                        <div>
+                            <Avatar key={index} src={photo.url} />
+                        </div>
                     ))}
                 </div>
             )

@@ -9,18 +9,6 @@ const ItemActions = ({ params, rowId, setRowId }) => {
   const { dispatch } = useValue();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-
-  // const handleSubmit = async () => {
-  //   setLoading(true);
-  //   alert('Clicked')
-
-    // const { role, active, _id } = params.row;
-    // const result = await updateStatus({ role, active }, _id, dispatch);
-    // if (result) {
-      //   setRowId(null);
-      // }
-      //   setLoading(false);
-      // };
       
       const handleItemUpdate = () => {
         setLoading(params.row.itemID);

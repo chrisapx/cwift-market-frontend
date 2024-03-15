@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { useCart } from '../../context/CartContext';
 import { useListing } from '../../context/ListingContext';
 import ItemDescription from '../../global/ItemDescription';
+import { useValue } from '../../context/ContextProvider';
 
 const Details = () => {
 
@@ -18,6 +19,7 @@ const Details = () => {
     const [item, setItem] = useState({});
     const [alsoViewed, setAlsoViewed] = useState([]);
     const [recents, setRecents] = useState([]);
+    const { dispatch }  = useValue();
     const { itemID } = useParams();
     const { listing } = useListing();
     const { cartItems, addToCart, removeFromCart } = useCart();
@@ -32,7 +34,8 @@ const Details = () => {
 
     
     useEffect(() => {
-        setLoading(true);
+        // setLoading(true);
+        dispatch({ type: 'START_LOADING' });
         
         // fetch('http://127.0.0.1:8080/items/' + itemID)
         fetch('https://inventory.nalmart.com/items/' + itemID)
@@ -56,7 +59,8 @@ const Details = () => {
         document.title = item.name;
         document.description = item.description;
         
-        setLoading(false);
+        // setLoading(false);
+        dispatch({ type: 'END_LOADING' });
 
     }, [itemID]);
 

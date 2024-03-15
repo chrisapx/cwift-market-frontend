@@ -47,3 +47,22 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+
+/* const SearchPage = lazy(() => import('./main-pages/search/SearchPage'))
+const SearchResults = lazy(() => import('./main-pages/search-results/SearchResults'))
+const NotFoundPage = lazy(() => import('./main-pages/notFound/NotFound'))
+const MainCart = lazy(() => import('./main-pages/cart/MainCart'))
+const MainHome = lazy(() => import('./main-pages/home/MainHome'))
+
+const AdminHome = lazy(() => import('./seller-pages/home-page/AdminHome'))
+const AddItem = lazy(() => import('./seller-pages/add-item/AddItem'))
+const Account = lazy(() => import('./main-pages/profile/Account'))
+const MainDetails = lazy(() => import('./main-pages/details/MainDetails'))
+const MainCheckout = lazy(() => import('./main-pages/checkout/MainCheckout'))
+const Payment = lazy(() => import('./main-pages/payment/Payment'))
+const MainListing = lazy(() => import('./main-pages/listings/MainListing'))
+const Login = lazy(() => import('./auth-pages/login/LoginPage'))
+const Signup = lazy(() => import('./auth-pages/signup/Signup')) */
