@@ -26,7 +26,9 @@
     "react-quill": "^2.0.0",
     "react-router-dom": "^6.21.1",
     "react-simple-star-rating": "^5.1.7",
+    "react-slick": "^0.30.2",
     "react-star-ratings": "^2.3.0",
+    "slick-carousel": "^1.8.1",
     "swiper": "^8.2.2",
     "uuid": "^9.0.1",
     "vite-plugin-require": "^1.1.14"

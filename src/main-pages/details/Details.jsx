@@ -10,6 +10,9 @@ import { useCart } from '../../context/CartContext';
 import { useListing } from '../../context/ListingContext';
 import ItemDescription from '../../global/ItemDescription';
 import { useValue } from '../../context/ContextProvider';
+import Slider from 'react-slick';
+import { ArrowBack } from '@mui/icons-material';
+
 
 const Details = () => {
 
@@ -64,6 +67,17 @@ const Details = () => {
 
     }, [itemID]);
 
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        arrows: true
+      };
+
     return(
         <div className='main-details-section'>
 
@@ -79,29 +93,26 @@ const Details = () => {
             }
 
             {/* Images container */}
-            { item.photos ?
-                <div className='images-container'>
-                    { item?.photos.map((imge, index) => {
+            <div className='images-container'>
 
-                            const handleLoadError = () => {
-                                return(
-                                    <div className='image-card' style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                                        <div>No Photos</div>
-                                    </div>
-                                )
-                            }
-                        return(
+                {item?.photos?.length > 1 ? (
+                    <Slider {...settings}>
+                        {item?.photos?.map((imge, index) => (
                             <div className='image-card' key={index}>
-                                <img src={imge?.url} loading='lazy' onError={() => handleLoadError} alt={item.name} width={'100%'} height={'100%'} style={{objectFit: 'contain'}}/>
+                                <img src={imge?.url} loading='lazy' alt={item.name} width={'100%'} height={'100%'} style={{ objectFit: 'contain' }} />
                             </div>
-                    )})}
-                </div> :
-                <div className='images-container'>
-                    <div className='image-card' style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                        <div>No Photos</div>
-                    </div>
-                </div>
-            }
+                        ))}
+                    </Slider>
+                ) :  (
+                    item?.photos?.map((imge, index) => (
+                        <div className='image-card' key={index}>
+                            <img src={imge?.url} loading='lazy' alt={item.name} width={'100%'} height={'100%'} style={{ objectFit: 'contain' }} />
+                        </div>
+                    ))
+                ) }
+
+            </div>
+
 
             <div className='sec-1'>
                 <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: '700', fontSize: 14, color: 'green'}}>

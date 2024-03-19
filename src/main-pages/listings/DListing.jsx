@@ -11,8 +11,8 @@ import Footer from "../../components/d-footer/Footer";
 import Signing from "../../components/d-footer/Signing";
 import { BsChevronDoubleLeft } from "react-icons/bs";
 import { useValue } from "../../context/ContextProvider";
-import { TextField } from "@mui/material";
 import { FilterNone } from "@mui/icons-material";
+import { Box, Typography, Select, MenuItem } from '@mui/material';
 
 export default function DListings (){
 
@@ -22,6 +22,7 @@ export default function DListings (){
     const [hovered, setHovered] = useState(false);
     const [error, setError] = useState(null);
     const [scrollIndex, setScrollIndex] = useState(0);
+    const [sortBy, setSortBy] = useState('Select filter');
 
     const [ items, setItems] = useState([]);
     const { dispatch } = useValue();
@@ -125,12 +126,20 @@ export default function DListings (){
 
                     </div>
                     <div className="i-section">
-                        <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                            <h1 id="i-header">Trending Items</h1>
-                            <h1 id="i-header">
-                                Sort by
-                            </h1>
-                        </div>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Typography variant="h1" id="i-header">Trending Items</Typography>
+                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                            <Typography variant="body1" sx={{ color: 'black', marginRight: 1, }}>Sort by</Typography>
+                            <Select
+                                value={sortBy}
+                                onChange={(event) => setSortBy(event.target.value)}
+                                sx={{ minWidth: '120px', height: '26px', '& .MuiSelect-select': { paddingLeft: '8px' } }}
+                            >
+                                <MenuItem value="Select filter">Select filter</MenuItem>
+                                {/* Add other filter options as MenuItem components */}
+                            </Select>
+                        </Box>
+                    </Box>
                         
 
                         { items.length > 0? 
