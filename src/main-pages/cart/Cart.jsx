@@ -106,7 +106,7 @@ const Cart = () => {
                     <div className='item-sec'>
                         <div style={{display: 'flex', }}>
                             <div className='img-sec'>
-                                <img src={order.item.coverPhoto?.url} height={'100%'} width={'100%'}/>
+                                <img src={order.item.coverPhoto?.url} height={'100%'} width={'100%'} style={{objectFit: 'contain'}}/>
                             </div>
                             <div className='item-details'>
                                 <div style={{fontSize: 12, fontWeight: '600'}}>{order?.item.name.slice(0, 50)}</div>
