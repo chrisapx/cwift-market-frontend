@@ -1,5 +1,7 @@
 import { Suspense, lazy, useEffect, useState } from 'react'
 // import '../src/components/search/Search.scss'
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
 import AddItem from './seller-pages/add-item/AddItem'
