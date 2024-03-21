@@ -10,7 +10,6 @@ import AdminHome from './seller-pages/home-page/AdminHome'
 import { ListingProvider } from './context/ListingContext'
 import MainHome from './main-pages/home/MainHome'
 import MainDetails from './main-pages/details/MainDetails'
-import MainListing from './main-pages/listings/MainListing'
 import ContextProvider from './context/ContextProvider'
 import Notification from './components/Notification'
 import Loading from './actions/utils/Loader'
@@ -20,13 +19,13 @@ import PhotosAction from './actions/PhotosAction'
 // import MainCheckout from './main-pages/checkout/MainCheckout'
 
 const SearchPage = lazy(() => import('./main-pages/search/SearchPage'))
-const SearchResults = lazy(() => import('./main-pages/search-results/SearchResults'))
+const SearchResults = lazy(() => import('./main-pages/search-results/MainSearchResults'))
 const NotFoundPage = lazy(() => import('./main-pages/notFound/NotFound'))
 const MainCart = lazy(() => import('./main-pages/cart/MainCart'))
 const Account = lazy(() => import('./main-pages/profile/Account'))
 const MainCheckout = lazy(() => import('./main-pages/checkout/MainCheckout'))
 const Payment = lazy(() => import('./main-pages/payment/Payment'))
-const Listing = lazy(() => import('./main-pages/listings/Listings'))
+const MainListing = lazy(() => import('./main-pages/listings/MainListing'))
 const Login = lazy(() => import('./auth-pages/login/LoginPage'))
 const Signup = lazy(() => import('./auth-pages/signup/Signup'))
 

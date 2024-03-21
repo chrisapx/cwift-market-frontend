@@ -1,23 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './Header.scss'
-import { FaBars, FaChevronCircleRight, FaMoneyBill, FaRegUser, FaSearch } from 'react-icons/fa';
-import { MdCommit, MdKey, MdOutlineShoppingCart, MdSecurity, MdVerified } from "react-icons/md";
+import { FaRegUser } from 'react-icons/fa';
 import { FaAngleLeft, FaCartShopping, FaX } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
-import { MdOutlineRateReview, MdOutdoorGrill, MdOutlineSportsGymnastics, MdOutlineSell } from "react-icons/md";
-import { RiCoupon4Line, RiFontMono, RiFontSansSerif } from "react-icons/ri";
-import { CiHeart, CiShoppingCart } from "react-icons/ci";
-import { LuShoppingBag } from "react-icons/lu";
-import { IoIosArrowForward } from "react-icons/io";
-import { HiOutlineInboxIn } from "react-icons/hi";
-import { FaRegHeart } from "react-icons/fa";
-import { IoCash, IoChevronForwardOutline, IoPhonePortraitOutline, IoPricetagSharp } from "react-icons/io5";
-import { RiHomeOfficeLine } from "react-icons/ri";
-import { PiLightning, PiLightningAFill, PiLightningFill, PiTelevisionSimpleBold } from "react-icons/pi";
-import { GiHealthPotion, GiClothes, GiLightningArc } from "react-icons/gi";
-import { HiOutlineComputerDesktop } from "react-icons/hi2";
-import { SiPcgamingwiki } from "react-icons/si";
 import Search from '../search/Search';
 
 

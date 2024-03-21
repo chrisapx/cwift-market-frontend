@@ -8,11 +8,15 @@ import { PiShoppingCartSimple } from 'react-icons/pi';
 import { useCart } from '../../context/CartContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { BsPersonCircle } from 'react-icons/bs';
+import { useListing } from '../../context/ListingContext';
+import { Avatar } from '@mui/material';
 const DHeader = () => {
 
     const [ hoovered, setHoovered] = useState('');
     const [ subCats, setSubCats] = useState('');
     const { totalItems } = useCart();
+    const [ searchInput, setSearchinput ] = useState('');
+    const { addToSearchHistory } = useListing();
     const navigate = useNavigate();
 
     const handleHover = (item) => {
@@ -51,13 +55,19 @@ const DHeader = () => {
 
     ]
 
-    // const subCats = 
+    const handleKeyDown = ( event ) => {
+        if(event.key === 'Enter'){
+            addToSearchHistory(searchInput);
+            navigate('/search-results/' + searchInput);
+        }
+    }
 
     useEffect(() => {
         // setSubCats(categories?.reduce(ct => ct?.name === hoovered));
         setSubCats(categories.reduce(e => e.name === hoovered));
         console.log(subCats);
-    },[])
+        setHoovered('')
+    },[searchInput])
 
     return(
         <div className="d-header-frame">
@@ -93,7 +103,7 @@ const DHeader = () => {
                     {hoovered === 'categories' ? <IoChevronUpOutline /> : <IoChevronDownOutline /> }
                 </div>
                 
-                <div className="dropdown-content">
+                {/* <div className="dropdown-content">
                     
                     <div className='d-content'>
 
@@ -117,18 +127,20 @@ const DHeader = () => {
                         </div>
 
                     </div>
-                </div>
+                </div> */}
 
             </div>
 
             <div className='d-header-item-search'>
-                <input type='search' 
+                <input 
+                    type='search' 
                     placeholder='Search...' 
+                    onKeyDown={handleKeyDown}
                     // onMouseOut={() => setHoovered('')}
-                    // onChange={{}}
+                    onChange={e => setSearchinput(e.target.value)}
                     onFocus={() => setHoovered('search')} 
                     style={{ display: 'flex', flex: 1,color: 'grey', height: '100%', borderBottomLeftRadius: 30, borderTopLeftRadius: 30, borderStyle: 'none', backgroundColor: 'white', paddingInline: 10, }} />
-                <span style={{}} className='s-button'>
+                <span style={{}} className='s-button' onClick={() => navigate('/search-results/' + searchInput)}>
                     <HiSearch color={'white'} size={20}/>
                 </span>
 
@@ -139,14 +151,14 @@ const DHeader = () => {
 
                         <h4 className='txt1-header'>Recent</h4>
                         <div className='d-content-2'>
-                                <div className='txt2-body'>BT speaker</div>
-                                <div className='txt2-body'>Lenovo thinkpad</div>
+                            <div className='txt2-body' onClick={() => {setHoovered(''); navigate('/search-results/BT speaker')}}>BT speaker</div>
+                            <div className='txt2-body' onClick={() => {setHoovered(''); navigate('/search-results/Lenovo thinkpad')}}>Lenovo thinkpad</div>
                         </div>
                         <h4 className='txt1-header'>Popular right now</h4>
                         <div className='d-content-2'>
-                            <div className='txt2-body'>Huawei phone 8</div>
-                            <div className='txt2-body'>Recomended</div>
-                            <div className='txt2-body'>Recomended</div>
+                            <div className='txt2-body' onClick={() => {setHoovered(''); navigate('/search-results/Huawei phone 8')}}>Huawei phone 8</div>
+                            <div className='txt2-body' onClick={() => {setHoovered(''); navigate('/search-results/JBL speaker')}}>JBL speaker</div>
+                            <div className='txt2-body' onClick={() => {setHoovered(''); navigate('/search-results/EarBuds')}}>EarBuds</div>
                         </div>
                         
                     </div>
@@ -155,8 +167,7 @@ const DHeader = () => {
 
             <div className='d-header-item' style={{display: 'flex', alignItems: 'center'}}>
                 <Link to={'/login'} style={{width: 30, height: 30, borderRadius: 40, display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'grey', color: 'black'}}>
-                    {/* <img src='src/assets/Chris_passport_us.jpeg'width={'100%'} height={'100%'} style={{objectFit: 'contain', borderRadius: 40}}/> */}
-                    <BsPersonCircle/>
+                    <Avatar/>
                 </Link>
                 <Link to={'/account'} style={{marginLeft: 8, lineHeight: 1.1, textDecoration: 'none', color: 'black'}}>
                     <div style={{fontWeight: 400, }}>Hello Chris</div>

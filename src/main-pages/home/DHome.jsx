@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../components/d-footer/Footer";
 import Signing from "../../components/d-footer/Signing";
 import DHeader from "../../components/header/DHeader";
@@ -11,6 +11,7 @@ import { FaChevronRight } from "react-icons/fa";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { useCart } from "../../context/CartContext";
 import { BsChevronDoubleRight, BsHeart, BsHeartFill } from "react-icons/bs";
+import { Box } from "@mui/material";
 
 
 const DHome = () => {
@@ -74,9 +75,9 @@ const DHome = () => {
                 }
                 <div style={{position: "sticky", right: 0, backgroundColor: 'white', paddingLeft: 6}}><BsChevronDoubleRight/></div>
             </div>
-            <div className="ad-image" style={{}}>
+            {/* <div className="ad-image" style={{}}>
                 <img src="https://firebasestorage.googleapis.com/v0/b/cwift-marketplace.appspot.com/o/item-images%2F98658cdd-c5e8-4603-9ea7-b6c254e66e7d.png26c5f385-74e8-4220-8b5a-6e06be571dbf?alt=media&token=2198a089-369e-4d50-9bfb-afa7f242f695" width={'100%'} style={{objectFit: 'contain', borderRadius: 12}}/>
-            </div>
+            </div> */}
 
             {/* Deals section */}
 
@@ -89,7 +90,7 @@ const DHome = () => {
                 </div>
             </div>
 
-            <div className="i-section-contents">
+            <div className="i-section-contents-1">
                 {items?.map((item, index) => {
                     const itemRating = item?.reviews.reduce((totalRate, review) => {
                         if (review && review.rating !== undefined || review.rating != 0) return totalRate + review.rating;
@@ -102,26 +103,24 @@ const DHome = () => {
                         <img src={item?.coverPhoto?.url} width={'100%'} height={'100%'} style={{objectFit: 'contain', borderRadius: 4}}/>
                     </div>
                     <div className="i-info-section">
-                        {/* <p className="i-name">{item?.name}</p> */}
+                        <div className="i-name">{item?.name}</div>
                         <div className="i-price">
-                            <p style={{fontSize: 10, color: 'grey'}}>UGX <span style={{fontSize: 16, color: 'black'}}> {(item?.price).toLocaleString()}</span></p> 
-                            <div style={{ color: 'rgba(0,0,0,0.4)', fontSize: 12, textDecoration: 'line-through', fontWeight: 'normal'}}>UGX {(item?.globalPrice).toLocaleString()}</div>
-                            { item?.globalPrice && <div style={{color: 'red', fontSize: 12, fontWeight: '500', borderColor: 'rgba(255,0,0,0.5)', borderWidth: 1, marginLeft: 5, borderStyle: 'solid', padding: 6, borderRadius: 4}}>-{(((item?.globalPrice - item?.price)/item?.globalPrice) * 100).toFixed(1)}%</div>}
-                        </div>
-                        <div style={{color: 'rgba(0,0,0,0.5)', fontSize: 14, fontWeight: '400'}}>{item?.stockCount} sold</div>
-                        <div className="rating-n-cart">
-                            <div style={{fontSize: 12}}>
-                                <StarRatings
-                                    rating={itemRating}
-                                    starRatedColor="black"
-                                    numberOfStars={5}
-                                    starDimension="14px"
-                                    starSpacing="0px"
-                                    name='rating'
-                                    />({item?.reviews?.length})
-                            </div>                            
+                            <p style={{fontSize: 10, color: 'grey'}}>UGX <span style={{fontSize: 16, color: 'orangered'}}> {(item?.price).toLocaleString()}</span></p> 
+                            <div style={{color: 'rgba(0,0,0,0.5)', fontSize: 14, fontWeight: '400'}}>{item?.stockCount} sold</div>
                         </div>
                     </div>
+                    {item.discount <= 0? null : <Box
+                        sx={{
+                            position: 'relative',
+                            bottom: 270,
+                            bgcolor: 'red',
+                            color: 'white',
+                            fontSize: 14,
+                            width: 'fit-content',
+                            p: 0.3
+
+                        }}
+                    >{(((item?.globalPrice - item?.price)/item?.globalPrice) * 100).toFixed(1)}% OFF</Box>}
                 </div>
                 )}
                 )}
@@ -144,10 +143,10 @@ const DHome = () => {
 
                     return(
                 <div key={index} className="i-card">
-                    <div className="i-card-image" onClick={() => navigate('/details/' + item.itemID)}>
+                    <Link to={'/details/' +item?.itemID} className="i-card-image" onClick={() => navigate('/details/' + item.itemID)}>
                         <img src={item?.coverPhoto?.url} width={'100%'} height={'100%'} style={{objectFit: 'contain', borderRadius: 4}}/>
-                    </div>
-                    <div className="i-info-section">
+                    </Link>
+                    <Link to={'/details/' +item?.itemID} className="i-info-section">
                         {/* <p className="i-name">{item?.name}</p> */}
                         <div className="i-price">
                             <p style={{fontSize: 10, color: 'grey'}}>UGX <span style={{fontSize: 16, color: 'black'}}> {(item?.price).toLocaleString()}</span></p> 
@@ -183,7 +182,7 @@ const DHome = () => {
                         {/* <div></div> */}
 
                         </div>
-                    </div>
+                    </Link>
                 </div>
                 )}
                 )}
