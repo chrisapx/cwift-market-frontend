@@ -28,7 +28,6 @@
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 
-    // style={{ margin: 20, marginInline: 80, display: 'flex', overflowY: 'auto', gap: 30, flexWrap: 'nowrap' }}
     &::-webkit-scrollbar {
       display: none;
     }
@@ -39,60 +38,42 @@
 
     .listing-section {
       position: sticky;
-      top: 150px; /* Height of your sticky header */
+      top: 150px; 
       overflow-y: auto;
       display: grid;
       grid-template-columns: 1fr 4fr;
       padding-inline: 40px;
       margin-bottom: 40px;
-  
-      // .filters, .i-section {
-      //   overflow-y: auto;
-      //   scrollbar-width: none;
-      //   height: calc(100vh - 70px); 
-      //   background-color: #fff;
-      //   padding: 20px; 
-  
-      //   &::-webkit-scrollbar {
-      //     display: none; 
-      //   }
 
         
         .i-section-contents {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          grid-gap: 24px;
-            // display: flex;
-            // flex-wrap: wrap;
-            // gap: 30px;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 20px;
+          // grid-template-columns: repeat(4, 1fr);
+          // grid-gap: 24px;
 
 
             .i-card {
-                min-width: 200px;
-                max-width: 230px;
+                min-width: 180px;
+                max-width: 210px;
                 cursor: pointer;
-                // height: 230px;
-                // background-color: #c3c3c3;
                 display: flex;
                 flex-direction: column;
-                // justify-content: s;
+                margin-bottom: 40px;
 
                 .i-card-image{
-                    min-width: 200px;
-                    max-width: 230px;
-                    height: 230px;
+                    min-width: 180px;
+                    max-width: 210px;
+                    height: 200px;
                     border-radius: 6px;
-                    background-color: #f0f0f0;
+                    background-color: #ffffff;
 
                     img{
                       border-radius: 6px;
                     }
                 }
 
-                // .i-info-section {
-                    // display: flex;
-                    // flex-direction: column;
-                    
                     .i-name {
                         font-size: small;
                         color: black;
@@ -115,17 +96,11 @@
                         align-items: center;
     
                     }
-                // }
 
             }
         }
-
-
-
-      // }
   
       .filters {
-        // background-color: #f9f9f9;
 
         #filter-form {
           color: black;
