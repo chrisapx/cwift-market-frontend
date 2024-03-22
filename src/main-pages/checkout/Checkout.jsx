@@ -9,12 +9,14 @@ import { GiCardPickup } from "react-icons/gi";
 
 import Footer from '../../components/footer/Footer';
 import { useCart } from '../../context/CartContext';
+import { useValue } from '../../context/ContextProvider';
 
 
 const Checkout = () => {
 
   const navigate = useNavigate();
   const { cart, cartItems,totalItems } = useCart();
+  const { dispatch } = useValue();
   const [ confirm, setConfirm] = useState(false);
   const [ accept, setAccept] = useState(false);
   const [ pStatus, setPstatus] = useState('success');
@@ -59,6 +61,7 @@ const Checkout = () => {
   let dateToday = new Date();
 
   const createCart = async (cartData) => {
+    dispatch({type: 'START_LOADING'})
     try {
       const response = await 
       // fetch('http://127.0.0.1:8080/carts', {
@@ -73,11 +76,29 @@ const Checkout = () => {
         throw new Error('Failed to create cart: ' + response.json() );
       }
       const responseData = await response.json();
+      dispatch({type: 'END_LOADING'})
+      dispatch({
+        type: 'UPDATE_ALERT',
+        payload: {
+          open: true,
+          severity: 'success',
+          message: 'Order placed successfully',
+        },
+      });
       return responseData;
     } catch (error) {
+      dispatch({
+        type: 'UPDATE_ALERT',
+        payload: {
+          open: true,
+          severity: 'error',
+          message: 'Order placement failed' + error,
+        },
+      });
       console.error('Error creating cart:', error.message);
       throw error;
     }
+    dispatch({type: 'END_LOADING'})
   };
 
   return (

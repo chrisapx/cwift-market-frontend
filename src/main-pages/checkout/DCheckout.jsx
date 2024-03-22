@@ -1,45 +1,29 @@
 import React, { useEffect, useState } from "react";
+import './DCheckout.scss'
 import Footer from "../../components/d-footer/Footer";
 import DHeader from "../../components/header/DHeader";
-import './DCheckout.scss'
-import { PiListBullets, PiTrashSimpleLight } from "react-icons/pi";
-import { BsCheckCircleFill, BsChevronRight, BsSend } from "react-icons/bs";
+import { BsChevronRight, BsSend } from "react-icons/bs";
 import { useCart } from "../../context/CartContext";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { CiLocationOn } from "react-icons/ci";
 import { MdLocalShipping } from "react-icons/md";
-import { TiChevronRight, TiChevronRightOutline } from "react-icons/ti";
-import UnderDevelopment from "../../actions/UnderDevelopment";
+import { useValue } from "../../context/ContextProvider";
 
 export default function DCheckout () {
 
-    const { 
-        cart,
-        totalItems,
-        totalDiscount,
-        favorites, 
-        totalPrice, 
-        getItemQuantity, 
-        addToCart, 
-        reduceCart,
-        incrementCart, 
-        removeFromCart,
-        addToFavorites,
-        removeFromFavorites
-     } = useCart();
     const navigate = useNavigate();
+    const { cart, totalItems, totalPrice,  getItemQuantity } = useCart();
+    const { dispatch } = useValue();
     const [ tPrice, setTPrice ] = useState();
     const [ discount, setDiscount ] = useState();
     const [ deliveryFee, setDeliveryFee] = useState(3600);
     const [ checkoutItems, setCheckoutItems ] = useState([]);
-    const [ confirm, setConfirm] = useState(false);
     const [ pStatus, setPstatus] = useState(false);
     const [ couponDiscount, setCouponDiscount ] = useState(0);
     const [ paymentStatus, setPaymentStatus ] = useState('NOT');
 
     useEffect(() => {
-        // Calculate total price based on the items in the cart
         const totalPrice = cart.reduce((acc, order) => acc + (order.item.price * getItemQuantity(order.item)), 0);
         const disc = cart.reduce((acc, order) => acc + (order.item.globalPrice * getItemQuantity(order.item)), 0);
         setTPrice(totalPrice);
@@ -53,7 +37,7 @@ export default function DCheckout () {
     },[])
 
     const handleConfirmOrder = async () => {
-        console.log('Confirming order')
+        dispatch({type: 'START_LOADING'})
     
         try {
           const modifiedCart = cart.map(order => ({
@@ -70,25 +54,45 @@ export default function DCheckout () {
             deliveryAddress: {},
             paymentStatus: paymentStatus, //Will Create a function to process payment in the payment service and when the payment is complete, Update the payment status field to 'DONE' ON FALSE SAY 'FAILED'
             userID: 'usR-12988229381',
-            userEmail: 'mcaplexya@gmail.com@gmail.com'
+            userEmail: 'mcaplexya@gmail.com'
           };
       
           const createdCart = await createCart(cartData);
           console.log('Created cart:', createdCart);
           setConfirm(true);
-        //   setPstatus(true);
+          
+          dispatch({
+            type: 'UPDATE_ALERT',
+            payload: {
+              open: true,
+              severity: 'success',
+              message: 'Order placed successfully',
+            },
+          });
+
+          dispatch({type: 'END_LOADING'})        
         } catch (error) {
-          console.error('Error creating cart:', error);
-        } finally{
-            navigate('/payment/' +pStatus)
-        }
+            console.log(error);
+            dispatch({
+                type: 'UPDATE_ALERT',
+                payload: {
+                  open: true,
+                  severity: 'error',
+                  message: 'Unable to place order' +error,
+                },
+              });
+            dispatch({type: 'END_LOADING'})        
+        } 
+        // finally{
+        //     navigate('/payment/' +pStatus)
+        // }
     }
 
     const createCart = async (cartData) => {
         try {
           const response = await 
         //   fetch('http://127.0.0.1:8080/carts', {
-            fetch('https://inventory.nalmart.com/carts', {
+            fetch(import.meta.env.VITE_API_URL+'carts', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -130,9 +134,9 @@ export default function DCheckout () {
                 {/* <div >Home {">"} cart</div> */}
                 <div className="dir-tracker"> Home {window.location.pathname.replace('/', ' > ')}</div>
             </div>
-            <div>
+            {/* <div>
                 <UnderDevelopment dev={true}/>
-            </div>
+            </div> */}
 
             <div className="d-cart-body">
                 <div className="cb-left">

@@ -31,8 +31,6 @@ export const useValue = () => {
 
 const ContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const mapRef = useRef();
-  const containerRef = useRef();
   useEffect(() => {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser) {
@@ -40,7 +38,7 @@ const ContextProvider = ({ children }) => {
     }
   }, []);
   return (
-    <Context.Provider value={{ state, dispatch, mapRef, containerRef }}>
+    <Context.Provider value={{ state, dispatch }}>
       {children}
     </Context.Provider>
   );

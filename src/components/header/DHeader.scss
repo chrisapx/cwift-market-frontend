@@ -37,6 +37,7 @@
         font-weight: 500;
         white-space: nowrap;
         text-decoration: none;
+        padding: 8px;
 
         position: relative;
         // display: inline-block;
@@ -101,12 +102,11 @@
     }
 
     .d-header-item:hover {
-      padding: 8px;
       background-color: #f9f9f9;
-      border: #f6f6f6 2px solid ;
+      border: #f6f6f6 1px solid ;
       border-radius: 16px;
       cursor: pointer;
-      // box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.2);
+      box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.2);
 
     }
     
@@ -157,7 +157,9 @@
 
             .d-content-2{
               display: flex;
-              gap: 40px;
+              gap: 20px;
+              flex-wrap: wrap;
+              margin-bottom: 20px;
 
               .txt1-header {
                 font-size: small;
@@ -166,9 +168,9 @@
               .txt2-body {
                 cursor: pointer;
                 font-size: smaller;
-                padding: 10px;
-                margin: 5px;
-                border-radius: 20px;
+                padding: 4px;
+                // margin: 5px;
+                border-radius: 6px;
                 background-color: #eeeeee;
               }
 

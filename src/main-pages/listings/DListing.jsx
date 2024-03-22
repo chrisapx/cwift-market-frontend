@@ -136,7 +136,7 @@ export default function DListings (){
                                 sx={{ minWidth: '120px', height: '26px', '& .MuiSelect-select': { paddingLeft: '8px' } }}
                             >
                                 <MenuItem value="Select filter">Select filter</MenuItem>
-                                {/* Add other filter options as MenuItem components */}
+                                {/* other filter */}
                             </Select>
                         </Box>
                     </Box>

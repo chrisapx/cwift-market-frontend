@@ -184,14 +184,6 @@ export default function AddProduct() {
         e.preventDefault();
 
         setLoading(true);
-        dispatch({
-            type: 'UPDATE_ALERT',
-            payload: {
-              open: true,
-              severity: 'success',
-              message: 'Product added successfully',
-            },
-          });
           try {
             console.log(item.name + '\n' + item.category + item.globalPrice + item.price + item.qty + item.stockCount + item.store + item.type + item.serialNumber + item.brand + item.description + item.whatIsIn + coverPhoto + photoImages.length )
             if (!item.name || !item.category || !item.globalPrice || !item.price || !item.qty || !item.stockCount || !item.store || !item.type || !item.serialNumber || !item.brand || !coverPhoto || photoImages.length === 0 ) {
