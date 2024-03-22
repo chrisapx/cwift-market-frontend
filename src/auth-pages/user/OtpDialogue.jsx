@@ -1,4 +1,4 @@
-import { Close, Send } from '@mui/icons-material';
+import { Close, Redo, Send } from '@mui/icons-material';
 import {
   Avatar,
   Button,
@@ -11,9 +11,8 @@ import {
   TextField,
 } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
-import { login, register } from '../../actions/user';
+import { verify, resendOtp } from '../../actions/user';
 import { useValue } from '../../context/ContextProvider';
-import PasswordField from './PasswordField';
 import { IoLogIn } from 'react-icons/io5';
 
 const OtpDialogue = () => {
@@ -23,19 +22,26 @@ const OtpDialogue = () => {
   } = useValue();
   const [title, setTitle] = useState('Login');
   const otpRef = useRef();
+  const emailRef = useRef();
 
   const handleClose = () => {
     dispatch({ type: 'CLOSE_OTP_DIALOGUE' });
   };
 
   const handleSubmit = (e) => {
+    e.preventDefault();
     const otp = otpRef.current.value;
+    const email = emailRef.current.value;
 
-    verify(regUserObj, dispatch);
-
-    dispatch({ type: 'CLOSE_OTP_DIALOGUE' });
-    dispatch({ type: 'OPEN_LOGIN' });
+    verify(email, otp, dispatch);
   };
+
+  const handleResend = (e) => {
+    e.preventDefault();
+    const email = emailRef.current.value;
+
+    resendOtp(email, dispatch);
+  }
 
   useEffect(() => {
    setTitle('Verify');
@@ -71,23 +77,39 @@ const OtpDialogue = () => {
             Please Verify your account with an otp sent to your email or phone
           </DialogContentText>
           
+          <TextField
+              autoFocus
+              margin="normal"
+              variant="outlined"
+              id="Email"
+              label="Enter email address"
+              type="email"
+              fullWidth
+              inputRef={emailRef}
+              required
+            />
             <TextField
               autoFocus
               margin="normal"
               variant="outlined"
-              id="lastName"
+              id="otp"
               label="Enter OTP"
               type="text"
               fullWidth
               inputRef={otpRef}
-              inputProps={{ minLength: 2 }}
+              inputProps={{ minLength: 5, maxLength: 5 }}
               required
             />
         </DialogContent>
-        <DialogActions sx={{ px: '19px',}}>
+        <DialogActions sx={{ px: '19px', display: 'flex', justifyContent: 'space-between', paddingInline: 3}}>
+          <Button onClick={handleResend} variant="contained" endIcon={<Redo />}>
+              Resend OTP
+          </Button>
+
           <Button type="submit" variant="contained" endIcon={<IoLogIn />}>
             Verify
           </Button>
+
         </DialogActions>
       </form>
     </Dialog>

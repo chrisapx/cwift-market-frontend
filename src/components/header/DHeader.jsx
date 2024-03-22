@@ -12,12 +12,14 @@ import { useListing } from '../../context/ListingContext';
 import { Avatar, Box } from '@mui/material';
 import { Close } from '@mui/icons-material';
 import { useValue } from '../../context/ContextProvider';
+import { useUser } from '../../context/UserContext';
 const DHeader = () => {
 
     const [ hoovered, setHoovered] = useState('');
     const [ subCats, setSubCats] = useState('');
     const { totalItems } = useCart();
     const { dispatch } = useValue();
+    const { user } = useUser();
     const [ searchInput, setSearchinput ] = useState('');
     const { addToSearchHistory, getSearchHistory } = useListing();
     const [searchHistory, setSearchHistory] = useState([]);
@@ -66,6 +68,12 @@ const DHeader = () => {
             navigate('/_sr/' + searchInput);
         }
     }
+
+    useEffect(() => {
+        if(user){
+            setCurrentUser(user);
+        }
+    },[user])
 
     useEffect(() => {
         setSearchHistory(getSearchHistory());
@@ -180,9 +188,9 @@ const DHeader = () => {
             </div>
 
             <div className='d-header-item' style={{display: 'flex', alignItems: 'center'}}>
-                <Link to={'/login'} style={{width: 30, height: 30, borderRadius: 40, display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'grey', color: 'black'}}>
+                <Box sx={{width: 30, height: 30, borderRadius: 40, display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'grey', color: 'black'}}>
                     <Avatar/>
-                </Link>
+                </Box>
                 
                 {!currentUser ? <Link to={'/account'} style={{marginLeft: 8, lineHeight: 1.1, textDecoration: 'none', color: 'black'}}>
                     <div style={{fontWeight: 400, }}>Hello Chris</div>

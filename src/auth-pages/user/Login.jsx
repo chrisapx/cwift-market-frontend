@@ -1,6 +1,7 @@
 import { Close, Send } from '@mui/icons-material';
 import {
   Avatar,
+  Box,
   Button,
   Dialog,
   DialogActions,
@@ -16,12 +17,14 @@ import { useValue } from '../../context/ContextProvider';
 // import GoogleOneTapLogin from './GoogleOneTapLogin';
 import PasswordField from './PasswordField';
 import { IoLogIn } from 'react-icons/io5';
+import { useUser } from '../../context/UserContext';
 
-const Login = () => {
+const LoginDialogue = () => {
   const {
     state: { openLogin },
     dispatch,
   } = useValue();
+  const { user, token, storeToken, setCurrentUser } = useUser();
   const [title, setTitle] = useState('Login');
   const [isRegister, setIsRegister] = useState(register);
   const usernameRef = useRef();
@@ -54,7 +57,7 @@ const Login = () => {
         password: password
       }
 
-      return login(userObj, dispatch);
+      return login(userObj, dispatch, storeToken);
     } 
     const userName = usernameRef.current.value;
     const firstName = firstNameRef.current.value;
@@ -85,6 +88,11 @@ const Login = () => {
 
     register(regUserObj, dispatch);
   };
+
+  const handleVButton = () => {
+    dispatch({type: 'CLOSE_LOGIN'})
+    dispatch({type: 'OPEN_OTP_DIALOGUE'})
+  }
 
   useEffect(() => {
     isRegister ? setTitle('Register') : setTitle('Login');
@@ -236,6 +244,8 @@ const Login = () => {
         <Button onClick={() => setIsRegister(!isRegister)}>
           {isRegister ? 'Login' : 'Register'}
         </Button>
+        <Box>|</Box>
+        <Button onClick={handleVButton}>Verify</Button>
       </DialogActions>
       <DialogActions sx={{ justifyContent: 'center', py: '24px' }}>
         {/* <GoogleOneTapLogin /> */}
@@ -244,4 +254,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginDialogue;

@@ -17,6 +17,7 @@ import OtpDialogue from './auth-pages/user/OtpDialogue'
 import { CircularProgress } from '@mui/material'
 import PhotosAction from './actions/PhotosAction'
 import { UserProvider } from './context/UserContext';
+import LoginDialogue from './auth-pages/user/Login';
 // import MainCheckout from './main-pages/checkout/MainCheckout'
 
 const SearchPage = lazy(() => import('./main-pages/search/SearchPage'))
@@ -39,7 +40,7 @@ function App() {
       <Loading/>
       <PhotosAction/>
       <OtpDialogue/>
-      <UserProvider>
+      <LoginDialogue/>
         <ListingProvider>
           <CartProvider>
             <Suspense fallback={
@@ -66,7 +67,6 @@ function App() {
             </Suspense>
           </CartProvider>
         </ListingProvider>
-      </UserProvider>
     </div>
   )
 }

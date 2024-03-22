@@ -1,47 +1,63 @@
 import jwtDecode from "jwt-decode";
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 const UserContext = createContext();
 
-export function useUser(){
+export function useUser() {
     return useContext(UserContext);
 }
 
-export function UserProvider({ children }){
-    const [ user, setUser ] = useState();
+export function UserProvider({ children }) {
+    const [user, setUser] = useState(null);
+    const [token, setToken] = useState(null);
+
+    useEffect(() => {
+        const storedToken = localStorage.getItem('n_token');
+        if (storedToken) {
+            setToken(storedToken);
+            const decoded = jwtDecode(storedToken);
+            if (decoded.exp * 1000 > Date.now()) {
+                fetchUserData(token, decoded.sub);
+            } else {
+                localStorage.removeItem('n_token');
+            }
+        }
+
+    }, [token]);
 
     const storeToken = (_utoken) => {
         localStorage.setItem('n_token', _utoken);
+        setToken(_utoken);
     }
 
-    const getToken = () => {
-        
-        let _token = localStorage.getItem('n_token') || null;
-        if(_token){
-            const decoded = jwtDecode(_token);
-            if(decoded.exp - decoded.iat >= 0) return JSON.parse(_token);
-            else localStorage.setItem('n_token', ''); 
-        }
-
-    }
-
-    const setCurrentUser = () => {
-        fetch(import.meta.env.VITE_API_URL + 'users/')
-        // decode token, get user details and fetch the user details to create the current user
-    }
-    
-    const token = getToken();
+    const fetchUserData = (token, username) => {
+        fetch(`http://127.0.0.1:8080/users/user/${username}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to fetch user data');
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log(data);
+          setUser(data);
+        })
+        .catch(error => console.error('Error fetching user data:', error));
+      };
 
     const contextValue = useMemo(() => ({
         user,
         token,
-        storeToken
+        storeToken,
+    }), [user, token]);
 
-    }),[user])
-
-    return(
+    return (
         <UserContext.Provider value={contextValue}>
             {children}
         </UserContext.Provider>
-    )
+    );
 }
