@@ -11,7 +11,7 @@ export function ListingProvider({ children }) {
 
     const fetchItems = () => {
         // fetch('http://127.0.0.1:8080/items')
-        fetch('https://inventory.nalmart.com/items')
+        fetch(import.meta.env.VITE_API_URL + 'items')
             .then((response) => response.json())
             .then((res) => setListing(res))
             .catch((error) => {

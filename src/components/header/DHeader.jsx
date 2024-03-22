@@ -9,14 +9,21 @@ import { useCart } from '../../context/CartContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { BsPersonCircle } from 'react-icons/bs';
 import { useListing } from '../../context/ListingContext';
-import { Avatar } from '@mui/material';
+import { Avatar, Box } from '@mui/material';
+import { Close } from '@mui/icons-material';
+import { useValue } from '../../context/ContextProvider';
+import { useUser } from '../../context/UserContext';
 const DHeader = () => {
 
     const [ hoovered, setHoovered] = useState('');
     const [ subCats, setSubCats] = useState('');
     const { totalItems } = useCart();
+    const { dispatch } = useValue();
+    const { user } = useUser();
     const [ searchInput, setSearchinput ] = useState('');
-    const { addToSearchHistory } = useListing();
+    const { addToSearchHistory, getSearchHistory } = useListing();
+    const [searchHistory, setSearchHistory] = useState([]);
+    const [ currentUser, setCurrentUser ] = useState('chris');
     const navigate = useNavigate();
 
     const handleHover = (item) => {
@@ -58,38 +65,43 @@ const DHeader = () => {
     const handleKeyDown = ( event ) => {
         if(event.key === 'Enter'){
             addToSearchHistory(searchInput);
-            navigate('/search-results/' + searchInput);
+            navigate('/_sr/' + searchInput);
         }
     }
 
     useEffect(() => {
-        // setSubCats(categories?.reduce(ct => ct?.name === hoovered));
+        if(user){
+            setCurrentUser(user);
+        }
+    },[user])
+
+    useEffect(() => {
+        setSearchHistory(getSearchHistory());
         setSubCats(categories.reduce(e => e.name === hoovered));
         console.log(subCats);
         setHoovered('')
     },[searchInput])
 
+    const handleAuth = (type) => { // Return a function
+        if(type === 'login'){
+            dispatch({type: 'OPEN_LOGIN'})
+            // dispatch the login page
+        } else {
+            dispatch({type: 'OPEN_LOGIN'})
+            // dispatch the register window
+        }
+    }
+    
+
     return(
         <div className="d-header-frame">
-            <Link className="logo" to={'/'}>
-                NALMART
-            </Link>
+            <Link className="logo" to={'/'}> NALMART </Link>
 
             <div className='page-overlay'></div>
 
             <Link to={'/'} className='d-header-item'>
                 <FaThumbsUp />
                 <span style={{marginLeft: 5, }}>Best Sellers</span>
-            </Link>
-
-            <Link className='d-header-item' to={'/'}>
-                <MdRateReview />
-                <span style={{marginLeft: 5, }}>5-Star Rated</span>
-            </Link>
-
-            <Link className='d-header-item' to={'/'}>
-                <FaGift />
-                <span style={{marginLeft: 5, }}>Gift Offers</span>
             </Link>
 
             <Link className='d-header-item' to={'/listings/NewArrivals'}>
@@ -99,7 +111,7 @@ const DHeader = () => {
 
             <div className='d-header-item'>
                 <div style={{display: 'flex', alignItems: 'center'}} onMouseOver={() => handleHover('categories')} onMouseOut={() => handleHover('')}>
-                    <div style={{marginLeft: 5, marginRight: 3}}>Categories</div>
+                    <div style={{marginLeft: 2, marginRight: 1}}>Categories</div>
                     {hoovered === 'categories' ? <IoChevronUpOutline /> : <IoChevronDownOutline /> }
                 </div>
                 
@@ -140,25 +152,35 @@ const DHeader = () => {
                     onChange={e => setSearchinput(e.target.value)}
                     onFocus={() => setHoovered('search')} 
                     style={{ display: 'flex', flex: 1,color: 'grey', height: '100%', borderBottomLeftRadius: 30, borderTopLeftRadius: 30, borderStyle: 'none', backgroundColor: 'white', paddingInline: 10, }} />
-                <span style={{}} className='s-button' onClick={() => navigate('/search-results/' + searchInput)}>
+                <span style={{}} className='s-button' onClick={() => navigate('/_sr/' + searchInput)}>
                     <HiSearch color={'white'} size={20}/>
                 </span>
 
                 <div className="dropdown-content" style={{display: hoovered === 'search' ? 'block' : 'none'}}>
                     
                     <div className='d-content'>
+                        <Close sx={{
+                            position: 'absolute',
+                            right: 6,
+                            top: 6,
+                            cursor: 'pointer'
+                        }}
+                        onClick={() => setHoovered('')}/>
                         {/* <h4>Categories</h4> */}
 
                         <h4 className='txt1-header'>Recent</h4>
                         <div className='d-content-2'>
-                            <div className='txt2-body' onClick={() => {setHoovered(''); navigate('/search-results/BT speaker')}}>BT speaker</div>
-                            <div className='txt2-body' onClick={() => {setHoovered(''); navigate('/search-results/Lenovo thinkpad')}}>Lenovo thinkpad</div>
+                            {searchHistory?.map((item, index) => (
+                                <div key={index} className='txt2-body' onClick={() => {setHoovered(''); navigate('/_sr/' +item)}}>{item}</div>
+                            ))}
+                            {/* <div className='txt2-body' onClick={() => {setHoovered(''); navigate('/search-results/Lenovo thinkpad')}}>Lenovo thinkpad</div> */}
                         </div>
                         <h4 className='txt1-header'>Popular right now</h4>
                         <div className='d-content-2'>
-                            <div className='txt2-body' onClick={() => {setHoovered(''); navigate('/search-results/Huawei phone 8')}}>Huawei phone 8</div>
-                            <div className='txt2-body' onClick={() => {setHoovered(''); navigate('/search-results/JBL speaker')}}>JBL speaker</div>
-                            <div className='txt2-body' onClick={() => {setHoovered(''); navigate('/search-results/EarBuds')}}>EarBuds</div>
+
+                            <div className='txt2-body' onClick={() => {setHoovered(''); navigate('/_sr/Pearlight')}}>Pearlight</div>
+                            <div className='txt2-body' onClick={() => {setHoovered(''); navigate('/_sr/Oraimo')}}>Oraimo</div>
+                            <div className='txt2-body' onClick={() => {setHoovered(''); navigate('/_sr/Airpods')}}>Airpods</div>
                         </div>
                         
                     </div>
@@ -166,31 +188,27 @@ const DHeader = () => {
             </div>
 
             <div className='d-header-item' style={{display: 'flex', alignItems: 'center'}}>
-                <Link to={'/login'} style={{width: 30, height: 30, borderRadius: 40, display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'grey', color: 'black'}}>
+                <Box sx={{width: 30, height: 30, borderRadius: 40, display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'grey', color: 'black'}}>
                     <Avatar/>
-                </Link>
-                <Link to={'/account'} style={{marginLeft: 8, lineHeight: 1.1, textDecoration: 'none', color: 'black'}}>
+                </Box>
+                
+                {!currentUser ? <Link to={'/account'} style={{marginLeft: 8, lineHeight: 1.1, textDecoration: 'none', color: 'black'}}>
                     <div style={{fontWeight: 400, }}>Hello Chris</div>
                     <span style={{fontWeight: 600, }}>Orders & Account</span>
-                </Link>
-            </div>
+                </Link>: 
+                
+                <Box sx={{
+                    display: 'flex',
+                    gap: 1,
+                    // flexDirection: 'column',
+                    ml:2,
+                    // lineHeight: 1.1,
+                }}>
+                    <Box sx={{color:'blue'}} onClick={() => handleAuth('login')}>Login</Box>
+                    <div>|</div>
+                    <Box sx={{color:'blue'}} onClick={() => handleAuth('register')}>Register</Box>
+                </Box>}
 
-            <Link to={'/'} className='d-header-item' style={{display: 'flex', alignItems: 'center'}}>
-                <MdLiveHelp size={24} />
-                <div style={{marginLeft: 5, fontSize: 14, fontWeight: '600'}}>Support</div>
-            </Link>
-
-            <div className='d-header-item' style={{display: 'flex', alignItems: 'center'}}>
-                <div style={{
-                    width: 20, 
-                    height: 20, 
-                    borderRadius: 40, 
-                    display: 'flex', 
-                    justifyContent: 'center', 
-                    alignItems: 'center', 
-                    backgroundColor: 'grey'
-                    }}> U </div>                
-                <div style={{marginLeft: 5, fontSize: 12, fontWeight: '600'}}>UG</div>
             </div>
 
             <Link to={'/cart'} className='d-header-item' style={{display: 'flex'}} onClick={() => navigate('/cart')}>
