@@ -59,7 +59,6 @@ export default function DCheckout () {
       
           const createdCart = await createCart(cartData);
           console.log('Created cart:', createdCart);
-          setConfirm(true);
           
           dispatch({
             type: 'UPDATE_ALERT',
@@ -70,7 +69,8 @@ export default function DCheckout () {
             },
           });
 
-          dispatch({type: 'END_LOADING'})        
+          dispatch({type: 'END_LOADING'}) 
+          navigate('/')       
         } catch (error) {
             console.log(error);
             dispatch({
