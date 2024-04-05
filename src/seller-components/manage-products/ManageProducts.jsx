@@ -6,7 +6,6 @@ import { Avatar, Box, Button, gridClasses } from "@mui/material";
 import { useValue } from "../../context/ContextProvider";
 import ItemActions from "../../actions/ItemActions";
 import { grey } from "@mui/material/colors";
-import { Lock } from "@mui/icons-material";
 import DeleteActions from "../../actions/DeleteAction";
 import { IoLogIn } from "react-icons/io5";
 import ItemEdit from "../../actions/ItemEdit";
