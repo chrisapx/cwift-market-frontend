@@ -143,10 +143,10 @@ const DHome = () => {
 
                     return(
                 <div key={index} className="i-card">
-                    <Link title={item?.name} to={'/details/' +item?.itemID} className="i-card-image" onClick={() => navigate('/details/' + item.itemID)}>
+                    <Link title={item?.name} to={`/details/${item.itemID}`} className="i-card-image" onClick={() => navigate(`/details/${item.itemID}`)}>
                         <img src={item?.coverPhoto?.url} width={'100%'} height={'100%'} style={{objectFit: 'contain', borderRadius: 4}}/>
                     </Link>
-                    <Link to={'/details/' +item?.itemID} className="i-info-section">
+                    <Link to={`/details/${item.itemID}`} className="i-info-section">
                         <p className="i-name" title={item?.name}>{item?.name}</p>
                         <div className="i-price">
                             <p style={{fontSize: 10, color: 'grey'}}>UGX <span style={{fontSize: 16, color: 'black'}}> {(item?.price).toLocaleString()}</span></p> 
@@ -187,11 +187,10 @@ const DHome = () => {
                 )}
                 )}
             </div>
-            
-
-
-            <Footer/>
-            <Signing/>
+            <footer>
+                <Footer/>
+                <Signing/>
+            </footer>
         </div>
     )
 }

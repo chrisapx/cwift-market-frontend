@@ -105,11 +105,6 @@ export default function AddProduct() {
             
     },[])
 
-    useEffect(() => {
-        console.log(whatIsIn);
-    }, [whatIsIn])
-
-
     const handleCoverPhotoUpload = async () => {
         try {
             const compressedCover = await new Promise((resolve, reject) => {
@@ -182,6 +177,7 @@ export default function AddProduct() {
     
     const handleFormSubmit = async (e) => {
         e.preventDefault();
+        dispatch({ type: 'START_LOADING' });
 
         setLoading(true);
           try {
@@ -208,8 +204,7 @@ export default function AddProduct() {
                     return { url };
                 } catch (error) {
                     console.error('Error uploading photo:', error);
-                    // Handle error as needed
-                    return null; // or some placeholder value indicating failure
+                    return null; 
                 }
             });
 
@@ -222,14 +217,12 @@ export default function AddProduct() {
                     return { url };
                 } catch (error) {
                     console.error('Error uploading ad:', error);
-                    // Handle error as needed
-                    return null; // or some placeholder value indicating failure
+                    return null;
                 }
             });
 
             const adUrls = await Promise.all(adUrlsPromises);
 
-            // Submit form data...
             const itemData = {
                 name: item.name, 
                 qty: item.qty,
@@ -349,9 +342,6 @@ export default function AddProduct() {
 
                     
                     <div className="image-pickers">
-
-
-                    
                         
                         {/* Main image picker */}
                         <div className="image-picker">
