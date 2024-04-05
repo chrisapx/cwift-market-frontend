@@ -12,6 +12,11 @@ const reducer = (state, action) => {
       return { ...state, openImage: true, photos: [] };
     case 'CLOSE_IMAGE_DIALOGUE':
       return { ...state, openImage: false };
+    
+    case 'OPEN_ITEM_DIALOGUE':
+      return { ...state, openItemDialog: true, item: {} };
+    case 'CLOSE_ITEM_DIALOGUE':
+      return { ...state, openItemDialog: false };
   
 
     case 'START_LOADING':

@@ -1,6 +1,6 @@
 import { FaBackward } from 'react-icons/fa';
 import './AdminHome.scss'
-import { TbArrowDown, TbCashBanknote, TbChecklist, TbChevronDown, TbChevronUp, TbListDetails, TbSpeakerphone, TbTag } from "react-icons/tb";
+import { TbCashBanknote, TbChecklist, TbChevronDown, TbChevronUp, TbListDetails, TbSpeakerphone, TbTag } from "react-icons/tb";
 import { useState } from 'react';
 import Orders from '../../seller-components/view-orders/Orders';
 import AddProduct from '../../seller-components/add-product/AddProduct';
@@ -52,7 +52,6 @@ export default function AdminHome () {
                     {/* Products sub section */}
                     <div className='drawer-item' style={{display: 'flex', justifyContent: 'space-between', backgroundColor: selected == 'products'? selectColor : ''}} 
                     onClick={() => {   
-                            select('products') 
                             setToggleprod(!toggleProd)
                         }}>
                         <div style={{display: 'flex', alignItems: 'center', gap: 10}}>
@@ -71,8 +70,7 @@ export default function AdminHome () {
                     </div>}
 
                     {toggleProd && <div className='sub-drawer-item' style={{display: 'flex', justifyContent: 'space-between', backgroundColor: selected == 'fullfilment'? selectColor : ''}} onClick={() => {
-                        select('fullfilment')
-                        setToggleFullfilment(!toggleFulfilment)
+                            setToggleFullfilment(!toggleFulfilment)
                         }}>
                         <span>Fullfilment by Nalmart</span>
                         {!toggleFulfilment ? <TbChevronDown size={16}/> : <TbChevronUp size={16}/>}

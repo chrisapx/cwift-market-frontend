@@ -6,16 +6,17 @@ import { Avatar, Box, Button, gridClasses } from "@mui/material";
 import { useValue } from "../../context/ContextProvider";
 import ItemActions from "../../actions/ItemActions";
 import { grey } from "@mui/material/colors";
-import { Lock } from "@mui/icons-material";
 import DeleteActions from "../../actions/DeleteAction";
 import { IoLogIn } from "react-icons/io5";
+import ItemEdit from "../../actions/ItemEdit";
 
 export default function ManageProducts() {
 
     const { dispatch } = useValue();
     const [items, setItems] = useState([]);
     const [currency, setCurrency] = useState('UGX');
-    const [ clicked, setClicked ] = useState('');
+    const [ clickedRow, setClickedRow ] = useState('');
+    const [ openEdit, setopenEdit ] = useState(false);
     const [ rowId, setRowId ] = useState(null);
     const [pageSize, setPageSize] = useState(5);
     const [ loading, setLoading ] = useState('');
@@ -57,6 +58,11 @@ export default function ManageProducts() {
         {name: 'power Strips', image: 'https://firebasestorage.googleapis.com/v0/b/cwift-marketplace.appspot.com/o/item-images%2FpowerStrips.jpeg3380279e-d7bc-44ad-b915-4a549b864b3e?alt=media&token=0083bba6-c589-4032-b92d-e38b0f9094ad'},
     ]
 
+    const handleRowClick = ( row ) => {
+        dispatch({ type: 'OPEN_ITEM_DIALOGUE', item: row });
+        setClickedRow(row);
+    }
+
     const columns = [
         { 
             field: 'id', 
@@ -72,7 +78,7 @@ export default function ManageProducts() {
             headerName: 'Name', 
             width: 130, 
             editable: true,
-            renderCell: p => (<p>{p?.row.name}</p>)
+            renderCell: p => (<p onClick={ () => handleRowClick(p.row)}>{p?.row.name}</p>)
         },
         { 
             field: 'globalPrice', 
@@ -112,7 +118,9 @@ export default function ManageProducts() {
             width: 200 ,
             renderCell: p => (
                 <div 
-                    onClick={() => { dispatch({ type: 'OPEN_IMAGE_DIALOGUE', photos: p.row.photos }) } }
+                    onClick={() => { 
+                        dispatch({ type: 'OPEN_IMAGE_DIALOGUE', photos: p.row.photos }) 
+                    } }
                     style={{display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20}}>
                     {p.row.photos.map((photo, index) => (
                         <div>
@@ -274,7 +282,6 @@ export default function ManageProducts() {
         coverImage: row.coverPhoto?.url,
         price: currency === "UGX" || currency === "none" ? row.price : row.price/38000,
         globalPrice: currency === "UGX" | currency === "none" ? row.globalPrice : row.globalPrice/38000,
-        // delete: <div><GridDeleteIcon size={6}/></div>,
       }))
     
     return(
@@ -326,10 +333,9 @@ export default function ManageProducts() {
                             getRowId={(row) => row.itemID}
                             rowsPerPageOptions={[5, 10, 20]}
                             pageSize={pageSize}
-                            checkboxSelection
+                            // checkboxSelection
                             showColumnVerticalBorder={true}
                             showCellVerticalBorder={true}
-                            
                             onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
                             getRowSpacing={(params) => ({
                                 top: params.isFirstVisible ? 0 : 5,
@@ -348,6 +354,7 @@ export default function ManageProducts() {
 
                     </div>
                     <Login />
+                    <ItemEdit item={clickedRow} />
                 </Box>
 
             </div>

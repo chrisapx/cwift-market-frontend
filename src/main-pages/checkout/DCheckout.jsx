@@ -9,11 +9,13 @@ import { useNavigate } from "react-router-dom";
 import { CiLocationOn } from "react-icons/ci";
 import { MdLocalShipping } from "react-icons/md";
 import { useValue } from "../../context/ContextProvider";
+import { useUser } from "../../context/UserContext";
 
 export default function DCheckout () {
 
     const navigate = useNavigate();
     const { cart, totalItems, totalPrice,  getItemQuantity } = useCart();
+    const { user } = useUser();
     const { dispatch } = useValue();
     const [ tPrice, setTPrice ] = useState();
     const [ discount, setDiscount ] = useState();
